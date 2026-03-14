@@ -67,7 +67,7 @@ export default function Sidebar() {
           return (
             <motion.button key={mode} onClick={() => setViewMode(mode)} whileHover={{ x: 2 }} whileTap={{ scale: 0.97 }}
               className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-sm mb-0.5"
-              style={{ color: active ? "var(--accent)" : "var(--text-secondary)", background: active ? "rgba(232,160,69,0.1)" : "transparent" }}>
+              style={{ color: active ? "var(--accent)" : "var(--text-secondary)", background: active ? "var(--accent-10)" : "transparent" }}>
               <span className="shrink-0">{icon}</span>
               <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="text-xs font-medium">{label}</motion.span>
               {active && <motion.div layoutId="active-view-indicator" className="ml-auto w-1 h-1 rounded-full" style={{ background: "var(--accent)" }} />}
@@ -110,7 +110,7 @@ export default function Sidebar() {
                         <motion.button key={proj.id} onClick={() => setActiveProject(proj.id)} whileHover={{ x: 3 }} whileTap={{ scale: 0.97 }}
                           className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-sm"
                           style={{
-                            background: isActive ? "rgba(232,160,69,0.08)" : "transparent",
+                            background: isActive ? "var(--accent-dim)" : "transparent",
                             color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
                             borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent",
                           }}>

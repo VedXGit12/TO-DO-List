@@ -13,9 +13,9 @@ const ROWS = 7;
 
 const LEVEL_COLORS: Record<number, string> = {
   0: "var(--bg-elevated)",
-  1: "rgba(232,160,69,0.2)",
-  2: "rgba(232,160,69,0.45)",
-  3: "rgba(232,160,69,0.7)",
+  1: "var(--accent-20)",
+  2: "var(--accent-45)",
+  3: "var(--accent-70)",
   4: "var(--accent)",
 };
 

@@ -124,7 +124,7 @@ export default function TodoKanban() {
             animate={dragActiveStyle}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
             style={{
-              boxShadow: "0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(232,160,69,0.3)",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--accent-40)",
               borderRadius: 8,
             }}
           >

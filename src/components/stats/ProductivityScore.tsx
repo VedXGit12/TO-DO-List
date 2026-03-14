@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import AnimatedNumber from "../ui/AnimatedNumber";
+import { useUIStore, ACCENT_COLORS } from "../../store/uiStore";
 import type { ProductivityScoreData } from "../../lib/stats";
 
 interface ProductivityScoreProps {
@@ -11,13 +12,16 @@ const STROKE = 8;
 const RADIUS = (SIZE - STROKE) / 2;
 const CIRCUMFERENCE = Math.PI * RADIUS; // semicircle
 
-function gaugeColor(score: number): string {
-  if (score >= 80) return "#22c55e";
-  if (score >= 50) return "#e8a045";
-  return "#ef4444";
-}
-
 export default function ProductivityScore({ data }: ProductivityScoreProps) {
+  const { accentColor } = useUIStore();
+  const accentHex = ACCENT_COLORS[accentColor];
+
+  function gaugeColor(score: number): string {
+    if (score >= 80) return "#22c55e";
+    if (score >= 50) return accentHex;
+    return "#ef4444";
+  }
+
   const { score, trend, delta } = data;
   const offset = CIRCUMFERENCE * (1 - score / 100);
   const color = gaugeColor(score);

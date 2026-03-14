@@ -91,11 +91,14 @@ export const useUIStore = create<UIState>()(
         set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) }));
       },
       setAccentColor: (color) => {
-        document.documentElement.style.setProperty("--accent", ACCENT_COLORS[color]);
-        document.documentElement.style.setProperty(
-          "--accent-dim",
-          ACCENT_COLORS[color] + "1f"
-        );
+        const hex = ACCENT_COLORS[color];
+        document.documentElement.style.setProperty("--accent", hex);
+        document.documentElement.style.setProperty("--accent-dim", hex + "1f");
+        document.documentElement.style.setProperty("--accent-10", hex + "1a");
+        document.documentElement.style.setProperty("--accent-20", hex + "33");
+        document.documentElement.style.setProperty("--accent-40", hex + "66");
+        document.documentElement.style.setProperty("--accent-45", hex + "73");
+        document.documentElement.style.setProperty("--accent-70", hex + "b3");
         set({ accentColor: color });
       },
       setCompactMode: (on) => set({ compactMode: on }),

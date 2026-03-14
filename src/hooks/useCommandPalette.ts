@@ -10,7 +10,7 @@ export function useCommandPalette() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const { todos, projects, workspaces } = useTodoStore();
-  const { setViewMode, toggleSidebar, setActiveProject } = useUIStore();
+  const { setViewMode, toggleSidebar, setActiveProject, setActiveTodo } = useUIStore();
 
   const open = useCallback(() => { setIsOpen(true); setQuery(""); setSelectedIndex(0); }, []);
   const close = useCallback(() => { setIsOpen(false); setQuery(""); setSelectedIndex(0); }, []);
@@ -134,7 +134,7 @@ export function useCommandPalette() {
     (cmd: Command) => {
       switch (cmd.type) {
         case "todo":
-          // For now, just close the palette
+          setActiveTodo(cmd.id);
           close();
           break;
         case "project":
@@ -146,7 +146,7 @@ export function useCommandPalette() {
           break;
       }
     },
-    [close, setActiveProject]
+    [close, setActiveProject, setActiveTodo]
   );
 
   // Reset selected index when results change

@@ -112,7 +112,7 @@ export default function StatsBoard() {
               className="px-2.5 py-1 rounded-md text-xs font-medium transition-colors"
               style={{
                 color: timeRange === r ? "var(--accent)" : "var(--text-secondary)",
-                background: timeRange === r ? "rgba(232,160,69,0.12)" : "transparent",
+                background: timeRange === r ? "var(--accent-dim)" : "transparent",
               }}
             >
               {r === "year" ? "This year" : `Last ${r} days`}

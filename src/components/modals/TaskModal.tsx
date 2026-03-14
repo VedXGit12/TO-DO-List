@@ -108,7 +108,7 @@ export default function TaskModal() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-y-0 right-0 z-50 flex flex-col w-full max-w-3xl border-l"
+            className="fixed inset-y-0 right-0 z-40 flex flex-col w-full max-w-3xl border-l"
             style={{
               background: "var(--bg-surface)",
               borderColor: "var(--border)",

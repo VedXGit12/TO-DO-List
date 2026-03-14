@@ -18,7 +18,7 @@ export default function MotionToast() {
         position: "fixed",
         bottom: 24,
         right: 24,
-        zIndex: 9999,
+        zIndex: 60,
         display: "flex",
         flexDirection: "column",
         gap: 8,

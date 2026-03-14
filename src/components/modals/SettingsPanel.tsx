@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Download, Upload, Trash2 } from "lucide-react";
 import { useUIStore, ACCENT_COLORS, type AccentColor } from "../../store/uiStore";
 import { useTodoStore } from "../../store/todoStore";
-import { db } from "../../db/dexie";
+import { db, getAllTodos, getAllTags } from "../../db/dexie";
 import { buildJSON, downloadFile } from "../../lib/export";
 import { format } from "date-fns";
 
@@ -21,14 +21,15 @@ export default function SettingsPanel() {
     setSidebarDefaultOpen,
     addToast,
   } = useUIStore();
-  const { workspaces, projects, todos, tags } = useTodoStore();
+  const { workspaces, projects, todos } = useTodoStore();
 
   const [deleteConfirm, setDeleteConfirm] = useState("");
   const [importing, setImporting] = useState(false);
 
-  const handleExportAll = () => {
+  const handleExportAll = async () => {
     const dateStr = format(new Date(), "yyyy-MM-dd");
-    const content = buildJSON({ workspaces, projects, todos, tags });
+    const [allTodos, allTags] = await Promise.all([getAllTodos(), getAllTags()]);
+    const content = buildJSON({ workspaces, projects, todos: allTodos, tags: allTags });
     downloadFile(content, `kuro-export-${dateStr}.json`, "application/json");
     addToast({ message: "Data exported", type: "success" });
   };
