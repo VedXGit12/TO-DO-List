@@ -65,10 +65,10 @@ export function useKeyboardShortcuts() {
 
       // d — toggle done on first selected todo (placeholder)
       if (e.key === "d" && !meta) {
-        const todos = useTodoStore.getState().todos;
-        if (todos.length > 0) {
+        const currentTodos = useTodoStore.getState().todos;
+        if (currentTodos.length > 0) {
           e.preventDefault();
-          toggleTodoDone(todos[0].id);
+          toggleTodoDone(currentTodos[0].id);
         }
         return;
       }

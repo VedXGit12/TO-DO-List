@@ -35,7 +35,6 @@ export default class ErrorBoundary extends Component<Props, State> {
           </p>
           <button
             onClick={() => {
-              this.setState({ hasError: false });
               window.location.reload();
             }}
             className="px-4 py-1.5 rounded-lg text-xs font-medium"

@@ -41,15 +41,12 @@ export default function SettingsPanel() {
       const text = await file.text();
       const data = JSON.parse(text);
       if (data.todos && Array.isArray(data.todos)) {
-        let imported = 0;
-        for (const todo of data.todos) {
-          const existing = await db.todos.get(todo.id);
-          if (!existing) {
-            await db.todos.add(todo);
-            imported++;
-          }
+        const existingIds = new Set((await db.todos.toArray()).map((t) => t.id));
+        const newTodos = data.todos.filter((t: { id: string }) => !existingIds.has(t.id));
+        if (newTodos.length > 0) {
+          await db.todos.bulkAdd(newTodos);
         }
-        addToast({ message: `Imported ${imported} tasks`, type: "success" });
+        addToast({ message: `Imported ${newTodos.length} tasks`, type: "success" });
       }
     } catch {
       addToast({ message: "Import failed — invalid file", type: "error" });

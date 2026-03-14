@@ -35,21 +35,24 @@ export default function App() {
   // PWA install prompt
   const deferredPrompt = useRef<BeforeInstallPromptEvent | null>(null);
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
     const handler = (e: Event) => {
       e.preventDefault();
       deferredPrompt.current = e as BeforeInstallPromptEvent;
 
       const seen = localStorage.getItem("hasSeenInstallPrompt");
       if (!seen) {
-        const timer = setTimeout(() => {
+        timer = setTimeout(() => {
           localStorage.setItem("hasSeenInstallPrompt", "1");
           addToast({ message: "Install Kuro for offline access", type: "info" });
         }, 30000);
-        return () => clearTimeout(timer);
       }
     };
     window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+      if (timer) clearTimeout(timer);
+    };
   }, [addToast]);
 
   // Offline indicator

@@ -61,7 +61,7 @@ export const useUIStore = create<UIState>()(
       viewMode: "list",
       activeTodoId: null,
       toasts: [],
-      accentColor: "amber" as AccentColor,
+      accentColor: "amber",
       compactMode: false,
       sidebarDefaultOpen: true,
       shortcutOverlayOpen: false,
