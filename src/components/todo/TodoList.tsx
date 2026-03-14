@@ -1,0 +1,145 @@
+import { useEffect, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { isToday, isFuture } from "date-fns";
+import { listVariants, cardVariants } from "../../lib/animations";
+import { useTodoStore } from "../../store/todoStore";
+import { useUIStore } from "../../store/uiStore";
+import TodoCard from "./TodoCard";
+import QuickAddBar from "./QuickAddBar";
+
+export default function TodoList() {
+  const { activeProjectId } = useUIStore();
+  const { todos, loadTodos, loadTags } = useTodoStore();
+
+  useEffect(() => {
+    if (activeProjectId) {
+      loadTodos(activeProjectId);
+      loadTags();
+    }
+  }, [activeProjectId, loadTodos, loadTags]);
+
+  const visible = useMemo(
+    () => todos.filter((t) => t.status !== "archived"),
+    [todos]
+  );
+
+  const groups = useMemo(() => {
+    const today: typeof visible = [];
+    const upcoming: typeof visible = [];
+    const noDate: typeof visible = [];
+
+    for (const todo of visible) {
+      if (todo.dueAt && isToday(new Date(todo.dueAt))) {
+        today.push(todo);
+      } else if (todo.dueAt && isFuture(new Date(todo.dueAt))) {
+        upcoming.push(todo);
+      } else {
+        noDate.push(todo);
+      }
+    }
+
+    const sort = (a: (typeof visible)[0], b: (typeof visible)[0]) => {
+      if (a.order !== b.order) return a.order - b.order;
+      return (a.dueAt ?? Infinity) - (b.dueAt ?? Infinity);
+    };
+
+    today.sort(sort);
+    upcoming.sort(sort);
+    noDate.sort(sort);
+
+    return { today, upcoming, noDate };
+  }, [visible]);
+
+  if (!activeProjectId) return null;
+
+  const hasNoTasks = visible.length === 0;
+
+  return (
+    <div className="flex flex-col h-full">
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        {hasNoTasks ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col items-center justify-center h-full gap-3"
+          >
+            <span className="text-4xl">📝</span>
+            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              No tasks yet
+            </p>
+            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              Add your first task below!
+            </p>
+          </motion.div>
+        ) : (
+          <motion.div
+            variants={listVariants}
+            initial="hidden"
+            animate="visible"
+            className="space-y-4"
+          >
+            <AnimatePresence mode="popLayout">
+              {groups.today.length > 0 && (
+                <div key="group-today">
+                  <GroupHeader title="Today" count={groups.today.length} />
+                  <div className="space-y-2 mt-2">
+                    {groups.today.map((todo) => (
+                      <motion.div key={todo.id} variants={cardVariants} exit="exit" layout>
+                        <TodoCard todo={todo} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {groups.upcoming.length > 0 && (
+                <div key="group-upcoming">
+                  <GroupHeader title="Upcoming" count={groups.upcoming.length} />
+                  <div className="space-y-2 mt-2">
+                    {groups.upcoming.map((todo) => (
+                      <motion.div key={todo.id} variants={cardVariants} exit="exit" layout>
+                        <TodoCard todo={todo} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {groups.noDate.length > 0 && (
+                <div key="group-nodate">
+                  <GroupHeader title="No date" count={groups.noDate.length} />
+                  <div className="space-y-2 mt-2">
+                    {groups.noDate.map((todo) => (
+                      <motion.div key={todo.id} variants={cardVariants} exit="exit" layout>
+                        <TodoCard todo={todo} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </div>
+
+      <QuickAddBar />
+    </div>
+  );
+}
+
+function GroupHeader({ title, count }: { title: string; count: number }) {
+  return (
+    <div className="flex items-center gap-2 py-1">
+      <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>
+        {title}
+      </span>
+      <span
+        className="text-xs px-1.5 py-0.5 rounded-full"
+        style={{ color: "var(--text-secondary)", background: "var(--bg-elevated)" }}
+      >
+        {count}
+      </span>
+    </div>
+  );
+}
