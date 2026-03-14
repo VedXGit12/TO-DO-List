@@ -1,48 +1,82 @@
-// CARD ENTRANCE — staggered list reveal
-export const listVariants = {
+import type { Variants } from "framer-motion";
+
+export const sidebarVariants: Variants = {
+  open:   { width: 240, transition: { type: "spring", stiffness: 300, damping: 30 } },
+  closed: { width: 64,  transition: { type: "spring", stiffness: 300, damping: 30 } },
+};
+
+export const sidebarLabelVariants: Variants = {
+  open:   { opacity: 1, x: 0,  display: "block", transition: { delay: 0.08, duration: 0.2 } },
+  closed: { opacity: 0, x: -8, transitionEnd: { display: "none" }, transition: { duration: 0.12 } },
+};
+
+export const chevronVariants: Variants = {
+  open:   { rotate: 0,   transition: { type: "spring", stiffness: 400, damping: 28 } },
+  closed: { rotate: 180, transition: { type: "spring", stiffness: 400, damping: 28 } },
+};
+
+export const workspaceVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (i: number) => ({
+    opacity: 1, y: 0,
+    transition: { delay: i * 0.05, type: "spring", stiffness: 400, damping: 30 },
+  }),
+};
+
+export const workspaceChildrenVariants: Variants = {
+  hidden:  { height: 0, opacity: 0, overflow: "hidden" },
+  visible: { height: "auto", opacity: 1, transition: { type: "spring", stiffness: 300, damping: 30 } },
+  exit:    { height: 0, opacity: 0, transition: { duration: 0.18 } },
+};
+
+export const listVariants: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.06 } },
-}
+};
 
-export const cardVariants = {
+export const cardVariants: Variants = {
   hidden:  { opacity: 0, y: 16, scale: 0.97 },
-  visible: { opacity: 1, y: 0,  scale: 1, transition: { type: 'spring', stiffness: 400, damping: 28 } },
+  visible: { opacity: 1, y: 0,  scale: 1, transition: { type: "spring", stiffness: 400, damping: 28 } },
   exit:    { opacity: 0, x: -20, scale: 0.95, transition: { duration: 0.18 } },
-}
+};
 
-// CHECK ANIMATION — satisfying task complete
-export const checkVariants = {
-  unchecked: { pathLength: 0, opacity: 0 },
-  checked:   { pathLength: 1, opacity: 1, transition: { duration: 0.35, ease: 'easeOut' } },
-}
+export const modalOverlayVariants: Variants = {
+  hidden:  { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.2 } },
+  exit:    { opacity: 0, transition: { duration: 0.15 } },
+};
 
-// MODAL — scale-in with blur backdrop
-export const modalVariants = {
+export const modalVariants: Variants = {
   hidden:  { opacity: 0, scale: 0.94, y: 8 },
-  visible: { opacity: 1, scale: 1,    y: 0, transition: { type: 'spring', stiffness: 500, damping: 32 } },
+  visible: { opacity: 1, scale: 1,    y: 0, transition: { type: "spring", stiffness: 500, damping: 32 } },
   exit:    { opacity: 0, scale: 0.96, y: 4, transition: { duration: 0.15 } },
-}
+};
 
-// SIDEBAR COLLAPSE
-export const sidebarVariants = {
-  open:   { width: 240, transition: { type: 'spring', stiffness: 300, damping: 30 } },
-  closed: { width: 64,  transition: { type: 'spring', stiffness: 300, damping: 30 } },
-}
-
-// DRAG GHOST
-export const dragVariants = {
-  dragging: { scale: 1.04, boxShadow: '0 20px 60px rgba(0,0,0,0.5)', rotate: 1.5 },
-}
-
-// COMMAND PALETTE SLIDE
-export const cmdVariants = {
+export const cmdVariants: Variants = {
   hidden:  { opacity: 0, y: -12, scale: 0.97 },
-  visible: { opacity: 1, y: 0,   scale: 1, transition: { type: 'spring', stiffness: 500, damping: 35 } },
-}
+  visible: { opacity: 1, y: 0,   scale: 1, transition: { type: "spring", stiffness: 500, damping: 35 } },
+  exit:    { opacity: 0, y: -8,  scale: 0.97, transition: { duration: 0.14 } },
+};
 
-// TOAST STACK
-export const toastVariants = {
+export const toastVariants: Variants = {
   initial: { opacity: 0, x: 60, scale: 0.9 },
-  animate: { opacity: 1, x: 0,  scale: 1, transition: { type: 'spring', stiffness: 400, damping: 28 } },
+  animate: { opacity: 1, x: 0,  scale: 1, transition: { type: "spring", stiffness: 400, damping: 28 } },
   exit:    { opacity: 0, x: 60, scale: 0.85, transition: { duration: 0.2 } },
-}
+};
+
+export const checkVariants: Variants = {
+  unchecked: { pathLength: 0, opacity: 0 },
+  checked:   { pathLength: 1, opacity: 1, transition: { duration: 0.35, ease: "easeOut" } },
+};
+
+export const dragActiveStyle = {
+  scale: 1.04, rotate: 1.5,
+  boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
+  zIndex: 999,
+};
+
+export const viewVariants: Variants = {
+  hidden:  { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" } },
+  exit:    { opacity: 0, y: -8, transition: { duration: 0.15 } },
+};
