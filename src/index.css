@@ -37,3 +37,28 @@ body {
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 button { border: none; background: none; font-family: inherit; cursor: pointer; }
+
+/* Overdue pulse for calendar day cells */
+@keyframes overdue-pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.08; }
+}
+.overdue-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: var(--p1);
+  animation: overdue-pulse 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Calendar day cell base */
+.day-cell {
+  background: transparent;
+  transition: background-color 0.15s ease;
+}
+
+/* Quick add placeholder inside DayDetailPanel */
+.day-detail-panel input::placeholder {
+  color: var(--text-secondary);
+}

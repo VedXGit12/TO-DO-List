@@ -1,6 +1,10 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { format, isToday, isTomorrow, isPast } from 'date-fns'
+import {
+  format, isToday, isTomorrow, isPast,
+  startOfMonth, endOfMonth, startOfWeek, endOfWeek,
+  eachDayOfInterval,
+} from 'date-fns'
 
 /** Merge Tailwind classes safely */
 export function cn(...inputs: ClassValue[]) {
@@ -33,4 +37,23 @@ export function priorityLabel(priority: 1 | 2 | 3 | 4): string {
 /** Map priority number to CSS variable color */
 export function priorityColor(priority: 1 | 2 | 3 | 4): string {
   return { 1: 'var(--p1)', 2: 'var(--p2)', 3: 'var(--p3)', 4: 'var(--p4)' }[priority]
+}
+
+/**
+ * Build a 42-item array (6 weeks × 7 days) for a full calendar month grid.
+ * Pads with days from the previous and next month so the grid is always complete.
+ */
+export function getCalendarDays(month: number, year: number): Date[] {
+  const start = startOfWeek(startOfMonth(new Date(year, month)))
+  const end = endOfWeek(endOfMonth(new Date(year, month)))
+  const days = eachDayOfInterval({ start, end })
+  // Pad to exactly 42 days if needed (should already be 35-42)
+  if (days.length < 42) {
+    const last = days[days.length - 1]
+    for (let i = days.length; i < 42; i++) {
+      const prev = days[i - 1] || last
+      days.push(new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() + 1))
+    }
+  }
+  return days.slice(0, 42)
 }
