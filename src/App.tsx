@@ -3,6 +3,7 @@ import TopBar from "./components/layout/TopBar";
 import TodoList from "./components/todo/TodoList";
 import TodoKanban from "./components/todo/TodoKanban";
 import CommandPalette from "./components/CommandPalette";
+import TaskModal from "./components/modals/TaskModal";
 import { useUIStore } from "./store/uiStore";
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
         </main>
       </div>
       <CommandPalette />
+      <TaskModal />
     </div>
   );
 }

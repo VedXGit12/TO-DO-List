@@ -1,0 +1,118 @@
+import { useTodoStore } from "../../store/todoStore";
+import type { Todo } from "../../types/todo";
+
+const STATUS_OPTIONS: { value: Todo["status"]; label: string; dotColor: string }[] = [
+  { value: "todo", label: "Todo", dotColor: "#6b7280" },
+  { value: "in_progress", label: "In Progress", dotColor: "#3b82f6" },
+  { value: "done", label: "Done", dotColor: "#22c55e" },
+  { value: "archived", label: "Archived", dotColor: "#8a8480" },
+];
+
+const PRIORITY_OPTIONS: { value: Todo["priority"]; label: string; color: string }[] = [
+  { value: 1, label: "Urgent", color: "#ef4444" },
+  { value: 2, label: "High", color: "#f97316" },
+  { value: 3, label: "Medium", color: "#3b82f6" },
+  { value: 4, label: "Low", color: "#6b7280" },
+];
+
+interface TaskMetaSidebarProps {
+  todo: Todo;
+}
+
+export default function TaskMetaSidebar({ todo }: TaskMetaSidebarProps) {
+  const { updateTodo } = useTodoStore();
+
+  return (
+    <div className="space-y-4">
+      {/* Status */}
+      <MetaRow label="Status">
+        <select
+          value={todo.status}
+          onChange={(e) => updateTodo(todo.id, { status: e.target.value as Todo["status"] })}
+          className="bg-transparent text-xs outline-none cursor-pointer rounded px-2 py-1"
+          style={{
+            color: "var(--text-primary)",
+            border: "1px solid var(--border)",
+          }}
+        >
+          {STATUS_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value} style={{ background: "var(--bg-surface)" }}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </MetaRow>
+
+      {/* Priority */}
+      <MetaRow label="Priority">
+        <select
+          value={todo.priority}
+          onChange={(e) => updateTodo(todo.id, { priority: Number(e.target.value) as Todo["priority"] })}
+          className="bg-transparent text-xs outline-none cursor-pointer rounded px-2 py-1"
+          style={{
+            color: "var(--text-primary)",
+            border: "1px solid var(--border)",
+          }}
+        >
+          {PRIORITY_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value} style={{ background: "var(--bg-surface)" }}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </MetaRow>
+
+      {/* Due date */}
+      <MetaRow label="Due date">
+        <input
+          type="date"
+          value={todo.dueAt ? new Date(todo.dueAt).toISOString().split("T")[0] : ""}
+          onChange={(e) => {
+            const val = e.target.value;
+            updateTodo(todo.id, { dueAt: val ? new Date(val).getTime() : undefined });
+          }}
+          className="bg-transparent text-xs outline-none cursor-pointer rounded px-2 py-1"
+          style={{
+            color: "var(--text-primary)",
+            border: "1px solid var(--border)",
+            colorScheme: "dark",
+          }}
+        />
+      </MetaRow>
+
+      {/* Tags */}
+      <MetaRow label="Tags">
+        <div className="flex flex-wrap gap-1">
+          {todo.tags.length === 0 && (
+            <span className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              No tags
+            </span>
+          )}
+          {todo.tags.map((tagId) => (
+            <span
+              key={tagId}
+              className="text-xs px-1.5 py-0.5 rounded-full"
+              style={{ background: "var(--bg-elevated)", color: "var(--text-secondary)" }}
+            >
+              {tagId}
+            </span>
+          ))}
+        </div>
+      </MetaRow>
+    </div>
+  );
+}
+
+function MetaRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-start gap-3">
+      <span
+        className="text-xs font-medium shrink-0 pt-1"
+        style={{ color: "var(--text-secondary)", width: 70 }}
+      >
+        {label}
+      </span>
+      <div className="flex-1">{children}</div>
+    </div>
+  );
+}

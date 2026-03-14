@@ -4,6 +4,7 @@ import { MoreHorizontal } from "lucide-react";
 import { format, isPast, isToday } from "date-fns";
 import { cardVariants } from "../../lib/animations";
 import { useTodoStore } from "../../store/todoStore";
+import { useUIStore } from "../../store/uiStore";
 import CheckCircle from "../ui/CheckCircle";
 import PriorityBadge from "../ui/PriorityBadge";
 import TagPill from "../ui/TagPill";
@@ -15,6 +16,7 @@ interface TodoCardProps {
 
 export default function TodoCard({ todo }: TodoCardProps) {
   const { updateTodo, toggleTodoDone, tags } = useTodoStore();
+  const { setActiveTodo } = useUIStore();
   const [editing, setEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,6 +50,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
       initial={{ opacity: 1 }}
       animate={{ opacity: isDone ? 0.6 : 1 }}
       transition={{ duration: 0.2 }}
+      onClick={() => setActiveTodo(todo.id)}
       className="flex items-start gap-3 px-4 py-3 rounded-lg border cursor-pointer"
       style={{
         background: "var(--bg-surface)",
