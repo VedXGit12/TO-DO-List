@@ -1,0 +1,91 @@
+#firsth1 {
+    text-align: center;
+    border: 5px solid #2e8b57;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #ff5a7d;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 20);
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+.box {
+    border: 5px solid #2e8b57;
+    border-radius: 10px;
+    background-color: #e8f5e9;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 20);
+}
+
+#UOL li {
+    display: flex;
+    border-bottom: 1px solid;
+    padding: 5px;
+    gap: 8px;
+}
+
+#UOL li:last-child {
+    border-bottom: none;
+}
+
+#UOL {
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+body {
+    background-color: #FFF8E7;
+}
+
+hr {
+    border: 1px solid black;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#UOL li:hover {
+    background-color: #ffd6dc;
+}
+
+input:checked+span {
+    text-decoration: line-through;
+    color: gray;
+    font-style: italic;
+}
+
+input[type="checkbox"] {
+    height: 15px;
+    width: 15px;
+    accent-color: green;
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+#button {
+    background-color: lime;
+    border-radius: 25px;
+    font-weight: bold;
+    padding-left: 3px;
+    padding-right: 3px;
+    cursor: pointer;
+}
+
+#inputTask {
+    padding: 5px;
+    border-radius: 8px;
+    margin-left: 18px;
+}
+
+#delete {
+    margin-left: auto;
+    background-color: red;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
