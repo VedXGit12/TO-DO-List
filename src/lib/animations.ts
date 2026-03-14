@@ -1,9 +1,15 @@
 import type { Variants, Transition } from "framer-motion";
 
+/* ── Spring presets ───────────────────────────────── */
+export const springSnappy: Transition = { type: "spring", stiffness: 400, damping: 28 };
+export const springDeliberate: Transition = { type: "spring", stiffness: 300, damping: 30 };
+export const springInstant: Transition = { type: "spring", stiffness: 500, damping: 35 };
+export const springPress: Transition = { type: "spring", stiffness: 600, damping: 30 };
+
 /** Returns a spring or instant transition based on reduced-motion preference */
 export function getTransition(reduced: boolean, spring?: Partial<Transition>): Transition {
   if (reduced) return { duration: 0 };
-  return spring ?? { type: "spring", stiffness: 400, damping: 28 };
+  return spring ?? springSnappy;
 }
 
 export const sidebarVariants: Variants = {
@@ -103,4 +109,11 @@ export const dayDetailPanelVariants: Variants = {
   hidden: { x: 320, opacity: 0 },
   visible: { x: 0, opacity: 1, transition: { type: "spring", stiffness: 350, damping: 30 } },
   exit: { x: 320, opacity: 0, transition: { duration: 0.22 } },
+};
+
+/* ── Glass materialize: scale + opacity + blur fade ── */
+export const glassMaterialize: Variants = {
+  hidden:  { opacity: 0, scale: 0.96, filter: "blur(8px)" },
+  visible: { opacity: 1, scale: 1, filter: "blur(0px)", transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } },
+  exit:    { opacity: 0, scale: 0.97, filter: "blur(4px)", transition: { duration: 0.15 } },
 };

@@ -13,6 +13,7 @@ import ExportModal from "./components/modals/ExportModal";
 import SettingsPanel from "./components/modals/SettingsPanel";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { useUIStore, ACCENT_COLORS } from "./store/uiStore";
+import { hexToRgba } from "./lib/colors";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -30,12 +31,12 @@ export default function App() {
   useEffect(() => {
     const hex = ACCENT_COLORS[accentColor];
     document.documentElement.style.setProperty("--accent", hex);
-    document.documentElement.style.setProperty("--accent-dim", hex + "1f");
-    document.documentElement.style.setProperty("--accent-10", hex + "1a");
-    document.documentElement.style.setProperty("--accent-20", hex + "33");
-    document.documentElement.style.setProperty("--accent-40", hex + "66");
-    document.documentElement.style.setProperty("--accent-45", hex + "73");
-    document.documentElement.style.setProperty("--accent-70", hex + "b3");
+    document.documentElement.style.setProperty("--accent-dim", hexToRgba(hex, 0.12));
+    document.documentElement.style.setProperty("--accent-10", hexToRgba(hex, 0.10));
+    document.documentElement.style.setProperty("--accent-20", hexToRgba(hex, 0.20));
+    document.documentElement.style.setProperty("--accent-40", hexToRgba(hex, 0.40));
+    document.documentElement.style.setProperty("--accent-45", hexToRgba(hex, 0.45));
+    document.documentElement.style.setProperty("--accent-70", hexToRgba(hex, 0.70));
   }, [accentColor]);
 
   // PWA install prompt
@@ -77,7 +78,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden" style={{ background: "var(--bg-base)" }}>
+    <div className="flex h-screen w-screen overflow-hidden" style={{ background: "#080A0F" }}>
       {/* Offline banner */}
       <AnimatePresence>
         {isOffline && (

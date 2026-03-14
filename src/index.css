@@ -5,26 +5,29 @@
 @tailwind utilities;
 
 :root {
-  --bg-base:        #0d0d0d;
-  --bg-surface:     #141414;
-  --bg-elevated:    #1c1c1c;
-  --border:         #2a2a2a;
-  --text-primary:   #f0ece3;
-  --text-secondary: #8a8480;
-  --accent:         #e8a045;
-  --accent-dim:     rgba(232, 160, 69, 0.12);
-  --accent-10:      #e8a0451a;
-  --accent-20:      #e8a04533;
-  --accent-40:      #e8a04566;
-  --accent-45:      #e8a04573;
-  --accent-70:      #e8a045b3;
-  --p1:             #ef4444;
-  --p2:             #f97316;
-  --p3:             #3b82f6;
-  --p4:             #6b7280;
+  --bg-base:        #080A0F;
+  --bg-surface:     rgba(255,255,255,0.04);
+  --bg-elevated:    rgba(255,255,255,0.07);
+  --border:         rgba(255,255,255,0.08);
+  --border-top:     rgba(255,255,255,0.14);
+  --text-primary:   rgba(255,255,255,0.92);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-tertiary:  rgba(255,255,255,0.30);
+  --text-ghost:     rgba(255,255,255,0.12);
+  --accent:         #ffb347;
+  --accent-dim:     rgba(255, 179, 71, 0.12);
+  --accent-10:      rgba(255, 179, 71, 0.10);
+  --accent-20:      rgba(255, 179, 71, 0.20);
+  --accent-40:      rgba(255, 179, 71, 0.40);
+  --accent-45:      rgba(255, 179, 71, 0.45);
+  --accent-70:      rgba(255, 179, 71, 0.70);
+  --p1:             rgba(255,100,100,0.9);
+  --p2:             rgba(255,160,80,0.9);
+  --p3:             rgba(100,160,255,0.9);
+  --p4:             rgba(160,160,180,0.7);
   --success:        #22c55e;
   --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-body:    'DM Sans', -apple-system, system-ui, sans-serif;
   --font-mono:    'Geist Mono', 'Fira Code', monospace;
 }
 
@@ -35,6 +38,44 @@ body {
   background: var(--bg-base);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ──────────────────────────────────────────────────
+   Liquid Glass Layer System
+   Layer 0 = void (#080A0F)
+   Layer 1 = sidebar / content panels
+   Layer 2 = cards / inputs
+   Layer 3 = modals / toasts / command palette
+   Layer 4 = tooltips / dropdowns
+   ────────────────────────────────────────────────── */
+.glass-1 {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-top-color: rgba(255,255,255,0.10);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+}
+.glass-2 {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top-color: rgba(255,255,255,0.14);
+  backdrop-filter: blur(32px) saturate(1.5);
+  -webkit-backdrop-filter: blur(32px) saturate(1.5);
+}
+.glass-3 {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-top-color: rgba(255,255,255,0.18);
+  backdrop-filter: blur(40px) saturate(1.6);
+  -webkit-backdrop-filter: blur(40px) saturate(1.6);
+}
+.glass-4 {
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-top-color: rgba(255,255,255,0.20);
+  backdrop-filter: blur(48px) saturate(1.7);
+  -webkit-backdrop-filter: blur(48px) saturate(1.7);
 }
 ::-webkit-scrollbar        { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track  { background: transparent; }
@@ -139,4 +180,13 @@ html { scroll-behavior: smooth; }
 /* QuickAddBar input glow */
 .quick-add-glow:focus {
   box-shadow: 0 0 0 2px var(--accent-dim);
+}
+
+/* Glow dot pulse for priority badges */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 4px 1px currentColor; }
+  50% { box-shadow: 0 0 8px 3px currentColor; }
+}
+.glow-dot {
+  animation: glow-pulse 2s ease-in-out infinite;
 }

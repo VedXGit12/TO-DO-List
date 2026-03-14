@@ -10,11 +10,16 @@ export default {
         accent:    "var(--accent)",
         primary:   "var(--text-primary)",
         secondary: "var(--text-secondary)",
+        tertiary:  "var(--text-tertiary)",
+        ghost:     "var(--text-ghost)",
       },
       fontFamily: {
         display: ["Playfair Display", "Georgia", "serif"],
-        body:    ["DM Sans", "system-ui", "sans-serif"],
+        body:    ["DM Sans", "-apple-system", "system-ui", "sans-serif"],
         mono:    ["Geist Mono", "Fira Code", "monospace"],
+      },
+      backdropBlur: {
+        glass: "32px",
       },
     },
   },
