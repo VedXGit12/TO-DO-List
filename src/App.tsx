@@ -2,14 +2,17 @@ import Sidebar from "./components/layout/Sidebar";
 import TopBar from "./components/layout/TopBar";
 import TodoList from "./components/todo/TodoList";
 import TodoKanban from "./components/todo/TodoKanban";
+import TodoCalendar from "./components/todo/TodoCalendar";
 import CommandPalette from "./components/CommandPalette";
 import TaskModal from "./components/modals/TaskModal";
+import MotionToast from "./components/ui/MotionToast";
 import { useUIStore } from "./store/uiStore";
 
 export default function App() {
   const { activeProjectId, viewMode } = useUIStore();
   const showList = activeProjectId && viewMode === "list";
   const showKanban = activeProjectId && viewMode === "kanban";
+  const showCalendar = activeProjectId && viewMode === "calendar";
 
   return (
     <div className="flex h-screen w-screen overflow-hidden" style={{ background: "var(--bg-base)" }}>
@@ -21,6 +24,8 @@ export default function App() {
             <TodoList />
           ) : showKanban ? (
             <TodoKanban />
+          ) : showCalendar ? (
+            <TodoCalendar />
           ) : (
             <div className="flex items-center justify-center h-full">
               <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
@@ -32,6 +37,7 @@ export default function App() {
       </div>
       <CommandPalette />
       <TaskModal />
+      <MotionToast />
     </div>
   );
 }
