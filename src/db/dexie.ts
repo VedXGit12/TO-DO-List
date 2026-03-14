@@ -60,3 +60,7 @@ export async function getAllTags(): Promise<Tag[]> {
 export async function createTag(tag: Tag): Promise<void> {
   await db.tags.add(tag)
 }
+
+export async function getAllTodos(): Promise<Todo[]> {
+  return db.todos.toArray()
+}

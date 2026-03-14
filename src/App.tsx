@@ -3,6 +3,7 @@ import TopBar from "./components/layout/TopBar";
 import TodoList from "./components/todo/TodoList";
 import TodoKanban from "./components/todo/TodoKanban";
 import TodoCalendar from "./components/todo/TodoCalendar";
+import StatsBoard from "./components/stats/StatsBoard";
 import CommandPalette from "./components/CommandPalette";
 import TaskModal from "./components/modals/TaskModal";
 import MotionToast from "./components/ui/MotionToast";
@@ -13,6 +14,7 @@ export default function App() {
   const showList = activeProjectId && viewMode === "list";
   const showKanban = activeProjectId && viewMode === "kanban";
   const showCalendar = activeProjectId && viewMode === "calendar";
+  const showStats = viewMode === "stats";
 
   return (
     <div className="flex h-screen w-screen overflow-hidden" style={{ background: "var(--bg-base)" }}>
@@ -20,7 +22,9 @@ export default function App() {
       <div className="flex flex-col flex-1 min-w-0">
         <TopBar />
         <main className="flex-1 overflow-y-auto p-6 scrollbar-hide">
-          {showList ? (
+          {showStats ? (
+            <StatsBoard />
+          ) : showList ? (
             <TodoList />
           ) : showKanban ? (
             <TodoKanban />
