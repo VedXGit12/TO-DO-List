@@ -62,3 +62,12 @@ button { border: none; background: none; font-family: inherit; cursor: pointer; 
 .day-detail-panel input::placeholder {
   color: var(--text-secondary);
 }
+
+/* Streak fire pulse animation */
+@keyframes streak-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.streak-pulse {
+  animation: streak-pulse 1.5s ease-in-out infinite;
+}
