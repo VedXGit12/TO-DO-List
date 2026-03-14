@@ -20,7 +20,7 @@ interface TaskMetaSidebarProps {
 }
 
 export default function TaskMetaSidebar({ todo }: TaskMetaSidebarProps) {
-  const { updateTodo } = useTodoStore();
+  const { updateTodo, tags: allTags } = useTodoStore();
 
   return (
     <div className="space-y-4">
@@ -88,15 +88,21 @@ export default function TaskMetaSidebar({ todo }: TaskMetaSidebarProps) {
               No tags
             </span>
           )}
-          {todo.tags.map((tagId) => (
-            <span
-              key={tagId}
-              className="text-xs px-1.5 py-0.5 rounded-full"
-              style={{ background: "var(--bg-elevated)", color: "var(--text-secondary)" }}
-            >
-              {tagId}
-            </span>
-          ))}
+          {todo.tags.map((tagId) => {
+            const tag = allTags.find((t) => t.id === tagId);
+            return (
+              <span
+                key={tagId}
+                className="text-xs px-1.5 py-0.5 rounded-full"
+                style={{
+                  background: tag ? `${tag.color}33` : "var(--bg-elevated)",
+                  color: tag?.color ?? "var(--text-secondary)",
+                }}
+              >
+                {tag?.name ?? tagId}
+              </span>
+            );
+          })}
         </div>
       </MetaRow>
     </div>

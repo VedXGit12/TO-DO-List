@@ -28,7 +28,7 @@ export default function TaskModal() {
       setEditTitle(todo.title);
       setConfirmDelete(false);
     }
-  }, [todo?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [todo?.id, todo?.title]);
 
   const close = useCallback(() => setActiveTodo(null), [setActiveTodo]);
 
@@ -42,11 +42,12 @@ export default function TaskModal() {
     }
   };
 
+  const todoId = todo?.id;
   const handleBodySave = useCallback(
     (body: string) => {
-      if (todo) updateTodo(todo.id, { body });
+      if (todoId) updateTodo(todoId, { body });
     },
-    [todo?.id, updateTodo] // eslint-disable-line react-hooks/exhaustive-deps
+    [todoId, updateTodo]
   );
 
   const handleDelete = () => {

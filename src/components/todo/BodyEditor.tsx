@@ -51,11 +51,8 @@ export default function BodyEditor({ todoId, initialContent, onSave }: BodyEdito
     const content = initialContent
       ? (() => { try { return JSON.parse(initialContent); } catch { return initialContent; } })()
       : "";
-    const currentContent = JSON.stringify(editor.getJSON());
-    if (currentContent !== initialContent) {
-      editor.commands.setContent(content);
-    }
-  }, [todoId]); // eslint-disable-line react-hooks/exhaustive-deps
+    editor.commands.setContent(content);
+  }, [todoId, editor]); // re-hydrate when todoId changes
 
   const ToolbarButton = useCallback(
     ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
