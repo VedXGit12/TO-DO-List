@@ -1,0 +1,262 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, Download, Upload, Trash2 } from "lucide-react";
+import { useUIStore, ACCENT_COLORS, type AccentColor } from "../../store/uiStore";
+import { useTodoStore } from "../../store/todoStore";
+import { db } from "../../db/dexie";
+import { buildJSON, downloadFile } from "../../lib/export";
+import { format } from "date-fns";
+
+const ACCENT_SWATCHES: AccentColor[] = ["amber", "blue", "green", "purple", "red", "pink"];
+
+export default function SettingsPanel() {
+  const {
+    settingsPanelOpen,
+    setSettingsPanelOpen,
+    accentColor,
+    setAccentColor,
+    compactMode,
+    setCompactMode,
+    sidebarDefaultOpen,
+    setSidebarDefaultOpen,
+    addToast,
+  } = useUIStore();
+  const { workspaces, projects, todos, tags } = useTodoStore();
+
+  const [deleteConfirm, setDeleteConfirm] = useState("");
+  const [importing, setImporting] = useState(false);
+
+  const handleExportAll = () => {
+    const dateStr = format(new Date(), "yyyy-MM-dd");
+    const content = buildJSON({ workspaces, projects, todos, tags });
+    downloadFile(content, `kuro-export-${dateStr}.json`, "application/json");
+    addToast({ message: "Data exported", type: "success" });
+  };
+
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImporting(true);
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (data.todos && Array.isArray(data.todos)) {
+        let imported = 0;
+        for (const todo of data.todos) {
+          const existing = await db.todos.get(todo.id);
+          if (!existing) {
+            await db.todos.add(todo);
+            imported++;
+          }
+        }
+        addToast({ message: `Imported ${imported} tasks`, type: "success" });
+      }
+    } catch {
+      addToast({ message: "Import failed — invalid file", type: "error" });
+    } finally {
+      setImporting(false);
+      e.target.value = "";
+    }
+  };
+
+  const handleClearAll = async () => {
+    if (deleteConfirm !== "DELETE") return;
+    await db.todos.clear();
+    await db.projects.clear();
+    await db.workspaces.clear();
+    await db.tags.clear();
+    setDeleteConfirm("");
+    addToast({ message: "All data cleared", type: "info" });
+    window.location.reload();
+  };
+
+  const taskCount = todos.length;
+  const estSize = Math.round((JSON.stringify(todos).length / 1024) * 10) / 10;
+
+  return (
+    <AnimatePresence>
+      {settingsPanelOpen && (
+        <motion.div className="fixed inset-0 z-50 flex justify-end">
+          {/* Backdrop */}
+          <motion.div
+            className="absolute inset-0"
+            style={{ background: "rgba(0,0,0,0.5)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSettingsPanelOpen(false)}
+          />
+
+          {/* Panel */}
+          <motion.div
+            initial={{ x: 380 }}
+            animate={{ x: 0 }}
+            exit={{ x: 380 }}
+            transition={{ type: "spring", stiffness: 350, damping: 30 }}
+            className="relative w-full max-w-sm border-l overflow-y-auto"
+            style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between p-5 border-b" style={{ borderColor: "var(--border)" }}>
+              <h2
+                className="text-lg font-semibold"
+                style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+              >
+                Settings
+              </h2>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setSettingsPanelOpen(false)}
+                className="p-1.5 rounded-md"
+                style={{ color: "var(--text-secondary)" }}
+                aria-label="Close settings"
+              >
+                <X size={16} />
+              </motion.button>
+            </div>
+
+            <div className="p-5 space-y-6">
+              {/* Appearance */}
+              <section>
+                <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--text-secondary)" }}>
+                  Appearance
+                </h3>
+
+                {/* Accent color */}
+                <div className="mb-4">
+                  <label className="text-sm mb-2 block" style={{ color: "var(--text-primary)" }}>
+                    Accent Color
+                  </label>
+                  <div className="flex gap-2">
+                    {ACCENT_SWATCHES.map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => setAccentColor(c)}
+                        className="w-7 h-7 rounded-full border-2 transition-transform hover:scale-110"
+                        style={{
+                          background: ACCENT_COLORS[c],
+                          borderColor: accentColor === c ? "var(--text-primary)" : "transparent",
+                        }}
+                        aria-label={`Set accent color to ${c}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Sidebar default */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm" style={{ color: "var(--text-primary)" }}>Sidebar open on launch</span>
+                  <button
+                    onClick={() => setSidebarDefaultOpen(!sidebarDefaultOpen)}
+                    className="w-9 h-5 rounded-full relative transition-colors"
+                    style={{ background: sidebarDefaultOpen ? "var(--accent)" : "var(--bg-elevated)" }}
+                    aria-label="Toggle sidebar default state"
+                  >
+                    <motion.div
+                      className="absolute top-0.5 w-4 h-4 rounded-full"
+                      style={{ background: "var(--text-primary)" }}
+                      animate={{ left: sidebarDefaultOpen ? 18 : 2 }}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  </button>
+                </div>
+
+                {/* Compact mode */}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm" style={{ color: "var(--text-primary)" }}>Compact mode</span>
+                  <button
+                    onClick={() => setCompactMode(!compactMode)}
+                    className="w-9 h-5 rounded-full relative transition-colors"
+                    style={{ background: compactMode ? "var(--accent)" : "var(--bg-elevated)" }}
+                    aria-label="Toggle compact mode"
+                  >
+                    <motion.div
+                      className="absolute top-0.5 w-4 h-4 rounded-full"
+                      style={{ background: "var(--text-primary)" }}
+                      animate={{ left: compactMode ? 18 : 2 }}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  </button>
+                </div>
+              </section>
+
+              {/* Data */}
+              <section>
+                <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--text-secondary)" }}>
+                  Data
+                </h3>
+
+                <div className="space-y-2">
+                  <button
+                    onClick={handleExportAll}
+                    className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm border transition-colors hover:opacity-80"
+                    style={{ borderColor: "var(--border)", color: "var(--text-primary)", background: "var(--bg-elevated)" }}
+                  >
+                    <Download size={14} /> Export all data
+                  </button>
+
+                  <label
+                    className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm border cursor-pointer transition-colors hover:opacity-80"
+                    style={{ borderColor: "var(--border)", color: "var(--text-primary)", background: "var(--bg-elevated)" }}
+                  >
+                    <Upload size={14} /> {importing ? "Importing..." : "Import data"}
+                    <input type="file" accept=".json" onChange={handleImport} className="hidden" />
+                  </label>
+
+                  <div className="pt-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Trash2 size={14} style={{ color: "var(--p1)" }} />
+                      <span className="text-sm" style={{ color: "var(--p1)" }}>Clear all data</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder='Type "DELETE" to confirm'
+                        value={deleteConfirm}
+                        onChange={(e) => setDeleteConfirm(e.target.value)}
+                        className="flex-1 px-2 py-1.5 rounded text-sm border outline-none"
+                        style={{
+                          background: "var(--bg-elevated)",
+                          borderColor: "var(--border)",
+                          color: "var(--text-primary)",
+                        }}
+                      />
+                      <button
+                        onClick={handleClearAll}
+                        disabled={deleteConfirm !== "DELETE"}
+                        className="px-3 py-1.5 rounded text-sm font-medium transition-opacity"
+                        style={{
+                          background: deleteConfirm === "DELETE" ? "var(--p1)" : "var(--bg-elevated)",
+                          color: deleteConfirm === "DELETE" ? "#fff" : "var(--text-secondary)",
+                          opacity: deleteConfirm === "DELETE" ? 1 : 0.5,
+                        }}
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+
+                  <p className="text-xs pt-2" style={{ color: "var(--text-secondary)" }}>
+                    ~{taskCount} tasks · ~{estSize} KB
+                  </p>
+                </div>
+              </section>
+
+              {/* About */}
+              <section>
+                <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--text-secondary)" }}>
+                  About
+                </h3>
+                <div className="space-y-1 text-sm" style={{ color: "var(--text-secondary)" }}>
+                  <p>Kuro v1.0.0</p>
+                  <p>Built with Framer Motion, Zustand, Dexie</p>
+                </div>
+              </section>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

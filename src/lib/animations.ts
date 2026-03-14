@@ -1,4 +1,10 @@
-import type { Variants } from "framer-motion";
+import type { Variants, Transition } from "framer-motion";
+
+/** Returns a spring or instant transition based on reduced-motion preference */
+export function getTransition(reduced: boolean, spring?: Partial<Transition>): Transition {
+  if (reduced) return { duration: 0 };
+  return spring ?? { type: "spring", stiffness: 400, damping: 28 };
+}
 
 export const sidebarVariants: Variants = {
   open:   { width: 240, transition: { type: "spring", stiffness: 300, damping: 30 } },

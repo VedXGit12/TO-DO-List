@@ -71,3 +71,67 @@ button { border: none; background: none; font-family: inherit; cursor: pointer; 
 .streak-pulse {
   animation: streak-pulse 1.5s ease-in-out infinite;
 }
+
+/* Shimmer skeleton loading animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+/* Smooth scrolling */
+html { scroll-behavior: smooth; }
+
+/* Focus-visible for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reduced motion: disable all animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Check circle completion pulse */
+@keyframes check-pulse {
+  0% { box-shadow: 0 0 0 0 var(--accent); opacity: 1; }
+  100% { box-shadow: 0 0 0 8px var(--accent); opacity: 0; }
+}
+.check-pulse {
+  animation: check-pulse 0.4s ease-out;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  main.p-6 { padding: 1rem; }
+}
+
+@media (max-width: 640px) {
+  main.p-6 { padding: 0.75rem; }
+}
+
+/* Kanban mobile snap scrolling */
+@media (max-width: 768px) {
+  .kanban-scroll {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .kanban-scroll > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* QuickAddBar input glow */
+.quick-add-glow:focus {
+  box-shadow: 0 0 0 2px var(--accent-dim);
+}
