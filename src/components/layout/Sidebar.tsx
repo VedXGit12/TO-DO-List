@@ -138,6 +138,7 @@ export default function Sidebar() {
       {/* Footer */}
       <div className="px-2 pb-4 pt-2 border-t" style={{ borderColor: "var(--border)" }}>
         <motion.button whileHover={{ x: 2 }}
+          onClick={() => useUIStore.getState().setSettingsPanelOpen(true)}
           className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-md"
           style={{ color: "var(--text-secondary)" }}
           onMouseEnter={e => (e.currentTarget.style.background = "var(--bg-elevated)")}
