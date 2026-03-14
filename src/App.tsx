@@ -1,11 +1,15 @@
 import Sidebar from "./components/layout/Sidebar";
 import TopBar from "./components/layout/TopBar";
 import TodoList from "./components/todo/TodoList";
+import TodoKanban from "./components/todo/TodoKanban";
+import CommandPalette from "./components/CommandPalette";
+import TaskModal from "./components/modals/TaskModal";
 import { useUIStore } from "./store/uiStore";
 
 export default function App() {
   const { activeProjectId, viewMode } = useUIStore();
   const showList = activeProjectId && viewMode === "list";
+  const showKanban = activeProjectId && viewMode === "kanban";
 
   return (
     <div className="flex h-screen w-screen overflow-hidden" style={{ background: "var(--bg-base)" }}>
@@ -15,6 +19,8 @@ export default function App() {
         <main className="flex-1 overflow-y-auto p-6 scrollbar-hide">
           {showList ? (
             <TodoList />
+          ) : showKanban ? (
+            <TodoKanban />
           ) : (
             <div className="flex items-center justify-center h-full">
               <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
@@ -24,6 +30,8 @@ export default function App() {
           )}
         </main>
       </div>
+      <CommandPalette />
+      <TaskModal />
     </div>
   );
 }

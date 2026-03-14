@@ -37,6 +37,9 @@ interface TodoStore {
   toggleTodoDone: (id: string) => Promise<void>;
   reorderTodos: (reordered: Todo[]) => Promise<void>;
   addTag: (tag: Omit<Tag, "id">) => Promise<void>;
+  moveTodoToColumn: (todoId: string, newStatus: Todo["status"]) => Promise<void>;
+  reorderWithinColumn: (columnStatus: Todo["status"], activeId: string, overId: string) => Promise<void>;
+  moveToColumnAndReorder: (todoId: string, newStatus: Todo["status"], overId?: string) => Promise<void>;
 }
 
 const SEED_WORKSPACES: Workspace[] = [
@@ -126,6 +129,93 @@ export const useTodoStore = create<TodoStore>()(
         const tag: Tag = { ...data, id: crypto.randomUUID() };
         set((s) => ({ tags: [...s.tags, tag] }));
         await dbCreateTag(tag);
+      },
+
+      moveTodoToColumn: async (todoId, newStatus) => {
+        const now = Date.now();
+        set((s) => ({
+          todos: s.todos.map((t) =>
+            t.id === todoId
+              ? { ...t, status: newStatus, completedAt: newStatus === "done" ? now : undefined, updatedAt: now }
+              : t
+          ),
+        }));
+        await dbUpdateTodo(todoId, {
+          status: newStatus,
+          completedAt: newStatus === "done" ? now : undefined,
+        });
+      },
+
+      reorderWithinColumn: async (columnStatus, activeId, overId) => {
+        set((s) => {
+          const colTodos = s.todos
+            .filter((t) => t.status === columnStatus)
+            .sort((a, b) => a.order - b.order);
+          const activeIdx = colTodos.findIndex((t) => t.id === activeId);
+          const overIdx = colTodos.findIndex((t) => t.id === overId);
+          if (activeIdx === -1 || overIdx === -1) return s;
+          const [moved] = colTodos.splice(activeIdx, 1);
+          colTodos.splice(overIdx, 0, moved);
+          const orderMap = new Map<string, number>();
+          colTodos.forEach((t, i) => orderMap.set(t.id, i));
+          return {
+            todos: s.todos.map((t) =>
+              orderMap.has(t.id) ? { ...t, order: orderMap.get(t.id)!, updatedAt: Date.now() } : t
+            ),
+          };
+        });
+        const todos = useTodoStore.getState().todos;
+        const colTodos = todos.filter((t) => t.status === columnStatus);
+        await db.transaction("rw", db.todos, async () => {
+          for (const t of colTodos) {
+            await db.todos.update(t.id, { order: t.order, updatedAt: t.updatedAt });
+          }
+        });
+      },
+
+      moveToColumnAndReorder: async (todoId, newStatus, overId) => {
+        const now = Date.now();
+        set((s) => {
+          const todo = s.todos.find((t) => t.id === todoId);
+          if (!todo) return s;
+          const colTodos = s.todos
+            .filter((t) => t.status === newStatus && t.id !== todoId)
+            .sort((a, b) => a.order - b.order);
+          const overIdx = overId ? colTodos.findIndex((t) => t.id === overId) : -1;
+          const insertAt = overIdx !== -1 ? overIdx : colTodos.length;
+          colTodos.splice(insertAt, 0, {
+            ...todo,
+            status: newStatus,
+            completedAt: newStatus === "done" ? now : undefined,
+            updatedAt: now,
+          });
+          const orderMap = new Map<string, number>();
+          colTodos.forEach((t, i) => orderMap.set(t.id, i));
+          return {
+            todos: s.todos.map((t) => {
+              if (t.id === todoId) {
+                return {
+                  ...t,
+                  status: newStatus,
+                  completedAt: newStatus === "done" ? now : undefined,
+                  order: orderMap.get(t.id)!,
+                  updatedAt: now,
+                };
+              }
+              if (orderMap.has(t.id)) {
+                return { ...t, order: orderMap.get(t.id)!, updatedAt: now };
+              }
+              return t;
+            }),
+          };
+        });
+        const todos = useTodoStore.getState().todos;
+        const affected = todos.filter((t) => t.status === newStatus);
+        await db.transaction("rw", db.todos, async () => {
+          for (const t of affected) {
+            await db.todos.update(t.id, { status: t.status, order: t.order, completedAt: t.completedAt, updatedAt: t.updatedAt });
+          }
+        });
       },
     }),
     {

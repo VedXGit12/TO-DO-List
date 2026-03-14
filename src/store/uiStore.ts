@@ -8,11 +8,13 @@ interface UIState {
   activeProjectId: string | null;
   activeWorkspaceId: string | null;
   viewMode: ViewMode;
+  activeTodoId: string | null;
   toggleSidebar: () => void;
   setSidebarOpen: (open: boolean) => void;
   setActiveProject: (id: string | null) => void;
   setActiveWorkspace: (id: string | null) => void;
   setViewMode: (mode: ViewMode) => void;
+  setActiveTodo: (id: string | null) => void;
 }
 
 export const useUIStore = create<UIState>()(
@@ -22,11 +24,13 @@ export const useUIStore = create<UIState>()(
       activeProjectId: null,
       activeWorkspaceId: null,
       viewMode: "list",
+      activeTodoId: null,
       toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
       setSidebarOpen: (open) => set({ sidebarOpen: open }),
       setActiveProject: (activeProjectId) => set({ activeProjectId }),
       setActiveWorkspace: (activeWorkspaceId) => set({ activeWorkspaceId }),
       setViewMode: (mode) => set({ viewMode: mode }),
+      setActiveTodo: (id) => set({ activeTodoId: id }),
     }),
     { name: "ui-store" }
   )

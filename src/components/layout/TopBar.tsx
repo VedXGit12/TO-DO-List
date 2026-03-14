@@ -112,10 +112,16 @@ export default function TopBar() {
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="p-2 rounded-md"
+          className="flex items-center gap-1.5 p-2 rounded-md"
           style={{ color: "var(--text-secondary)" }}
         >
           <Search size={15} />
+          <span
+            className="text-xs px-1 py-0.5 rounded font-mono"
+            style={{ background: "var(--bg-elevated)", color: "var(--text-secondary)", fontSize: 10 }}
+          >
+            ⌘K
+          </span>
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.05 }}
