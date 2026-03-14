@@ -64,7 +64,7 @@ export default function ShortcutOverlay() {
     <AnimatePresence>
       {shortcutOverlayOpen && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          className="fixed inset-0 z-[70] flex items-center justify-center"
           variants={modalOverlayVariants}
           initial="hidden"
           animate="visible"

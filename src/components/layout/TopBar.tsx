@@ -96,7 +96,7 @@ export default function TopBar() {
                 <motion.div
                   layoutId="topbar-view-indicator"
                   className="absolute inset-0 rounded-md"
-                  style={{ background: "rgba(232,160,69,0.12)" }}
+                  style={{ background: "var(--accent-dim)" }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}

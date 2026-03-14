@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { isToday as checkIsToday } from "date-fns";
 import { useDroppable } from "@dnd-kit/core";
+import { useUIStore, ACCENT_COLORS } from "../../store/uiStore";
+import { hexToRgba } from "../../lib/colors";
 import TaskChip from "../ui/TaskChip";
 import type { Todo } from "../../types/todo";
 
@@ -25,6 +27,8 @@ export default function DayCell({
   const dayNum = date.getDate();
   const maxVisible = 3;
   const overflow = todos.length - maxVisible;
+  const { accentColor } = useUIStore();
+  const accentHex = ACCENT_COLORS[accentColor];
 
   const { setNodeRef, isOver } = useDroppable({
     id: date.toISOString(),
@@ -38,9 +42,9 @@ export default function DayCell({
       whileHover={{ backgroundColor: "rgba(255,255,255,0.03)" }}
       animate={{
         backgroundColor: isSelected
-          ? "rgba(232,160,69,0.10)"
+          ? hexToRgba(accentHex, 0.10)
           : isOver
-            ? "rgba(232,160,69,0.08)"
+            ? hexToRgba(accentHex, 0.08)
             : "transparent",
       }}
       transition={{ duration: 0.15 }}

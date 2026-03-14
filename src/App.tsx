@@ -28,8 +28,14 @@ export default function App() {
 
   // Apply persisted accent color on mount
   useEffect(() => {
-    document.documentElement.style.setProperty("--accent", ACCENT_COLORS[accentColor]);
-    document.documentElement.style.setProperty("--accent-dim", ACCENT_COLORS[accentColor] + "1f");
+    const hex = ACCENT_COLORS[accentColor];
+    document.documentElement.style.setProperty("--accent", hex);
+    document.documentElement.style.setProperty("--accent-dim", hex + "1f");
+    document.documentElement.style.setProperty("--accent-10", hex + "1a");
+    document.documentElement.style.setProperty("--accent-20", hex + "33");
+    document.documentElement.style.setProperty("--accent-40", hex + "66");
+    document.documentElement.style.setProperty("--accent-45", hex + "73");
+    document.documentElement.style.setProperty("--accent-70", hex + "b3");
   }, [accentColor]);
 
   // PWA install prompt

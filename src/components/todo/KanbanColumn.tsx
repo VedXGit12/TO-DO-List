@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import { listVariants, cardVariants } from "../../lib/animations";
 import { useTodoStore } from "../../store/todoStore";
-import { useUIStore } from "../../store/uiStore";
+import { useUIStore, ACCENT_COLORS } from "../../store/uiStore";
+import { hexToRgba } from "../../lib/colors";
 import AnimatedCounter from "../ui/AnimatedCounter";
 import SortableTodoCard from "./SortableTodoCard";
 import type { Todo } from "../../types/todo";
@@ -24,7 +25,8 @@ interface KanbanColumnProps {
 
 export default function KanbanColumn({ status, todos }: KanbanColumnProps) {
   const { addTodo } = useTodoStore();
-  const { activeProjectId } = useUIStore();
+  const { activeProjectId, accentColor } = useUIStore();
+  const accentHex = ACCENT_COLORS[accentColor];
   const { label, dotColor } = COLUMN_CONFIG[status];
   const [quickAdd, setQuickAdd] = useState("");
   const [showInput, setShowInput] = useState(false);
@@ -52,7 +54,7 @@ export default function KanbanColumn({ status, todos }: KanbanColumnProps) {
       animate={{
         opacity: 1,
         y: 0,
-        backgroundColor: isOver ? "rgba(232,160,69,0.06)" : "rgba(0,0,0,0)",
+        backgroundColor: isOver ? hexToRgba(accentHex, 0.06) : "rgba(0,0,0,0)",
       }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
       className="flex flex-col min-w-[280px] w-[280px] rounded-xl p-3"

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useUIStore, ACCENT_COLORS } from "../../store/uiStore";
 
 interface ProgressRingProps {
   progress: number; // 0 to 1
@@ -6,12 +7,14 @@ interface ProgressRingProps {
 }
 
 export default function ProgressRing({ progress, size = 56 }: ProgressRingProps) {
+  const { accentColor } = useUIStore();
+  const accentHex = ACCENT_COLORS[accentColor];
   const strokeWidth = 4;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - progress);
   const percent = Math.round(progress * 100);
-  const arcColor = progress >= 0.5 ? "#22c55e" : "#e8a045";
+  const arcColor = progress >= 0.5 ? "#22c55e" : accentHex;
 
   return (
     <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>

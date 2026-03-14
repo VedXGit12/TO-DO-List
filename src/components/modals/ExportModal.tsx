@@ -1,11 +1,13 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, FileText, FileJson, FileSpreadsheet, Download } from "lucide-react";
 import { useUIStore } from "../../store/uiStore";
 import { useTodoStore } from "../../store/todoStore";
 import { modalOverlayVariants, modalVariants } from "../../lib/animations";
 import { buildMarkdown, buildJSON, buildCSV, downloadFile } from "../../lib/export";
+import { getAllTodos, getAllTags } from "../../db/dexie";
 import { format } from "date-fns";
+import type { Todo, Tag } from "../../types/todo";
 
 type ExportFormat = "markdown" | "json" | "csv";
 
@@ -17,19 +19,31 @@ const FORMAT_OPTIONS: { id: ExportFormat; label: string; icon: typeof FileText; 
 
 export default function ExportModal() {
   const { exportModalOpen, setExportModalOpen, addToast } = useUIStore();
-  const { workspaces, projects, todos, tags } = useTodoStore();
+  const { workspaces, projects } = useTodoStore();
   const [selected, setSelected] = useState<ExportFormat>("markdown");
+  const [allTodos, setAllTodos] = useState<Todo[]>([]);
+  const [allTags, setAllTags] = useState<Tag[]>([]);
+
+  // Load all todos and tags from Dexie when modal opens
+  useEffect(() => {
+    if (exportModalOpen) {
+      Promise.all([getAllTodos(), getAllTags()]).then(([todos, tags]) => {
+        setAllTodos(todos);
+        setAllTags(tags);
+      });
+    }
+  }, [exportModalOpen]);
 
   const preview = useMemo(() => {
     switch (selected) {
       case "markdown":
-        return buildMarkdown(projects, todos).split("\n").slice(0, 10).join("\n");
+        return buildMarkdown(projects, allTodos).split("\n").slice(0, 10).join("\n");
       case "json":
-        return buildJSON({ workspaces, projects, todos, tags }).split("\n").slice(0, 10).join("\n");
+        return buildJSON({ workspaces, projects, todos: allTodos, tags: allTags }).split("\n").slice(0, 10).join("\n");
       case "csv":
-        return buildCSV(todos, projects).split("\n").slice(0, 10).join("\n");
+        return buildCSV(allTodos, projects).split("\n").slice(0, 10).join("\n");
     }
-  }, [selected, workspaces, projects, todos, tags]);
+  }, [selected, workspaces, projects, allTodos, allTags]);
 
   const handleExport = () => {
     const dateStr = format(new Date(), "yyyy-MM-dd");
@@ -38,13 +52,13 @@ export default function ExportModal() {
     let content: string;
     switch (selected) {
       case "markdown":
-        content = buildMarkdown(projects, todos);
+        content = buildMarkdown(projects, allTodos);
         break;
       case "json":
-        content = buildJSON({ workspaces, projects, todos, tags });
+        content = buildJSON({ workspaces, projects, todos: allTodos, tags: allTags });
         break;
       case "csv":
-        content = buildCSV(todos, projects);
+        content = buildCSV(allTodos, projects);
         break;
     }
 

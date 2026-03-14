@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import AnimatedNumber from "../ui/AnimatedNumber";
+import { useUIStore, ACCENT_COLORS } from "../../store/uiStore";
+import { hexToRgb } from "../../lib/colors";
 import type { StreakData } from "../../lib/stats";
 
 interface StreakCounterProps {
@@ -8,6 +10,9 @@ interface StreakCounterProps {
 }
 
 export default function StreakCounter({ streak, hasCompletedToday }: StreakCounterProps) {
+  const { accentColor } = useUIStore();
+  const accentHex = ACCENT_COLORS[accentColor];
+  const accentRgb = hexToRgb(accentHex);
   const intensity = Math.min(streak.current / 14, 1);
   const showWarning = !hasCompletedToday && streak.current > 0;
 
@@ -27,7 +32,7 @@ export default function StreakCounter({ streak, hasCompletedToday }: StreakCount
             scale: streak.current >= 7 ? [1, 1.15, 1] : 1,
             filter:
               streak.current >= 3
-                ? `drop-shadow(0 0 ${glowSize}px rgba(232,160,69,${glowAlpha}))`
+                ? `drop-shadow(0 0 ${glowSize}px rgba(${accentRgb},${glowAlpha}))`
                 : "none",
           }}
           transition={

@@ -13,6 +13,11 @@
   --text-secondary: #8a8480;
   --accent:         #e8a045;
   --accent-dim:     rgba(232, 160, 69, 0.12);
+  --accent-10:      #e8a0451a;
+  --accent-20:      #e8a04533;
+  --accent-40:      #e8a04566;
+  --accent-45:      #e8a04573;
+  --accent-70:      #e8a045b3;
   --p1:             #ef4444;
   --p2:             #f97316;
   --p3:             #3b82f6;
