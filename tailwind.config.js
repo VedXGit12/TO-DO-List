@@ -1,33 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  darkMode: 'class',
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        'bg-base':     'var(--bg-base)',
-        'bg-surface':  'var(--bg-surface)',
-        'bg-elevated': 'var(--bg-elevated)',
-        border:        'var(--border)',
-        'text-primary':  'var(--text-primary)',
-        'text-secondary':'var(--text-secondary)',
-        accent:        'var(--accent)',
-        'accent-dim':  'var(--accent-dim)',
-        p1:            'var(--p1)',
-        p2:            'var(--p2)',
-        p3:            'var(--p3)',
-        p4:            'var(--p4)',
-        success:       'var(--success)',
+        base:      "var(--bg-base)",
+        surface:   "var(--bg-surface)",
+        elevated:  "var(--bg-elevated)",
+        accent:    "var(--accent)",
+        primary:   "var(--text-primary)",
+        secondary: "var(--text-secondary)",
       },
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        body:    ['DM Sans', 'sans-serif'],
-        mono:    ['Geist Mono', 'monospace'],
+        display: ["Playfair Display", "Georgia", "serif"],
+        body:    ["DM Sans", "system-ui", "sans-serif"],
+        mono:    ["Geist Mono", "Fira Code", "monospace"],
       },
     },
   },
   plugins: [],
-}
+};

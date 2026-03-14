@@ -1,50 +1,33 @@
-import { create } from 'zustand'
-import type { Project } from '../types/todo'
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-type ViewMode = 'list' | 'kanban' | 'calendar' | 'stats'
+export type ViewMode = "list" | "kanban" | "calendar" | "stats";
 
 interface UIState {
-  sidebarOpen: boolean
-  viewMode: ViewMode
-  activeWorkspaceId: string | null
-  activeProjectId: string | null
-  commandPaletteOpen: boolean
-  taskModalId: string | null
-
-  setSidebarOpen: (open: boolean) => void
-  toggleSidebar: () => void
-  setViewMode: (mode: ViewMode) => void
-  setActiveWorkspace: (id: string | null) => void
-  setActiveProject: (id: string | null) => void
-  setCommandPaletteOpen: (open: boolean) => void
-  toggleCommandPalette: () => void
-  openTaskModal: (id: string) => void
-  closeTaskModal: () => void
-
-  // Derived helper: get effective view mode, respecting project-level override
-  getEffectiveViewMode: (project?: Pick<Project, 'viewMode'> | null) => ViewMode
+  sidebarOpen: boolean;
+  activeProjectId: string | null;
+  activeWorkspaceId: string | null;
+  viewMode: ViewMode;
+  toggleSidebar: () => void;
+  setSidebarOpen: (open: boolean) => void;
+  setActiveProject: (id: string | null) => void;
+  setActiveWorkspace: (id: string | null) => void;
+  setViewMode: (mode: ViewMode) => void;
 }
 
-export const useUIStore = create<UIState>((set, get) => ({
-  sidebarOpen: true,
-  viewMode: 'list',
-  activeWorkspaceId: null,
-  activeProjectId: null,
-  commandPaletteOpen: false,
-  taskModalId: null,
-
-  setSidebarOpen: (open) => set({ sidebarOpen: open }),
-  toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
-  setViewMode: (mode) => set({ viewMode: mode }),
-  setActiveWorkspace: (id) => set({ activeWorkspaceId: id }),
-  setActiveProject: (id) => set({ activeProjectId: id }),
-  setCommandPaletteOpen: (open) => set({ commandPaletteOpen: open }),
-  toggleCommandPalette: () => set((s) => ({ commandPaletteOpen: !s.commandPaletteOpen })),
-  openTaskModal: (id) => set({ taskModalId: id }),
-  closeTaskModal: () => set({ taskModalId: null }),
-
-  getEffectiveViewMode: (project) => {
-    if (project?.viewMode) return project.viewMode as ViewMode
-    return get().viewMode
-  },
-}))
+export const useUIStore = create<UIState>()(
+  persist(
+    (set) => ({
+      sidebarOpen: true,
+      activeProjectId: null,
+      activeWorkspaceId: null,
+      viewMode: "list",
+      toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+      setSidebarOpen: (open) => set({ sidebarOpen: open }),
+      setActiveProject: (activeProjectId) => set({ activeProjectId }),
+      setActiveWorkspace: (activeWorkspaceId) => set({ activeWorkspaceId }),
+      setViewMode: (mode) => set({ viewMode: mode }),
+    }),
+    { name: "ui-store" }
+  )
+);

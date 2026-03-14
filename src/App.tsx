@@ -1,24 +1,20 @@
-import { motion } from 'framer-motion'
+import Sidebar from "./components/layout/Sidebar";
+import TopBar from "./components/layout/TopBar";
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-        className="text-center"
-      >
-        <h1
-          className="text-5xl font-bold mb-4"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--accent)' }}
-        >
-          Notion-Killer Todo
-        </h1>
-        <p style={{ color: 'var(--text-secondary)' }} className="text-lg">
-          The todo app that feels alive. — Session 2 coming next.
-        </p>
-      </motion.div>
+    <div className="flex h-screen w-screen overflow-hidden" style={{ background: "var(--bg-base)" }}>
+      <Sidebar />
+      <div className="flex flex-col flex-1 min-w-0">
+        <TopBar />
+        <main className="flex-1 overflow-y-auto p-6 scrollbar-hide">
+          <div className="flex items-center justify-center h-full">
+            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              Select a project from the sidebar to get started.
+            </p>
+          </div>
+        </main>
+      </div>
     </div>
-  )
+  );
 }
