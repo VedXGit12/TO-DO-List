@@ -34,16 +34,14 @@ export default function MotionToast() {
             initial="initial"
             animate="animate"
             exit="exit"
+            className="glass-3"
             style={{
               pointerEvents: "auto",
               display: "flex",
               alignItems: "center",
               gap: 8,
               padding: "8px 12px",
-              borderRadius: 8,
-              background: "var(--bg-elevated)",
-              border: "1px solid var(--border)",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+              borderRadius: 14,
               fontSize: 12,
               color: "var(--text-primary)",
               minWidth: 200,

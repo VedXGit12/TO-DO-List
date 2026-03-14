@@ -4,10 +4,10 @@ import { useUIStore } from "../../store/uiStore";
 import type { Todo } from "../../types/todo";
 
 const PRIORITY_HEX: Record<number, string> = {
-  1: "#ef4444",
-  2: "#f97316",
-  3: "#3b82f6",
-  4: "#6b7280",
+  1: "rgba(255,100,100,0.9)",
+  2: "rgba(255,160,80,0.9)",
+  3: "rgba(100,160,255,0.9)",
+  4: "rgba(160,160,180,0.7)",
 };
 
 interface TaskChipProps {
@@ -62,7 +62,7 @@ export default function TaskChip({ todo, isDragOverlay }: TaskChipProps) {
           width: 5,
           height: 5,
           borderRadius: "50%",
-          background: PRIORITY_HEX[todo.priority] ?? "#6b7280",
+          background: PRIORITY_HEX[todo.priority] ?? "rgba(160,160,180,0.7)",
           flexShrink: 0,
         }}
       />

@@ -103,14 +103,17 @@ export default function TodoKanban() {
       onDragEnd={handleDragEnd}
     >
       <div
-        className="flex gap-4 h-full overflow-x-auto p-5 scrollbar-hide"
+        className="flex gap-6 h-full overflow-x-auto p-5 scrollbar-hide"
         style={{ alignItems: "flex-start" }}
       >
         {COLUMNS.map((status, i) => (
           <motion.div
             key={status}
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{
+              opacity: activeDragId && !columnTodos[status].find(t => t.id === activeDragId) ? 0.7 : 1,
+              y: 0,
+            }}
             transition={{ delay: i * 0.08, type: "spring", stiffness: 400, damping: 30 }}
           >
             <KanbanColumn status={status} todos={columnTodos[status]} />

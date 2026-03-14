@@ -14,10 +14,10 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const CENTER = SIZE / 2;
 
 const COLORS: { key: keyof PriorityDistribution; color: string; label: string }[] = [
-  { key: "p1", color: "#ef4444", label: "Urgent" },
-  { key: "p2", color: "#f97316", label: "High" },
-  { key: "p3", color: "#3b82f6", label: "Medium" },
-  { key: "p4", color: "#6b7280", label: "Someday" },
+  { key: "p1", color: "rgba(255,100,100,0.9)", label: "Urgent" },
+  { key: "p2", color: "rgba(255,160,80,0.9)", label: "High" },
+  { key: "p3", color: "rgba(100,160,255,0.9)", label: "Medium" },
+  { key: "p4", color: "rgba(160,160,180,0.7)", label: "Someday" },
 ];
 
 export default function DonutChart({ data }: DonutChartProps) {
@@ -56,7 +56,7 @@ export default function DonutChart({ data }: DonutChartProps) {
             cx={CENTER}
             cy={CENTER}
             r={RADIUS}
-            stroke="var(--bg-elevated)"
+            stroke="rgba(255,255,255,0.05)"
             strokeWidth={STROKE}
             fill="none"
           />

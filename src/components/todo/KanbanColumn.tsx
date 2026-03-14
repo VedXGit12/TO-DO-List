@@ -12,10 +12,10 @@ import SortableTodoCard from "./SortableTodoCard";
 import type { Todo } from "../../types/todo";
 
 const COLUMN_CONFIG: Record<Todo["status"], { label: string; dotColor: string }> = {
-  todo:        { label: "Todo",        dotColor: "#6b7280" },
-  in_progress: { label: "In Progress", dotColor: "#3b82f6" },
-  done:        { label: "Done",        dotColor: "#22c55e" },
-  archived:    { label: "Archived",    dotColor: "#8a8480" },
+  todo:        { label: "Todo",        dotColor: "rgba(255,255,255,0.3)" },
+  in_progress: { label: "In Progress", dotColor: "rgba(140,120,255,0.9)" },
+  done:        { label: "Done",        dotColor: "rgba(80,220,140,0.9)" },
+  archived:    { label: "Archived",    dotColor: "rgba(160,160,180,0.5)" },
 };
 
 interface KanbanColumnProps {
@@ -57,18 +57,26 @@ export default function KanbanColumn({ status, todos }: KanbanColumnProps) {
         backgroundColor: isOver ? hexToRgba(accentHex, 0.06) : "rgba(0,0,0,0)",
       }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="flex flex-col min-w-[280px] w-[280px] rounded-xl p-3"
-      style={{ border: "1px solid var(--border)" }}
+      className="flex flex-col min-w-[280px] w-[280px] glass-1 p-3 relative overflow-hidden"
+      style={{ borderRadius: 14 }}
     >
+      {/* Status color gradient at top */}
+      <div
+        className="absolute top-0 left-0 right-0 pointer-events-none"
+        style={{
+          height: 4,
+          background: `linear-gradient(to bottom, ${dotColor}26, transparent)`,
+        }}
+      />
       {/* Header */}
       <div className="flex items-center gap-2 mb-3 px-1">
         <span
-          className="w-2.5 h-2.5 rounded-full shrink-0"
+          className="w-2 h-2 rounded-full shrink-0"
           style={{ backgroundColor: dotColor }}
         />
         <span
-          className="text-xs font-semibold uppercase tracking-wider"
-          style={{ color: "var(--text-secondary)" }}
+          className="font-semibold uppercase tracking-wider"
+          style={{ color: "var(--text-secondary)", fontSize: 12, letterSpacing: "0.08em" }}
         >
           {label}
         </span>

@@ -79,8 +79,8 @@ export default function SubtaskItem({ subtask, onToggle, onUpdateTitle, onDelete
             cy="8"
             r="7"
             strokeWidth="1.5"
-            stroke={subtask.done ? "#22c55e" : "var(--border)"}
-            fill={subtask.done ? "#22c55e" : "none"}
+            stroke={subtask.done ? "rgba(80,220,140,0.9)" : "rgba(255,255,255,0.25)"}
+            fill={subtask.done ? "rgba(80,220,140,0.9)" : "none"}
           />
           {subtask.done && (
             <path

@@ -15,14 +15,27 @@ export default function TagPill({ tag, onRemove }: TagPillProps) {
     <motion.span
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      animate={{
-        backgroundColor: hovered ? `${tag.color}40` : `${tag.color}33`,
-        scale: hovered ? 1.05 : 1,
-      }}
+      animate={{ scale: hovered ? 1.05 : 1 }}
       transition={{ duration: 0.15 }}
-      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium select-none"
-      style={{ color: tag.color }}
+      className="inline-flex items-center gap-1 px-2 py-0.5 select-none"
+      style={{
+        borderRadius: 6,
+        background: "rgba(255,255,255,0.08)",
+        border: "1px solid rgba(255,255,255,0.1)",
+        fontSize: 11,
+        color: "var(--text-secondary)",
+      }}
     >
+      <span
+        style={{
+          width: 5,
+          height: 5,
+          borderRadius: "50%",
+          backgroundColor: tag.color,
+          display: "inline-block",
+          flexShrink: 0,
+        }}
+      />
       {tag.name}
       <AnimatePresence>
         {hovered && onRemove && (

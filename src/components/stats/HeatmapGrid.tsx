@@ -7,12 +7,12 @@ interface HeatmapGridProps {
   data: HeatmapDay[];
 }
 
-const CELL = 16;
+const CELL = 14;
 const GAP = 2;
 const ROWS = 7;
 
 const LEVEL_COLORS: Record<number, string> = {
-  0: "var(--bg-elevated)",
+  0: "rgba(255,255,255,0.05)",
   1: "var(--accent-20)",
   2: "var(--accent-45)",
   3: "var(--accent-70)",
@@ -131,10 +131,11 @@ export default function HeatmapGrid({ data }: HeatmapGridProps) {
                       }
                     }}
                     onMouseLeave={() => setHovered(null)}
-                    className="rounded-sm cursor-pointer"
+                    className="cursor-pointer"
                     style={{
                       width: CELL,
                       height: CELL,
+                      borderRadius: 3,
                       background: LEVEL_COLORS[day.level],
                     }}
                   />

@@ -99,7 +99,11 @@ export default function TaskModal() {
             exit="exit"
             onClick={close}
             className="fixed inset-0 z-40"
-            style={{ background: "rgba(0,0,0,0.5)" }}
+            style={{
+              background: "rgba(0,0,0,0.45)",
+              backdropFilter: "blur(4px)",
+              WebkitBackdropFilter: "blur(4px)",
+            }}
           />
 
           {/* Modal panel */}
@@ -108,17 +112,19 @@ export default function TaskModal() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-y-0 right-0 z-40 flex flex-col w-full max-w-3xl border-l"
+            className="fixed inset-y-0 right-0 z-40 flex flex-col w-full max-w-[680px] glass-2"
             style={{
-              background: "var(--bg-surface)",
-              borderColor: "var(--border)",
-              boxShadow: "-10px 0 40px rgba(0,0,0,0.4)",
+              borderLeft: "1px solid rgba(255,255,255,0.06)",
+              borderTop: "none",
+              borderRight: "none",
+              borderBottom: "none",
+              boxShadow: "-10px 0 40px rgba(0,0,0,0.4), 0 32px 64px rgba(0,0,0,0.6)",
             }}
           >
             {/* Header */}
             <div
-              className="flex items-center gap-3 px-5 py-3 border-b shrink-0"
-              style={{ borderColor: "var(--border)" }}
+              className="flex items-center gap-3 px-5 py-3 shrink-0"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
             >
               <motion.button
                 onClick={close}
@@ -166,7 +172,7 @@ export default function TaskModal() {
             {/* Body: split layout */}
             <div className="flex flex-1 min-h-0">
               {/* Left: editor */}
-              <div className="flex-1 overflow-y-auto p-5 scrollbar-hide">
+              <div className="flex-1 overflow-y-auto scrollbar-hide" style={{ padding: 32 }}>
                 <BodyEditor
                   todoId={todo.id}
                   initialContent={todo.body}
@@ -176,8 +182,8 @@ export default function TaskModal() {
 
               {/* Right: metadata + subtasks */}
               <div
-                className="w-[280px] shrink-0 overflow-y-auto p-5 border-l scrollbar-hide"
-                style={{ borderColor: "var(--border)" }}
+                className="w-[240px] shrink-0 overflow-y-auto p-5 scrollbar-hide"
+                style={{ borderLeft: "1px solid rgba(255,255,255,0.06)" }}
               >
                 <TaskMetaSidebar todo={todo} />
 

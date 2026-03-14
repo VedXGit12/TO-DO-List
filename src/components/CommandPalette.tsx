@@ -31,7 +31,7 @@ export default function CommandPalette() {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop — subtle blur over entire app */}
           <motion.div
             variants={modalOverlayVariants}
             initial="hidden"
@@ -39,7 +39,11 @@ export default function CommandPalette() {
             exit="exit"
             onClick={close}
             className="fixed inset-0 z-50"
-            style={{ background: "rgba(0,0,0,0.6)" }}
+            style={{
+              background: "rgba(0,0,0,0.45)",
+              backdropFilter: "blur(4px)",
+              WebkitBackdropFilter: "blur(4px)",
+            }}
           />
 
           {/* Palette */}
@@ -49,44 +53,53 @@ export default function CommandPalette() {
             animate="visible"
             exit="exit"
             onKeyDown={handleKeyDown}
-            className="fixed z-50 left-1/2 top-[15%] w-full max-w-[560px] -translate-x-1/2 rounded-xl border overflow-hidden"
+            className="fixed z-50 left-1/2 top-[20%] w-full max-w-[640px] -translate-x-1/2 glass-3 overflow-hidden"
             style={{
-              background: "var(--bg-surface)",
-              borderColor: "var(--border)",
-              boxShadow: "0 25px 80px rgba(0,0,0,0.6)",
+              borderRadius: 18,
+              maxHeight: 480,
+              boxShadow: "0 1px 2px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25), 0 32px 64px rgba(0,0,0,0.6)",
             }}
           >
-            {/* Search input */}
+            {/* Search input row — 56px */}
             <div
-              className="flex items-center gap-3 px-4 py-3 border-b"
-              style={{ borderColor: "var(--border)" }}
+              className="flex items-center gap-3 px-4"
+              style={{
+                height: 56,
+                borderBottom: "1px solid rgba(255,255,255,0.08)",
+              }}
             >
-              <Search size={16} style={{ color: "var(--text-secondary)", flexShrink: 0 }} />
+              <Search size={20} style={{ color: "var(--accent)", flexShrink: 0 }} />
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search tasks, projects, or actions…"
-                className="flex-1 bg-transparent text-sm outline-none"
-                style={{ color: "var(--text-primary)" }}
+                className="flex-1 bg-transparent outline-none"
+                style={{ color: "var(--text-primary)", fontSize: 17, fontWeight: 400 }}
               />
               <span
-                className="text-xs px-1.5 py-0.5 rounded font-mono shrink-0"
-                style={{ color: "var(--text-secondary)", background: "var(--bg-elevated)" }}
+                className="px-1.5 py-0.5 rounded shrink-0"
+                style={{
+                  color: "var(--text-secondary)",
+                  background: "rgba(255,255,255,0.08)",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  opacity: 0.7,
+                }}
               >
                 Esc
               </span>
             </div>
 
             {/* Results */}
-            <div className="max-h-[360px] overflow-y-auto scrollbar-hide py-2">
+            <div className="overflow-y-auto scrollbar-hide py-2" style={{ maxHeight: 480 - 56 - 40 }}>
               {flatCommands.length === 0 && query.trim() ? (
                 <motion.div
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="px-4 py-8 text-center"
                 >
-                  <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                  <p style={{ color: "var(--text-secondary)", fontSize: 14 }}>
                     No results for &apos;{query}&apos;
                   </p>
                 </motion.div>
@@ -94,9 +107,15 @@ export default function CommandPalette() {
                 <motion.div variants={listVariants} initial="hidden" animate="visible">
                   {results.map((group) => (
                     <div key={group.label}>
+                      {/* Section header */}
                       <div
-                        className="px-4 py-1.5 text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: "var(--text-secondary)" }}
+                        className="px-4"
+                        style={{
+                          fontSize: 11,
+                          textTransform: "uppercase",
+                          color: "rgba(255,255,255,0.3)",
+                          padding: "8px 16px 4px",
+                        }}
                       >
                         {group.label}
                       </div>
@@ -118,14 +137,24 @@ export default function CommandPalette() {
               )}
             </div>
 
-            {/* Footer hints */}
+            {/* Footer — 40px */}
             <div
-              className="flex items-center gap-4 px-4 py-2 border-t text-xs"
-              style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
+              className="flex items-center gap-4 px-4"
+              style={{
+                height: 40,
+                background: "rgba(255,255,255,0.04)",
+                borderTop: "1px solid rgba(255,255,255,0.08)",
+                color: "var(--text-secondary)",
+                fontFamily: "var(--font-mono)",
+                fontSize: 11,
+                opacity: 0.7,
+              }}
             >
-              <span>↑↓ navigate</span>
-              <span>↵ select</span>
-              <span>Esc close</span>
+              <span>↑↓ Navigate</span>
+              <span>·</span>
+              <span>↵ Select</span>
+              <span>·</span>
+              <span>Esc Close</span>
             </div>
           </motion.div>
         </>

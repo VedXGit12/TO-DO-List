@@ -17,9 +17,9 @@ export default function ProductivityScore({ data }: ProductivityScoreProps) {
   const accentHex = ACCENT_COLORS[accentColor];
 
   function gaugeColor(score: number): string {
-    if (score >= 80) return "#22c55e";
+    if (score >= 80) return "rgba(80,220,140,0.9)";
     if (score >= 50) return accentHex;
-    return "#ef4444";
+    return "rgba(255,100,100,0.9)";
   }
 
   const { score, trend, delta } = data;
@@ -27,7 +27,7 @@ export default function ProductivityScore({ data }: ProductivityScoreProps) {
   const color = gaugeColor(score);
 
   const trendArrow = trend === "up" ? "↑" : trend === "down" ? "↓" : "→";
-  const trendColor = trend === "up" ? "#22c55e" : trend === "down" ? "#ef4444" : "var(--text-secondary)";
+  const trendColor = trend === "up" ? "rgba(80,220,140,0.9)" : trend === "down" ? "rgba(255,100,100,0.9)" : "var(--text-secondary)";
   const trendRotation = trend === "up" ? -45 : trend === "down" ? 45 : 0;
 
   return (
