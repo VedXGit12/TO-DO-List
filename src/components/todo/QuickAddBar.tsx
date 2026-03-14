@@ -46,7 +46,9 @@ export default function QuickAddBar() {
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => { if (e.key === "Enter") submit(); }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") submit();
+        }}
         placeholder="Add a task... press Enter"
         className="flex-1 bg-transparent text-sm outline-none"
         style={{ color: "var(--text-primary)" }}

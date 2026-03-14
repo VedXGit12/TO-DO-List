@@ -115,11 +115,11 @@ export const useTodoStore = create<TodoStore>()(
 
       reorderTodos: async (reordered) => {
         set({ todos: reordered });
-        const tx = db.todos.toCollection();
-        await tx.modify(() => {}); // noop to start tx
-        for (let i = 0; i < reordered.length; i++) {
-          await db.todos.update(reordered[i].id, { order: i, updatedAt: Date.now() });
-        }
+        await db.transaction("rw", db.todos, async () => {
+          for (let i = 0; i < reordered.length; i++) {
+            await db.todos.update(reordered[i].id, { order: i, updatedAt: Date.now() });
+          }
+        });
       },
 
       addTag: async (data) => {

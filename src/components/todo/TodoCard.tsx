@@ -68,7 +68,13 @@ export default function TodoCard({ todo }: TodoCardProps) {
             value={editTitle}
             onChange={(e) => setEditTitle(e.target.value)}
             onBlur={confirmTitle}
-            onKeyDown={(e) => { if (e.key === "Enter") confirmTitle(); if (e.key === "Escape") { setEditTitle(todo.title); setEditing(false); } }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") confirmTitle();
+              if (e.key === "Escape") {
+                setEditTitle(todo.title);
+                setEditing(false);
+              }
+            }}
             className="w-full bg-transparent text-sm font-medium outline-none"
             style={{ color: "var(--text-primary)" }}
             onClick={(e) => e.stopPropagation()}
