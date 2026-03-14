@@ -12,12 +12,10 @@ export default function ProgressRing({ progress, size = 48 }: ProgressRingProps)
   const offset = circumference * (1 - progress);
   const percent = Math.round(progress * 100);
 
-  // Amber at low progress, green as it approaches 100%
-  const arcColor = progress >= 1
+  // Amber at low progress, green at high progress
+  const arcColor = progress >= 0.5
     ? "rgba(80,220,140,0.9)"
-    : progress >= 0.5
-      ? "rgba(80,220,140,0.9)"
-      : "rgba(255,179,71,0.9)";
+    : "rgba(255,179,71,0.9)";
 
   const isComplete = progress >= 1;
 

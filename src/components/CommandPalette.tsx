@@ -5,6 +5,10 @@ import { modalOverlayVariants, cmdVariants, listVariants } from "../lib/animatio
 import { useCommandPalette } from "../hooks/useCommandPalette";
 import CommandRow from "./ui/CommandRow";
 
+const MODAL_MAX_HEIGHT = 480;
+const SEARCH_HEIGHT = 56;
+const FOOTER_HEIGHT = 40;
+
 export default function CommandPalette() {
   const {
     isOpen,
@@ -56,15 +60,15 @@ export default function CommandPalette() {
             className="fixed z-50 left-1/2 top-[20%] w-full max-w-[640px] -translate-x-1/2 glass-3 overflow-hidden"
             style={{
               borderRadius: 18,
-              maxHeight: 480,
+              maxHeight: MODAL_MAX_HEIGHT,
               boxShadow: "0 1px 2px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25), 0 32px 64px rgba(0,0,0,0.6)",
             }}
           >
-            {/* Search input row — 56px */}
+            {/* Search input row */}
             <div
               className="flex items-center gap-3 px-4"
               style={{
-                height: 56,
+                height: SEARCH_HEIGHT,
                 borderBottom: "1px solid rgba(255,255,255,0.08)",
               }}
             >
@@ -92,7 +96,7 @@ export default function CommandPalette() {
             </div>
 
             {/* Results */}
-            <div className="overflow-y-auto scrollbar-hide py-2" style={{ maxHeight: 480 - 56 - 40 }}>
+            <div className="overflow-y-auto scrollbar-hide py-2" style={{ maxHeight: MODAL_MAX_HEIGHT - SEARCH_HEIGHT - FOOTER_HEIGHT }}>
               {flatCommands.length === 0 && query.trim() ? (
                 <motion.div
                   initial={{ opacity: 0, y: 4 }}
@@ -137,11 +141,11 @@ export default function CommandPalette() {
               )}
             </div>
 
-            {/* Footer — 40px */}
+            {/* Footer */}
             <div
               className="flex items-center gap-4 px-4"
               style={{
-                height: 40,
+                height: FOOTER_HEIGHT,
                 background: "rgba(255,255,255,0.04)",
                 borderTop: "1px solid rgba(255,255,255,0.08)",
                 color: "var(--text-secondary)",
