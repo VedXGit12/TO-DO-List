@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { hexToRgba } from "../lib/colors";
 
 export type ViewMode = "list" | "kanban" | "calendar" | "stats";
 
@@ -90,15 +91,15 @@ export const useUIStore = create<UIState>()(
         }
         set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) }));
       },
-      setAccentColor: (color) => {
+      setAccentColor: (color: AccentColor) => {
         const hex = ACCENT_COLORS[color];
         document.documentElement.style.setProperty("--accent", hex);
-        document.documentElement.style.setProperty("--accent-dim", hex + "1f");
-        document.documentElement.style.setProperty("--accent-10", hex + "1a");
-        document.documentElement.style.setProperty("--accent-20", hex + "33");
-        document.documentElement.style.setProperty("--accent-40", hex + "66");
-        document.documentElement.style.setProperty("--accent-45", hex + "73");
-        document.documentElement.style.setProperty("--accent-70", hex + "b3");
+        document.documentElement.style.setProperty("--accent-dim", hexToRgba(hex, 0.12));
+        document.documentElement.style.setProperty("--accent-10", hexToRgba(hex, 0.10));
+        document.documentElement.style.setProperty("--accent-20", hexToRgba(hex, 0.20));
+        document.documentElement.style.setProperty("--accent-40", hexToRgba(hex, 0.40));
+        document.documentElement.style.setProperty("--accent-45", hexToRgba(hex, 0.45));
+        document.documentElement.style.setProperty("--accent-70", hexToRgba(hex, 0.70));
         set({ accentColor: color });
       },
       setCompactMode: (on) => set({ compactMode: on }),
