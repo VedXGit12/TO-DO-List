@@ -35,7 +35,9 @@ export default function StatsBoard() {
 
   // Load all todos from Dexie on mount
   useEffect(() => {
-    getAllTodos().then(setAllTodos);
+    getAllTodos()
+      .then(setAllTodos)
+      .catch(() => setAllTodos([]));
   }, []);
 
   // Filter by project if selected

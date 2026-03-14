@@ -23,9 +23,11 @@ export default function HeatmapGrid({ data }: HeatmapGridProps) {
   const [hovered, setHovered] = useState<HeatmapDay | null>(null);
   const [hoverPos, setHoverPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
+  const EMPTY_GRID = { grid: [] as (HeatmapDay | null)[][], monthLabels: [] as { col: number; label: string }[], cols: 0 };
+
   // Organize data into columns (weeks) × rows (days)
   const { grid, monthLabels, cols } = useMemo(() => {
-    if (data.length === 0) return { grid: [] as (HeatmapDay | null)[][], monthLabels: [] as { col: number; label: string }[], cols: 0 };
+    if (data.length === 0) return EMPTY_GRID;
 
     const firstDate = parseISO(data[0].date);
 
@@ -99,25 +101,25 @@ export default function HeatmapGrid({ data }: HeatmapGridProps) {
         >
           {grid.map((column, colIdx) => (
             <div key={colIdx} className="flex flex-col gap-[2px]">
-              {column.map((day, rowIdx) => (
-                <motion.div
-                  key={`${colIdx}-${rowIdx}`}
-                  variants={{
-                    hidden: { scale: 0, opacity: 0 },
-                    visible: {
-                      scale: 1,
-                      opacity: 1,
-                      transition: {
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 25,
-                        delay: colIdx * 0.008,
+              {column.map((day, rowIdx) =>
+                day ? (
+                  <motion.div
+                    key={`${colIdx}-${rowIdx}`}
+                    variants={{
+                      hidden: { scale: 0, opacity: 0 },
+                      visible: {
+                        scale: 1,
+                        opacity: 1,
+                        transition: {
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 25,
+                          delay: colIdx * 0.008,
+                        },
                       },
-                    },
-                  }}
-                  whileHover={{ scale: 1.3 }}
-                  onMouseEnter={(e) => {
-                    if (day) {
+                    }}
+                    whileHover={{ scale: 1.3 }}
+                    onMouseEnter={(e) => {
                       setHovered(day);
                       const rect = (e.target as HTMLElement).getBoundingClientRect();
                       const parent = (e.target as HTMLElement).closest(".relative")?.getBoundingClientRect();
@@ -127,17 +129,22 @@ export default function HeatmapGrid({ data }: HeatmapGridProps) {
                           y: rect.top - parent.top - 8,
                         });
                       }
-                    }
-                  }}
-                  onMouseLeave={() => setHovered(null)}
-                  className="rounded-sm cursor-pointer"
-                  style={{
-                    width: CELL,
-                    height: CELL,
-                    background: day ? LEVEL_COLORS[day.level] : "transparent",
-                  }}
-                />
-              ))}
+                    }}
+                    onMouseLeave={() => setHovered(null)}
+                    className="rounded-sm cursor-pointer"
+                    style={{
+                      width: CELL,
+                      height: CELL,
+                      background: LEVEL_COLORS[day.level],
+                    }}
+                  />
+                ) : (
+                  <div
+                    key={`${colIdx}-${rowIdx}`}
+                    style={{ width: CELL, height: CELL }}
+                  />
+                )
+              )}
             </div>
           ))}
         </motion.div>
