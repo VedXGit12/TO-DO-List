@@ -86,8 +86,8 @@ export default function CalendarGrid({
     if (!e.over) return;
 
     const todoId = String(e.active.id);
-    const targetDate = new Date(String(e.over.id));
-    if (isNaN(targetDate.getTime())) return;
+    const targetDate = e.over.data.current?.date as Date | undefined;
+    if (!targetDate || !(targetDate instanceof Date)) return;
 
     updateTodo(todoId, { dueAt: targetDate.getTime() });
     addToast({

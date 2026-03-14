@@ -47,10 +47,13 @@ export function getCalendarDays(month: number, year: number): Date[] {
   const start = startOfWeek(startOfMonth(new Date(year, month)))
   const end = endOfWeek(endOfMonth(new Date(year, month)))
   const days = eachDayOfInterval({ start, end })
-  // Ensure exactly 42 days (6 rows × 7 cols)
-  while (days.length < 42) {
+  // Pad to exactly 42 days if needed (should already be 35-42)
+  if (days.length < 42) {
     const last = days[days.length - 1]
-    days.push(new Date(last.getFullYear(), last.getMonth(), last.getDate() + 1))
+    for (let i = days.length; i < 42; i++) {
+      const prev = days[i - 1] || last
+      days.push(new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() + 1))
+    }
   }
   return days.slice(0, 42)
 }

@@ -10,6 +10,8 @@ export interface Toast {
   undoFn?: () => void;
 }
 
+const toastTimers = new Map<string, ReturnType<typeof setTimeout>>();
+
 interface UIState {
   sidebarOpen: boolean;
   activeProjectId: string | null;
@@ -45,11 +47,20 @@ export const useUIStore = create<UIState>()(
       addToast: (toast) => {
         const id = crypto.randomUUID();
         set((s) => ({ toasts: [{ ...toast, id }, ...s.toasts] }));
-        setTimeout(() => {
+        const timer = setTimeout(() => {
+          toastTimers.delete(id);
           set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) }));
         }, 3000);
+        toastTimers.set(id, timer);
       },
-      removeToast: (id) => set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) })),
+      removeToast: (id) => {
+        const timer = toastTimers.get(id);
+        if (timer) {
+          clearTimeout(timer);
+          toastTimers.delete(id);
+        }
+        set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) }));
+      },
     }),
     {
       name: "ui-store",

@@ -24,6 +24,7 @@ export default function TaskChip({ todo, isDragOverlay }: TaskChipProps) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: todo.id,
     data: { todo },
+    disabled: isDragOverlay,
   });
 
   return (
