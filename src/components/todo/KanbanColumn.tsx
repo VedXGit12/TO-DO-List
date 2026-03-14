@@ -6,16 +6,10 @@ import { Plus } from "lucide-react";
 import { listVariants, cardVariants } from "../../lib/animations";
 import { useTodoStore } from "../../store/todoStore";
 import { useUIStore, ACCENT_COLORS } from "../../store/uiStore";
+import { hexToRgba } from "../../lib/colors";
 import AnimatedCounter from "../ui/AnimatedCounter";
 import SortableTodoCard from "./SortableTodoCard";
 import type { Todo } from "../../types/todo";
-
-function hexToRgba(hex: string, alpha: number): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r},${g},${b},${alpha})`;
-}
 
 const COLUMN_CONFIG: Record<Todo["status"], { label: string; dotColor: string }> = {
   todo:        { label: "Todo",        dotColor: "#6b7280" },

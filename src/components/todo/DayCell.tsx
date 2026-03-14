@@ -2,15 +2,9 @@ import { motion } from "framer-motion";
 import { isToday as checkIsToday } from "date-fns";
 import { useDroppable } from "@dnd-kit/core";
 import { useUIStore, ACCENT_COLORS } from "../../store/uiStore";
+import { hexToRgba } from "../../lib/colors";
 import TaskChip from "../ui/TaskChip";
 import type { Todo } from "../../types/todo";
-
-function hexToRgba(hex: string, alpha: number): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r},${g},${b},${alpha})`;
-}
 
 interface DayCellProps {
   date: Date;
