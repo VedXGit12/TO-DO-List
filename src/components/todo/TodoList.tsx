@@ -130,13 +130,13 @@ export default function TodoList() {
 
 function GroupHeader({ title, count }: { title: string; count: number }) {
   return (
-    <div className="flex items-center gap-2 py-1">
-      <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>
+    <div className="flex items-center gap-2.5 py-1.5">
+      <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-tertiary)", letterSpacing: "0.1em" }}>
         {title}
       </span>
       <span
-        className="text-xs px-1.5 py-0.5 rounded-full"
-        style={{ color: "var(--text-secondary)", background: "var(--bg-elevated)" }}
+        className="text-xs px-2 py-0.5 rounded-full font-medium"
+        style={{ color: "var(--text-secondary)", background: "rgba(255,255,255,0.05)", fontSize: 11 }}
       >
         {count}
       </span>

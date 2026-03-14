@@ -7,8 +7,8 @@ interface AnimatedCounterProps {
 export default function AnimatedCounter({ count }: AnimatedCounterProps) {
   return (
     <span
-      className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full text-xs font-medium"
-      style={{ background: "var(--bg-elevated)", color: "var(--text-secondary)" }}
+      className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 text-xs font-medium"
+      style={{ background: "rgba(255,255,255,0.06)", color: "var(--text-secondary)", borderRadius: 8 }}
     >
       <AnimatePresence mode="wait">
         <motion.span

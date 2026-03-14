@@ -39,13 +39,13 @@ export default function MotionToast() {
               pointerEvents: "auto",
               display: "flex",
               alignItems: "center",
-              gap: 8,
-              padding: "8px 12px",
-              borderRadius: 14,
-              fontSize: 12,
+              gap: 10,
+              padding: "10px 14px",
+              borderRadius: 18,
+              fontSize: 13,
               color: "var(--text-primary)",
-              minWidth: 200,
-              maxWidth: 340,
+              minWidth: 220,
+              maxWidth: 360,
             }}
           >
             {ICONS[toast.type]}

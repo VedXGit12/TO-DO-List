@@ -114,24 +114,24 @@ export default function TaskModal() {
             exit="exit"
             className="fixed inset-y-0 right-0 z-40 flex flex-col w-full max-w-[680px] glass-2"
             style={{
-              borderLeft: "1px solid rgba(255,255,255,0.06)",
+              borderLeft: "1px solid rgba(255,255,255,0.05)",
               borderTop: "none",
               borderRight: "none",
               borderBottom: "none",
-              boxShadow: "-10px 0 40px rgba(0,0,0,0.4), 0 32px 64px rgba(0,0,0,0.6)",
+              boxShadow: "-12px 0 48px rgba(0,0,0,0.35), 0 32px 64px rgba(0,0,0,0.5)",
             }}
           >
             {/* Header */}
             <div
-              className="flex items-center gap-3 px-5 py-3 shrink-0"
-              style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+              className="flex items-center gap-3.5 px-6 py-4 shrink-0"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
             >
               <motion.button
                 onClick={close}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="p-1 rounded"
-                style={{ color: "var(--text-secondary)" }}
+                className="p-1.5"
+                style={{ color: "var(--text-tertiary)", borderRadius: 10 }}
               >
                 <ArrowLeft size={18} />
               </motion.button>
@@ -141,17 +141,17 @@ export default function TaskModal() {
                 onChange={(e) => setEditTitle(e.target.value)}
                 onBlur={confirmTitle}
                 onKeyDown={(e) => { if (e.key === "Enter") confirmTitle(); }}
-                className="flex-1 bg-transparent text-sm font-semibold outline-none"
-                style={{ color: "var(--text-primary)" }}
+                className="flex-1 bg-transparent font-semibold outline-none"
+                style={{ color: "var(--text-primary)", fontSize: 15, letterSpacing: "-0.02em" }}
               />
 
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-2">
                 <motion.button
                   onClick={handleArchive}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-1.5 rounded"
-                  style={{ color: "var(--text-secondary)" }}
+                  className="p-2"
+                  style={{ color: "var(--text-tertiary)", borderRadius: 10 }}
                   title="Archive"
                 >
                   <Archive size={15} />
@@ -160,8 +160,8 @@ export default function TaskModal() {
                   onClick={handleDelete}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="p-1.5 rounded"
-                  style={{ color: confirmDelete ? "var(--p1)" : "var(--text-secondary)" }}
+                  className="p-2"
+                  style={{ color: confirmDelete ? "var(--p1)" : "var(--text-tertiary)", borderRadius: 10 }}
                   title={confirmDelete ? "Click again to confirm delete" : "Delete"}
                 >
                   <Trash2 size={15} />
@@ -172,7 +172,7 @@ export default function TaskModal() {
             {/* Body: split layout */}
             <div className="flex flex-1 min-h-0">
               {/* Left: editor */}
-              <div className="flex-1 overflow-y-auto scrollbar-hide" style={{ padding: 32 }}>
+              <div className="flex-1 overflow-y-auto scrollbar-hide" style={{ padding: 36 }}>
                 <BodyEditor
                   todoId={todo.id}
                   initialContent={todo.body}
@@ -182,15 +182,15 @@ export default function TaskModal() {
 
               {/* Right: metadata + subtasks */}
               <div
-                className="w-[240px] shrink-0 overflow-y-auto p-5 scrollbar-hide"
-                style={{ borderLeft: "1px solid rgba(255,255,255,0.06)" }}
+                className="w-[240px] shrink-0 overflow-y-auto p-6 scrollbar-hide"
+                style={{ borderLeft: "1px solid rgba(255,255,255,0.05)" }}
               >
                 <TaskMetaSidebar todo={todo} />
 
-                <div className="mt-6">
+                <div className="mt-7">
                   <h3
                     className="text-xs font-semibold uppercase tracking-wider mb-3"
-                    style={{ color: "var(--text-secondary)" }}
+                    style={{ color: "var(--text-tertiary)", letterSpacing: "0.1em" }}
                   >
                     Subtasks
                   </h3>

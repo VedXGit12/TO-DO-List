@@ -83,17 +83,14 @@ export default function ShortcutOverlay() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative w-full max-w-2xl mx-4 rounded-xl border p-6 overflow-y-auto max-h-[80vh]"
-            style={{
-              background: "var(--bg-surface)",
-              borderColor: "var(--border)",
-            }}
+            className="relative w-full max-w-2xl mx-4 glass-3 p-7 overflow-y-auto max-h-[80vh]"
+            style={{ borderRadius: 24 }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-7">
               <h2
                 className="text-lg font-semibold"
-                style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+                style={{ color: "var(--text-primary)", letterSpacing: "-0.02em" }}
               >
                 Keyboard Shortcuts
               </h2>
@@ -102,7 +99,7 @@ export default function ShortcutOverlay() {
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setShortcutOverlayOpen(false)}
                 className="p-1.5 rounded-md"
-                style={{ color: "var(--text-secondary)" }}
+                style={{ color: "var(--text-tertiary)", borderRadius: 10 }}
                 aria-label="Close shortcuts overlay"
               >
                 <X size={16} />
@@ -110,12 +107,12 @@ export default function ShortcutOverlay() {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
               {SHORTCUT_GROUPS.map((group) => (
                 <div key={group.group}>
                   <h3
-                    className="text-xs font-semibold uppercase tracking-wider mb-3"
-                    style={{ color: "var(--text-secondary)" }}
+                    className="text-xs font-semibold uppercase tracking-wider mb-3.5"
+                    style={{ color: "var(--text-tertiary)", letterSpacing: "0.1em" }}
                   >
                     {group.group}
                   </h3>
@@ -138,14 +135,15 @@ export default function ShortcutOverlay() {
                           {shortcut.keys.map((key, ki) => (
                             <kbd
                               key={ki}
-                              className="inline-flex items-center justify-center px-1.5 py-0.5 text-xs rounded"
+                              className="inline-flex items-center justify-center px-2 py-0.5 text-xs"
                               style={{
-                                background: "var(--bg-elevated)",
-                                border: "1px solid var(--border)",
+                                background: "rgba(255,255,255,0.06)",
+                                border: "1px solid rgba(255,255,255,0.08)",
                                 fontFamily: "var(--font-mono)",
                                 color: "var(--text-primary)",
-                                boxShadow: "0 1px 0 var(--border)",
-                                minWidth: 22,
+                                boxShadow: "0 1px 0 rgba(255,255,255,0.04)",
+                                minWidth: 24,
+                                borderRadius: 8,
                               }}
                             >
                               {key}

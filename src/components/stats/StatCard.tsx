@@ -25,7 +25,7 @@ export default function StatCard({
       custom={custom}
       className="relative glass-2 overflow-hidden"
       style={{
-        borderRadius: 16,
+        borderRadius: 22,
       }}
     >
       {/* Subtle colored radial gradient in top-left */}
@@ -46,7 +46,7 @@ export default function StatCard({
           )}
           <span
             className="font-semibold uppercase tracking-wider"
-            style={{ color: "var(--text-secondary)", fontSize: 12, letterSpacing: "0.08em" }}
+            style={{ color: "var(--text-tertiary)", fontSize: 11, letterSpacing: "0.1em" }}
           >
             {title}
           </span>

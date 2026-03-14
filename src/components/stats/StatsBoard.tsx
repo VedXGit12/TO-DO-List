@@ -86,11 +86,12 @@ export default function StatsBoard() {
         <select
           value={selectedProject}
           onChange={(e) => setSelectedProject(e.target.value)}
-          className="text-xs px-3 py-1.5 rounded-md outline-none"
+          className="text-xs px-3 py-2 outline-none"
           style={{
-            background: "var(--bg-elevated)",
+            background: "rgba(255,255,255,0.04)",
             color: "var(--text-primary)",
-            border: "1px solid var(--border)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 14,
           }}
         >
           <option value="all">All Projects</option>
@@ -102,17 +103,18 @@ export default function StatsBoard() {
         </select>
 
         <div
-          className="flex items-center gap-0.5 px-1 py-0.5 rounded-lg"
-          style={{ background: "var(--bg-elevated)" }}
+          className="flex items-center gap-0.5 px-1.5 py-1"
+          style={{ background: "rgba(255,255,255,0.04)", borderRadius: 14, border: "1px solid rgba(255,255,255,0.06)" }}
         >
           {(["30", "90", "year"] as TimeRange[]).map((r) => (
             <button
               key={r}
               onClick={() => setTimeRange(r)}
-              className="px-2.5 py-1 rounded-md text-xs font-medium transition-colors"
+              className="px-3 py-1.5 text-xs font-medium transition-colors"
               style={{
                 color: timeRange === r ? "var(--accent)" : "var(--text-secondary)",
                 background: timeRange === r ? "var(--accent-dim)" : "transparent",
+                borderRadius: 10,
               }}
             >
               {r === "year" ? "This year" : `Last ${r} days`}
@@ -140,7 +142,7 @@ export default function StatsBoard() {
           <AnimatedNumber
             value={totalDone}
             className="text-3xl font-bold"
-            style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+            style={{ fontFamily: "var(--font-sans)", color: "var(--text-primary)" }}
           />
         </StatCard>
 
@@ -148,7 +150,7 @@ export default function StatsBoard() {
           <AnimatedNumber
             value={dueToday}
             className="text-3xl font-bold"
-            style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+            style={{ fontFamily: "var(--font-sans)", color: "var(--text-primary)" }}
           />
         </StatCard>
       </motion.div>

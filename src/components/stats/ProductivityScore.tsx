@@ -72,7 +72,7 @@ export default function ProductivityScore({ data }: ProductivityScoreProps) {
           <AnimatedNumber
             value={score}
             className="text-2xl font-bold"
-            style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+            style={{ fontFamily: "var(--font-sans)", color: "var(--text-primary)" }}
           />
         </div>
       </div>

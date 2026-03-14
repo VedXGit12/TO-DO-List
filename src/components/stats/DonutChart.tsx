@@ -102,7 +102,7 @@ export default function DonutChart({ data }: DonutChartProps) {
           <AnimatedNumber
             value={total}
             className="text-xl font-bold"
-            style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+            style={{ fontFamily: "var(--font-sans)", color: "var(--text-primary)" }}
           />
           <span className="text-[10px]" style={{ color: "var(--text-secondary)" }}>
             active

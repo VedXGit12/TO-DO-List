@@ -91,14 +91,14 @@ export default function SettingsPanel() {
             animate={{ x: 0 }}
             exit={{ x: 380 }}
             transition={{ type: "spring", stiffness: 350, damping: 30 }}
-            className="relative w-full max-w-sm border-l overflow-y-auto"
-            style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}
+            className="relative w-full max-w-sm overflow-y-auto glass-2"
+            style={{ borderLeft: "1px solid rgba(255,255,255,0.05)" }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-5 border-b" style={{ borderColor: "var(--border)" }}>
+            <div className="flex items-center justify-between p-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
               <h2
                 className="text-lg font-semibold"
-                style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+                style={{ color: "var(--text-primary)", letterSpacing: "-0.02em" }}
               >
                 Settings
               </h2>
@@ -106,35 +106,36 @@ export default function SettingsPanel() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setSettingsPanelOpen(false)}
-                className="p-1.5 rounded-md"
-                style={{ color: "var(--text-secondary)" }}
+                className="p-2"
+                style={{ color: "var(--text-tertiary)", borderRadius: 10 }}
                 aria-label="Close settings"
               >
                 <X size={16} />
               </motion.button>
             </div>
 
-            <div className="p-5 space-y-6">
+            <div className="p-6 space-y-7">
               {/* Appearance */}
               <section>
-                <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--text-secondary)" }}>
+                <h3 className="text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: "var(--text-tertiary)", letterSpacing: "0.1em" }}>
                   Appearance
                 </h3>
 
                 {/* Accent color */}
-                <div className="mb-4">
-                  <label className="text-sm mb-2 block" style={{ color: "var(--text-primary)" }}>
+                <div className="mb-5">
+                  <label className="text-sm mb-2.5 block font-medium" style={{ color: "var(--text-primary)" }}>
                     Accent Color
                   </label>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2.5">
                     {ACCENT_SWATCHES.map((c) => (
                       <button
                         key={c}
                         onClick={() => setAccentColor(c)}
-                        className="w-7 h-7 rounded-full border-2 transition-transform hover:scale-110"
+                        className="w-8 h-8 rounded-full border-2 transition-all hover:scale-110"
                         style={{
                           background: ACCENT_COLORS[c],
                           borderColor: accentColor === c ? "var(--text-primary)" : "transparent",
+                          boxShadow: accentColor === c ? `0 0 12px ${ACCENT_COLORS[c]}40` : "none",
                         }}
                         aria-label={`Set accent color to ${c}`}
                       />
@@ -143,18 +144,18 @@ export default function SettingsPanel() {
                 </div>
 
                 {/* Sidebar default */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm" style={{ color: "var(--text-primary)" }}>Sidebar open on launch</span>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>Sidebar open on launch</span>
                   <button
                     onClick={() => setSidebarDefaultOpen(!sidebarDefaultOpen)}
-                    className="w-9 h-5 rounded-full relative transition-colors"
-                    style={{ background: sidebarDefaultOpen ? "var(--accent)" : "var(--bg-elevated)" }}
+                    className="w-10 h-[22px] rounded-full relative transition-colors"
+                    style={{ background: sidebarDefaultOpen ? "var(--accent)" : "rgba(255,255,255,0.08)" }}
                     aria-label="Toggle sidebar default state"
                   >
                     <motion.div
-                      className="absolute top-0.5 w-4 h-4 rounded-full"
+                      className="absolute top-[3px] w-4 h-4 rounded-full"
                       style={{ background: "var(--text-primary)" }}
-                      animate={{ left: sidebarDefaultOpen ? 18 : 2 }}
+                      animate={{ left: sidebarDefaultOpen ? 20 : 3 }}
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   </button>
@@ -162,17 +163,17 @@ export default function SettingsPanel() {
 
                 {/* Compact mode */}
                 <div className="flex items-center justify-between">
-                  <span className="text-sm" style={{ color: "var(--text-primary)" }}>Compact mode</span>
+                  <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>Compact mode</span>
                   <button
                     onClick={() => setCompactMode(!compactMode)}
-                    className="w-9 h-5 rounded-full relative transition-colors"
-                    style={{ background: compactMode ? "var(--accent)" : "var(--bg-elevated)" }}
+                    className="w-10 h-[22px] rounded-full relative transition-colors"
+                    style={{ background: compactMode ? "var(--accent)" : "rgba(255,255,255,0.08)" }}
                     aria-label="Toggle compact mode"
                   >
                     <motion.div
-                      className="absolute top-0.5 w-4 h-4 rounded-full"
+                      className="absolute top-[3px] w-4 h-4 rounded-full"
                       style={{ background: "var(--text-primary)" }}
-                      animate={{ left: compactMode ? 18 : 2 }}
+                      animate={{ left: compactMode ? 20 : 3 }}
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   </button>
@@ -181,31 +182,31 @@ export default function SettingsPanel() {
 
               {/* Data */}
               <section>
-                <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--text-secondary)" }}>
+                <h3 className="text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: "var(--text-tertiary)", letterSpacing: "0.1em" }}>
                   Data
                 </h3>
 
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   <button
                     onClick={handleExportAll}
-                    className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm border transition-colors hover:opacity-80"
-                    style={{ borderColor: "var(--border)", color: "var(--text-primary)", background: "var(--bg-elevated)" }}
+                    className="w-full flex items-center gap-2.5 px-4 py-3 text-sm font-medium transition-colors hover:opacity-80"
+                    style={{ borderRadius: 14, color: "var(--text-primary)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
                   >
                     <Download size={14} /> Export all data
                   </button>
 
                   <label
-                    className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm border cursor-pointer transition-colors hover:opacity-80"
-                    style={{ borderColor: "var(--border)", color: "var(--text-primary)", background: "var(--bg-elevated)" }}
+                    className="w-full flex items-center gap-2.5 px-4 py-3 text-sm font-medium cursor-pointer transition-colors hover:opacity-80"
+                    style={{ borderRadius: 14, color: "var(--text-primary)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
                   >
-                    <Upload size={14} /> {importing ? "Importing..." : "Import data"}
+                    <Upload size={14} /> {importing ? "Importing…" : "Import data"}
                     <input type="file" accept=".json" onChange={handleImport} className="hidden" />
                   </label>
 
-                  <div className="pt-2">
-                    <div className="flex items-center gap-2 mb-2">
+                  <div className="pt-3">
+                    <div className="flex items-center gap-2 mb-2.5">
                       <Trash2 size={14} style={{ color: "var(--p1)" }} />
-                      <span className="text-sm" style={{ color: "var(--p1)" }}>Clear all data</span>
+                      <span className="text-sm font-medium" style={{ color: "var(--p1)" }}>Clear all data</span>
                     </div>
                     <div className="flex gap-2">
                       <input
@@ -213,21 +214,23 @@ export default function SettingsPanel() {
                         placeholder='Type "DELETE" to confirm'
                         value={deleteConfirm}
                         onChange={(e) => setDeleteConfirm(e.target.value)}
-                        className="flex-1 px-2 py-1.5 rounded text-sm border outline-none"
+                        className="flex-1 px-3 py-2 text-sm outline-none"
                         style={{
-                          background: "var(--bg-elevated)",
-                          borderColor: "var(--border)",
+                          background: "rgba(255,255,255,0.04)",
+                          border: "1px solid rgba(255,255,255,0.06)",
+                          borderRadius: 12,
                           color: "var(--text-primary)",
                         }}
                       />
                       <button
                         onClick={handleClearAll}
                         disabled={deleteConfirm !== "DELETE"}
-                        className="px-3 py-1.5 rounded text-sm font-medium transition-opacity"
+                        className="px-4 py-2 text-sm font-medium transition-opacity"
                         style={{
-                          background: deleteConfirm === "DELETE" ? "var(--p1)" : "var(--bg-elevated)",
-                          color: deleteConfirm === "DELETE" ? "#fff" : "var(--text-secondary)",
+                          background: deleteConfirm === "DELETE" ? "var(--p1)" : "rgba(255,255,255,0.04)",
+                          color: deleteConfirm === "DELETE" ? "#fff" : "var(--text-tertiary)",
                           opacity: deleteConfirm === "DELETE" ? 1 : 0.5,
+                          borderRadius: 12,
                         }}
                       >
                         Clear
@@ -235,7 +238,7 @@ export default function SettingsPanel() {
                     </div>
                   </div>
 
-                  <p className="text-xs pt-2" style={{ color: "var(--text-secondary)" }}>
+                  <p className="text-xs pt-2" style={{ color: "var(--text-tertiary)" }}>
                     ~{taskCount} tasks · ~{estSize} KB
                   </p>
                 </div>
@@ -243,10 +246,10 @@ export default function SettingsPanel() {
 
               {/* About */}
               <section>
-                <h3 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--text-secondary)" }}>
+                <h3 className="text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: "var(--text-tertiary)", letterSpacing: "0.1em" }}>
                   About
                 </h3>
-                <div className="space-y-1 text-sm" style={{ color: "var(--text-secondary)" }}>
+                <div className="space-y-1.5 text-sm" style={{ color: "var(--text-secondary)" }}>
                   <p>Kuro v1.0.0</p>
                   <p>Built with Framer Motion, Zustand, Dexie</p>
                 </div>

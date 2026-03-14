@@ -42,7 +42,7 @@ export default function CalendarNav({
 
   return (
     <div
-      className="flex items-center justify-between px-1 py-2"
+      className="flex items-center justify-between px-1 py-3"
       style={{ color: "var(--text-primary)" }}
     >
       {/* Left: arrows + label */}
@@ -51,8 +51,8 @@ export default function CalendarNav({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={handlePrev}
-          className="p-1.5 rounded-md"
-          style={{ color: "var(--text-secondary)" }}
+          className="p-1.5"
+          style={{ color: "var(--text-secondary)", borderRadius: 10 }}
         >
           <ChevronLeft size={16} />
         </motion.button>
@@ -67,7 +67,7 @@ export default function CalendarNav({
               animate="center"
               exit="exit"
               className="block text-sm font-semibold text-center"
-              style={{ fontFamily: "var(--font-display)" }}
+              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
             >
               {label}
             </motion.span>
@@ -78,30 +78,31 @@ export default function CalendarNav({
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={handleNext}
-          className="p-1.5 rounded-md"
-          style={{ color: "var(--text-secondary)" }}
+          className="p-1.5"
+          style={{ color: "var(--text-secondary)", borderRadius: 10 }}
         >
           <ChevronRight size={16} />
         </motion.button>
       </div>
 
       {/* Right: Today + Month/Week toggle */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleToday}
-          className="px-2.5 py-1 rounded-md text-xs font-medium"
+          className="px-3 py-1.5 text-xs font-semibold"
           style={{
             background: "var(--accent-dim)",
             color: "var(--accent)",
+            borderRadius: 12,
           }}
         >
           Today
         </motion.button>
         <div
-          className="flex items-center gap-0.5 px-1 py-0.5 rounded-lg"
-          style={{ background: "var(--bg-elevated)" }}
+          className="flex items-center gap-0.5 px-1 py-1"
+          style={{ background: "rgba(255,255,255,0.04)", borderRadius: 14, border: "1px solid rgba(255,255,255,0.06)" }}
         >
           {(["month", "week"] as CalViewMode[]).map((mode) => {
             const active = calView === mode;
@@ -111,16 +112,17 @@ export default function CalendarNav({
                 onClick={() => onViewChange(mode)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative px-2.5 py-1 rounded-md text-xs font-medium capitalize"
+                className="relative px-3 py-1 text-xs font-medium capitalize"
                 style={{
                   color: active ? "var(--accent)" : "var(--text-secondary)",
+                  borderRadius: 10,
                 }}
               >
                 {active && (
                   <motion.div
                     layoutId="cal-view-pill"
-                    className="absolute inset-0 rounded-md"
-                    style={{ background: "var(--accent-dim)" }}
+                    className="absolute inset-0"
+                    style={{ background: "var(--accent-dim)", borderRadius: 10 }}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}

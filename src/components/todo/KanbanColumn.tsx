@@ -57,26 +57,27 @@ export default function KanbanColumn({ status, todos }: KanbanColumnProps) {
         backgroundColor: isOver ? hexToRgba(accentHex, 0.06) : "rgba(0,0,0,0)",
       }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="flex flex-col min-w-[280px] w-[280px] glass-1 p-3 relative overflow-hidden"
-      style={{ borderRadius: 14 }}
+      className="flex flex-col min-w-[280px] w-[280px] glass-1 p-4 relative overflow-hidden"
+      style={{ borderRadius: 22 }}
     >
       {/* Status color gradient at top */}
       <div
         className="absolute top-0 left-0 right-0 pointer-events-none"
         style={{
-          height: 4,
+          height: 3,
           background: `linear-gradient(to bottom, ${dotColor}26, transparent)`,
+          borderRadius: "22px 22px 0 0",
         }}
       />
       {/* Header */}
-      <div className="flex items-center gap-2 mb-3 px-1">
+      <div className="flex items-center gap-2.5 mb-4 px-1">
         <span
           className="w-2 h-2 rounded-full shrink-0"
           style={{ backgroundColor: dotColor }}
         />
         <span
           className="font-semibold uppercase tracking-wider"
-          style={{ color: "var(--text-secondary)", fontSize: 12, letterSpacing: "0.08em" }}
+          style={{ color: "var(--text-secondary)", fontSize: 11, letterSpacing: "0.1em" }}
         >
           {label}
         </span>
@@ -122,11 +123,12 @@ export default function KanbanColumn({ status, todos }: KanbanColumnProps) {
               }}
               onBlur={() => { if (!quickAdd.trim()) setShowInput(false); }}
               placeholder="Task title…"
-              className="w-full px-3 py-2 rounded-md text-xs outline-none"
+              className="w-full px-3 py-2.5 text-xs outline-none"
               style={{
-                background: "var(--bg-surface)",
+                background: "rgba(255,255,255,0.04)",
                 color: "var(--text-primary)",
-                border: "1px solid var(--border)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                borderRadius: 14,
               }}
             />
           </motion.div>
@@ -135,8 +137,8 @@ export default function KanbanColumn({ status, todos }: KanbanColumnProps) {
             onClick={() => setShowInput(true)}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="flex items-center gap-1.5 w-full mt-2 px-3 py-2 rounded-md text-xs"
-            style={{ color: "var(--text-secondary)" }}
+            className="flex items-center gap-1.5 w-full mt-2 px-3 py-2.5 text-xs glass-interactive"
+            style={{ color: "var(--text-tertiary)", borderRadius: 14 }}
           >
             <Plus size={14} />
             Add card

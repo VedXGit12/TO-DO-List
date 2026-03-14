@@ -28,20 +28,19 @@ export default function QuickAddBar() {
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="flex items-center gap-3 px-4 py-3 rounded-lg border mt-2"
+      className="flex items-center gap-3.5 px-5 py-3.5 glass-2 mt-3"
       style={{
-        background: "var(--bg-surface)",
-        borderColor: "var(--border)",
+        borderRadius: 18,
       }}
     >
       <motion.button
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.1, rotate: 90 }}
         whileTap={{ scale: 0.9 }}
         onClick={submit}
-        className="shrink-0 p-1 rounded"
-        style={{ color: "var(--accent)" }}
+        className="shrink-0 p-1"
+        style={{ color: "var(--accent)", borderRadius: 8 }}
       >
-        <Plus size={16} />
+        <Plus size={18} strokeWidth={2.5} />
       </motion.button>
       <input
         value={value}
@@ -49,12 +48,12 @@ export default function QuickAddBar() {
         onKeyDown={(e) => {
           if (e.key === "Enter") submit();
         }}
-        placeholder="Add a task... press Enter"
+        placeholder="Add a task… press Enter"
         className="flex-1 bg-transparent text-sm outline-none"
-        style={{ color: "var(--text-primary)" }}
+        style={{ color: "var(--text-primary)", fontSize: 14, letterSpacing: "-0.01em" }}
       />
       <style>{`
-        input::placeholder { color: var(--text-secondary); }
+        input::placeholder { color: var(--text-tertiary); }
         input:focus { box-shadow: none; }
       `}</style>
     </motion.div>

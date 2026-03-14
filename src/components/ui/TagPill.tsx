@@ -17,12 +17,13 @@ export default function TagPill({ tag, onRemove }: TagPillProps) {
       onMouseLeave={() => setHovered(false)}
       animate={{ scale: hovered ? 1.05 : 1 }}
       transition={{ duration: 0.15 }}
-      className="inline-flex items-center gap-1 px-2 py-0.5 select-none"
+      className="inline-flex items-center gap-1.5 px-2.5 py-0.5 select-none"
       style={{
-        borderRadius: 6,
-        background: "rgba(255,255,255,0.08)",
-        border: "1px solid rgba(255,255,255,0.1)",
+        borderRadius: 10,
+        background: "rgba(255,255,255,0.06)",
+        border: "1px solid rgba(255,255,255,0.08)",
         fontSize: 11,
+        fontWeight: 500,
         color: "var(--text-secondary)",
       }}
     >
