@@ -48,18 +48,21 @@ export default function DayCell({
             : "transparent",
       }}
       transition={{ duration: 0.15 }}
-      className="day-cell"
+      className="day-cell glass-1"
       style={{
         minHeight: 90,
         padding: 4,
-        borderRadius: 6,
-        border: today ? "1px solid var(--accent)" : "1px solid transparent",
+        borderRadius: 10,
+        borderTop: today ? "1px solid rgba(255,179,71,0.5)" : undefined,
+        borderRight: today ? "1px solid rgba(255,179,71,0.5)" : undefined,
+        borderBottom: today ? "1px solid rgba(255,179,71,0.5)" : undefined,
+        borderLeft: today ? "1px solid rgba(255,179,71,0.5)" : undefined,
         opacity: isCurrentMonth ? 1 : 0.35,
         cursor: "pointer",
         position: "relative",
         overflow: "hidden",
         boxShadow: hasOverdue && isCurrentMonth
-          ? "0 0 0 1px rgba(239,68,68,0.4)"
+          ? "0 0 0 1px rgba(255,80,80,0.4)"
           : "none",
       }}
     >

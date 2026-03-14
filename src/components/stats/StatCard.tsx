@@ -23,14 +23,21 @@ export default function StatCard({
     <motion.div
       variants={cardVariants}
       custom={custom}
-      className="relative rounded-xl overflow-hidden"
+      className="relative glass-2 overflow-hidden"
       style={{
-        background: "var(--bg-surface)",
-        border: "1px solid var(--border)",
-        borderLeft: `3px solid ${accentColor}`,
+        borderRadius: 16,
       }}
     >
-      <div className="p-5">
+      {/* Subtle colored radial gradient in top-left */}
+      <div
+        className="absolute top-0 left-0 pointer-events-none"
+        style={{
+          width: 120,
+          height: 120,
+          background: `radial-gradient(circle at 0% 0%, ${accentColor}14, transparent 70%)`,
+        }}
+      />
+      <div className="p-6 relative">
         <div className="flex items-center gap-2 mb-3">
           {icon && (
             <span style={{ color: accentColor }} className="shrink-0">
@@ -38,15 +45,15 @@ export default function StatCard({
             </span>
           )}
           <span
-            className="text-[11px] font-semibold uppercase tracking-wider"
-            style={{ color: "var(--text-secondary)" }}
+            className="font-semibold uppercase tracking-wider"
+            style={{ color: "var(--text-secondary)", fontSize: 12, letterSpacing: "0.08em" }}
           >
             {title}
           </span>
         </div>
         {children}
         {subtitle && (
-          <p className="text-xs mt-2" style={{ color: "var(--text-secondary)" }}>
+          <p className="mt-2" style={{ color: "var(--text-secondary)", fontSize: 12 }}>
             {subtitle}
           </p>
         )}

@@ -16,11 +16,11 @@ const toastTimers = new Map<string, ReturnType<typeof setTimeout>>();
 export type AccentColor = "amber" | "blue" | "green" | "purple" | "red" | "pink";
 
 export const ACCENT_COLORS: Record<AccentColor, string> = {
-  amber: "#e8a045",
+  amber: "#ffb347",
   blue: "#3b82f6",
-  green: "#22c55e",
+  green: "#50dc8c",
   purple: "#a855f7",
-  red: "#ef4444",
+  red: "#ff6464",
   pink: "#ec4899",
 };
 

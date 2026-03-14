@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutList, Columns, Calendar, BarChart2, Plus, MoreHorizontal, Search } from "lucide-react";
+import { LayoutList, Columns, Calendar, BarChart2, Plus, Search } from "lucide-react";
 import { useUIStore, type ViewMode } from "../../store/uiStore";
 import { useTodoStore } from "../../store/todoStore";
 import { viewVariants } from "../../lib/animations";
@@ -22,11 +22,15 @@ export default function TopBar() {
 
   return (
     <div
-      className="flex items-center justify-between px-5 py-3 border-b shrink-0"
-      style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}
+      className="flex items-center justify-between px-5 shrink-0"
+      style={{
+        height: 52,
+        background: "transparent",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}
     >
-      {/* Left: project info */}
-      <div className="flex items-center gap-3 min-w-0">
+      {/* Left: breadcrumb */}
+      <div className="flex items-center gap-1.5 min-w-0">
         <AnimatePresence mode="wait">
           {activeProject ? (
             <motion.div
@@ -35,22 +39,28 @@ export default function TopBar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="flex items-center gap-2.5 min-w-0"
+              className="flex items-center gap-1.5 min-w-0"
             >
-              <span className="text-lg shrink-0">{activeProject.icon}</span>
-              <div className="min-w-0">
-                <h1
-                  className="text-sm font-semibold truncate"
-                  style={{ color: "var(--text-primary)" }}
-                >
-                  {activeProject.name}
-                </h1>
-                {activeWorkspace && (
-                  <p className="text-xs truncate" style={{ color: "var(--text-secondary)" }}>
-                    {activeWorkspace.icon} {activeWorkspace.name}
-                  </p>
-                )}
-              </div>
+              {activeWorkspace && (
+                <>
+                  <span className="text-sm shrink-0">{activeWorkspace.icon}</span>
+                  <motion.span
+                    whileHover={{ textDecoration: "underline" }}
+                    className="text-sm truncate cursor-pointer"
+                    style={{ color: "var(--text-primary)", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 14 }}
+                  >
+                    {activeWorkspace.name}
+                  </motion.span>
+                  <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 14, margin: "0 2px" }}>/</span>
+                </>
+              )}
+              <span className="text-sm shrink-0">{activeProject.icon}</span>
+              <span
+                className="text-sm font-semibold truncate"
+                style={{ color: "var(--text-primary)", fontSize: 14 }}
+              >
+                {activeProject.name}
+              </span>
             </motion.div>
           ) : (
             <motion.div
@@ -61,23 +71,19 @@ export default function TopBar() {
               exit="exit"
             >
               <h1
-                className="text-sm font-semibold"
-                style={{ color: "var(--text-primary)", fontFamily: "var(--font-display)" }}
+                style={{ color: "var(--accent)", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 17 }}
               >
                 Kuro
               </h1>
-              <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
-                Select a project to get started
-              </p>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Center: view mode switcher */}
+      {/* Center: view mode pills in glass capsule */}
       <div
-        className="flex items-center gap-0.5 px-1 py-0.5 rounded-lg"
-        style={{ background: "var(--bg-elevated)" }}
+        className="glass-2 flex items-center gap-0.5 px-1 py-0.5"
+        style={{ borderRadius: 12 }}
       >
         {VIEW_BUTTONS.map(({ mode, icon, label }) => {
           const active = viewMode === mode;
@@ -87,16 +93,17 @@ export default function TopBar() {
               onClick={() => setViewMode(mode)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors"
+              className="relative flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium"
               style={{
-                color: active ? "var(--accent)" : "var(--text-secondary)",
+                borderRadius: 9,
+                color: active ? "rgba(255,255,255,0.92)" : "var(--text-secondary)",
               }}
             >
               {active && (
                 <motion.div
                   layoutId="topbar-view-indicator"
-                  className="absolute inset-0 rounded-md"
-                  style={{ background: "var(--accent-dim)" }}
+                  className="absolute inset-0 glass-3"
+                  style={{ borderRadius: 9 }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
@@ -117,28 +124,33 @@ export default function TopBar() {
         >
           <Search size={15} />
           <span
-            className="text-xs px-1 py-0.5 rounded font-mono"
-            style={{ background: "var(--bg-elevated)", color: "var(--text-secondary)", fontSize: 10 }}
+            className="px-1 py-0.5 rounded"
+            style={{
+              background: "rgba(255,255,255,0.08)",
+              color: "var(--text-secondary)",
+              fontFamily: "var(--font-mono)",
+              fontSize: 10,
+              opacity: 0.7,
+            }}
           >
             ⌘K
           </span>
         </motion.button>
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium"
-          style={{ background: "var(--accent)", color: "var(--bg-base)" }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,191,71,1) 0%, rgba(255,159,48,1) 100%)",
+            color: "#0A0A0A",
+            borderRadius: 10,
+            fontSize: 14,
+            fontWeight: 600,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.3)",
+          }}
         >
           <Plus size={14} />
           <span>New Task</span>
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="p-2 rounded-md"
-          style={{ color: "var(--text-secondary)" }}
-        >
-          <MoreHorizontal size={15} />
         </motion.button>
       </div>
     </div>

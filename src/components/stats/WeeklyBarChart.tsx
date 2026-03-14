@@ -78,7 +78,7 @@ export default function WeeklyBarChart({ data }: WeeklyBarChartProps) {
                   x={x + groupWidth * 0.15 + barWidth + 2}
                   width={barWidth}
                   rx={3}
-                  fill="#22c55e"
+                  fill="rgba(80,220,140,0.9)"
                   variants={{
                     hidden: { height: 0, y: PADDING_TOP + CHART_H },
                     visible: {
@@ -136,7 +136,7 @@ export default function WeeklyBarChart({ data }: WeeklyBarChartProps) {
       {/* Legend */}
       <div className="flex items-center gap-4 mt-2 ml-2">
         <div className="flex items-center gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-sm" style={{ background: "#22c55e" }} />
+          <div className="w-2.5 h-2.5 rounded-sm" style={{ background: "rgba(80,220,140,0.9)" }} />
           <span className="text-[10px]" style={{ color: "var(--text-secondary)" }}>
             Completed
           </span>

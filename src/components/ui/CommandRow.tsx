@@ -3,10 +3,10 @@ import { CheckCircle2, Folder, Zap } from "lucide-react";
 import type { Command, TodoCommand, ProjectCommand, ActionCommand } from "../../types/command";
 
 const PRIORITY_COLORS: Record<number, string> = {
-  1: "#ef4444",
-  2: "#f97316",
-  3: "#3b82f6",
-  4: "#6b7280",
+  1: "rgba(255,100,100,0.9)",
+  2: "rgba(255,160,80,0.9)",
+  3: "rgba(100,160,255,0.9)",
+  4: "rgba(160,160,180,0.7)",
 };
 
 interface CommandRowProps {
@@ -45,14 +45,14 @@ function TodoRow({
         <motion.div
           layoutId="cmd-highlight"
           className="absolute inset-0 rounded-md"
-          style={{ background: "var(--accent-dim)" }}
+          style={{ background: "rgba(255,255,255,0.07)" }}
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
         />
       )}
       <CheckCircle2
         size={16}
         className="relative z-10 shrink-0"
-        style={{ color: command.status === "done" ? "#22c55e" : "var(--text-secondary)" }}
+        style={{ color: command.status === "done" ? "rgba(80,220,140,0.9)" : "var(--text-secondary)" }}
       />
       <span
         className="relative z-10 flex-1 text-sm truncate"
@@ -73,7 +73,7 @@ function TodoRow({
       )}
       <span
         className="relative z-10 w-2 h-2 rounded-full shrink-0"
-        style={{ backgroundColor: PRIORITY_COLORS[command.priority] ?? "#6b7280" }}
+        style={{ backgroundColor: PRIORITY_COLORS[command.priority] ?? "rgba(160,160,180,0.7)" }}
       />
     </motion.div>
   );
@@ -97,7 +97,7 @@ function ProjectRow({
         <motion.div
           layoutId="cmd-highlight"
           className="absolute inset-0 rounded-md"
-          style={{ background: "var(--accent-dim)" }}
+          style={{ background: "rgba(255,255,255,0.07)" }}
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
         />
       )}
@@ -135,7 +135,7 @@ function ActionRow({
         <motion.div
           layoutId="cmd-highlight"
           className="absolute inset-0 rounded-md"
-          style={{ background: "var(--accent-dim)" }}
+          style={{ background: "rgba(255,255,255,0.07)" }}
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
         />
       )}

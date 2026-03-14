@@ -128,11 +128,11 @@ export default function StatsBoard() {
         initial="hidden"
         animate="visible"
       >
-        <StatCard title="Streak" icon={<Flame size={14} />} accentColor="#ef4444" custom={0}>
+        <StatCard title="Streak" icon={<Flame size={14} />} accentColor="rgba(255,100,100,0.9)" custom={0}>
           <StreakCounter streak={streak} hasCompletedToday={hasCompletedToday} />
         </StatCard>
 
-        <StatCard title="Productivity" icon={<TrendingUp size={14} />} accentColor="#22c55e" custom={1}>
+        <StatCard title="Productivity" icon={<TrendingUp size={14} />} accentColor="rgba(80,220,140,0.9)" custom={1}>
           <ProductivityScore data={productivity} />
         </StatCard>
 

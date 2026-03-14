@@ -2,17 +2,17 @@ import { useTodoStore } from "../../store/todoStore";
 import type { Todo } from "../../types/todo";
 
 const STATUS_OPTIONS: { value: Todo["status"]; label: string; dotColor: string }[] = [
-  { value: "todo", label: "Todo", dotColor: "#6b7280" },
-  { value: "in_progress", label: "In Progress", dotColor: "#3b82f6" },
-  { value: "done", label: "Done", dotColor: "#22c55e" },
-  { value: "archived", label: "Archived", dotColor: "#8a8480" },
+  { value: "todo", label: "Todo", dotColor: "rgba(255,255,255,0.3)" },
+  { value: "in_progress", label: "In Progress", dotColor: "rgba(140,120,255,0.9)" },
+  { value: "done", label: "Done", dotColor: "rgba(80,220,140,0.9)" },
+  { value: "archived", label: "Archived", dotColor: "rgba(160,160,180,0.5)" },
 ];
 
 const PRIORITY_OPTIONS: { value: Todo["priority"]; label: string; color: string }[] = [
-  { value: 1, label: "Urgent", color: "#ef4444" },
-  { value: 2, label: "High", color: "#f97316" },
-  { value: 3, label: "Medium", color: "#3b82f6" },
-  { value: 4, label: "Low", color: "#6b7280" },
+  { value: 1, label: "Urgent", color: "rgba(255,100,100,0.9)" },
+  { value: 2, label: "High", color: "rgba(255,160,80,0.9)" },
+  { value: 3, label: "Medium", color: "rgba(100,160,255,0.9)" },
+  { value: 4, label: "Low", color: "rgba(160,160,180,0.7)" },
 ];
 
 interface TaskMetaSidebarProps {
