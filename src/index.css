@@ -429,6 +429,15 @@ html { scroll-behavior: smooth; }
   z-index: 10;
   padding-bottom: 4px;
 }
+.floating-add-bar-inner {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-top-color: rgba(255,255,255,0.14);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+  border-radius: 18px;
+}
 
 /* Welcome card styling */
 @keyframes welcome-float {

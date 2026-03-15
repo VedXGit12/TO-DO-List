@@ -57,39 +57,39 @@ export default function TodoList() {
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto scrollbar-hide">
-        <div className="content-container">
-          {hasNoTasks ? (
+        {hasNoTasks ? (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 28 }}
+            className="flex flex-col items-center justify-center py-24 gap-4"
+          >
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              className="flex flex-col items-center justify-center py-24 gap-4"
+              className="welcome-float"
+              style={{
+                width: 64,
+                height: 64,
+                borderRadius: 20,
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              <motion.div
-                className="welcome-float"
-                style={{
-                  width: 64,
-                  height: 64,
-                  borderRadius: 20,
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span style={{ fontSize: 28 }}>📝</span>
-              </motion.div>
-              <div className="text-center">
-                <p className="text-sm font-medium" style={{ color: "var(--text-primary)", marginBottom: 4 }}>
-                  No tasks yet
-                </p>
-                <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
-                  Add your first task below to get started
-                </p>
-              </div>
+              <span style={{ fontSize: 28 }}>📝</span>
             </motion.div>
-          ) : (
+            <div className="text-center">
+              <p className="text-sm font-medium" style={{ color: "var(--text-primary)", marginBottom: 4 }}>
+                No tasks yet
+              </p>
+              <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+                Add your first task below to get started
+              </p>
+            </div>
+          </motion.div>
+        ) : (
+          <div className="content-container">
             <motion.div
               variants={listVariants}
               initial="hidden"
@@ -137,8 +137,8 @@ export default function TodoList() {
                 )}
               </AnimatePresence>
             </motion.div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <div className="floating-add-bar">

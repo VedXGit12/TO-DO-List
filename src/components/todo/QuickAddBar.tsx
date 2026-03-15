@@ -28,16 +28,8 @@ export default function QuickAddBar() {
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="flex items-center gap-3.5 px-5 py-3.5 mt-3"
-      style={{
-        borderRadius: 18,
-        background: "rgba(255,255,255,0.06)",
-        border: "1px solid rgba(255,255,255,0.09)",
-        borderTopColor: "rgba(255,255,255,0.14)",
-        backdropFilter: "blur(24px) saturate(180%)",
-        WebkitBackdropFilter: "blur(24px) saturate(180%)",
-        boxShadow: "0 -4px 24px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)",
-      }}
+      className="flex items-center gap-3.5 px-5 py-3.5 mt-3 floating-add-bar-inner"
+      style={{}}
     >
       <motion.button
         whileHover={{ scale: 1.1, rotate: 90 }}
