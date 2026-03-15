@@ -6,6 +6,7 @@ import { dayDetailPanelVariants } from "../../lib/animations";
 import { useTodoStore } from "../../store/todoStore";
 import { useUIStore } from "../../store/uiStore";
 
+// Project bar colors — falls back to green for unknown projects
 const PROJECT_BAR_COLORS: Record<string, string> = {
   "proj-1": "#48DA8A",   // Daily Tasks — green
   "proj-2": "#F5A623",   // Anime Tracker — orange

@@ -517,7 +517,7 @@ html { scroll-behavior: smooth; }
   left: 0;
   right: 0;
   height: 80px;
-  background: linear-gradient(to bottom, transparent, rgba(8,10,15,0.85));
+  background: linear-gradient(to bottom, transparent, rgba(17,19,24,0.85));
   border-radius: 0 0 12px 12px;
   pointer-events: none;
   z-index: 2;

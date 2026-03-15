@@ -104,10 +104,13 @@ export default function Sidebar() {
               {/* Project rows */}
               {isExpanded && wsProjects.map((proj) => {
                 const isActive = activeProjectId === proj.id;
-                // Determine dot color based on project
-                const dotColor = proj.name.includes("Anime") ? "#9478FF"
-                  : proj.name.includes("Dev") ? "#5B9CF6"
-                  : "#F5A623";
+                // Determine dot color by project ID, fallback to workspace color
+                const PROJECT_DOT_COLORS: Record<string, string> = {
+                  "proj-1": "#F5A623",  // Daily Tasks — amber
+                  "proj-2": "#9478FF",  // Anime Tracker — purple
+                  "proj-3": "#5B9CF6",  // Dev Projects — blue
+                };
+                const dotColor = PROJECT_DOT_COLORS[proj.id] ?? ws.color ?? "#F5A623";
                 return (
                   <button
                     key={proj.id}

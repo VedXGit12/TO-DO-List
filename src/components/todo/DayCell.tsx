@@ -2,6 +2,7 @@ import { isToday as checkIsToday } from "date-fns";
 import { useDroppable } from "@dnd-kit/core";
 import type { Todo } from "../../types/todo";
 
+// Dot colors per priority — P1/P2 share amber per design spec (only 3 colors used: amber, blue, green)
 const PRIORITY_DOT_COLOR: Record<number, string> = {
   1: "#F5A623",
   2: "#F5A623",
