@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { format } from "date-fns";
 import { calendarLabelVariants } from "../../lib/animations";
+import { useUIStore } from "../../store/uiStore";
 
 export type CalViewMode = "month" | "week";
 
@@ -24,6 +25,7 @@ export default function CalendarNav({
   onViewChange,
 }: CalendarNavProps) {
   const [direction, setDirection] = useState(0);
+  const { setActiveTodo } = useUIStore();
 
   const handlePrev = () => {
     setDirection(-1);
@@ -42,22 +44,20 @@ export default function CalendarNav({
 
   return (
     <div
-      className="flex items-center justify-between px-1 py-3"
-      style={{ color: "var(--text-primary)" }}
+      className="flex items-center justify-between px-2 py-3"
+      style={{ color: "rgba(255,255,255,0.90)" }}
     >
-      {/* Left: arrows + label */}
+      {/* Left: month/year with arrows */}
       <div className="flex items-center gap-2">
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+        <button
           onClick={handlePrev}
           className="p-1.5"
-          style={{ color: "var(--text-secondary)", borderRadius: 10 }}
+          style={{ color: "rgba(255,255,255,0.50)", borderRadius: 8 }}
         >
           <ChevronLeft size={16} />
-        </motion.button>
+        </button>
 
-        <div style={{ width: 180, overflow: "hidden", position: "relative" }}>
+        <div style={{ width: 200, overflow: "hidden", position: "relative" }}>
           <AnimatePresence mode="wait" custom={direction}>
             <motion.span
               key={label}
@@ -66,72 +66,88 @@ export default function CalendarNav({
               initial="enter"
               animate="center"
               exit="exit"
-              className="block text-sm font-semibold text-center"
-              style={{ fontFamily: "var(--font-sans)", letterSpacing: "-0.01em" }}
+              className="block font-semibold text-center"
+              style={{
+                fontSize: 22,
+                fontWeight: 600,
+                color: "#fff",
+                letterSpacing: "-0.01em",
+              }}
             >
               {label}
             </motion.span>
           </AnimatePresence>
         </div>
 
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+        <button
           onClick={handleNext}
           className="p-1.5"
-          style={{ color: "var(--text-secondary)", borderRadius: 10 }}
+          style={{ color: "rgba(255,255,255,0.50)", borderRadius: 8 }}
         >
           <ChevronRight size={16} />
-        </motion.button>
+        </button>
       </div>
 
-      {/* Right: Today + Month/Week toggle */}
-      <div className="flex items-center gap-2.5">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+      {/* Center: Today / Month / Week pills */}
+      <div
+        className="flex items-center gap-0.5 px-1 py-1"
+        style={{
+          background: "rgba(255,255,255,0.08)",
+          borderRadius: 8,
+        }}
+      >
+        <button
           onClick={handleToday}
-          className="px-3 py-1.5 text-xs font-semibold"
+          className="px-3 py-1.5"
           style={{
-            background: "var(--accent-dim)",
-            color: "var(--accent)",
-            borderRadius: 10,
+            fontSize: 13,
+            fontWeight: 500,
+            color: "rgba(255,255,255,0.70)",
+            borderRadius: 6,
+            background: "transparent",
           }}
         >
           Today
-        </motion.button>
-        <div
-          className="flex items-center gap-0.5 px-1 py-1"
-          style={{ background: "rgba(255,255,255,0.04)", borderRadius: 10, border: "1px solid rgba(255,255,255,0.06)" }}
-        >
-          {(["month", "week"] as CalViewMode[]).map((mode) => {
-            const active = calView === mode;
-            return (
-              <motion.button
-                key={mode}
-                onClick={() => onViewChange(mode)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative px-3 py-1 text-xs font-medium capitalize"
-                style={{
-                  color: active ? "var(--accent)" : "var(--text-secondary)",
-                  borderRadius: 10,
-                }}
-              >
-                {active && (
-                  <motion.div
-                    layoutId="cal-view-pill"
-                    className="absolute inset-0"
-                    style={{ background: "var(--accent-dim)", borderRadius: 10 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{mode}</span>
-              </motion.button>
-            );
-          })}
-        </div>
+        </button>
+        {(["month", "week"] as CalViewMode[]).map((mode) => {
+          const active = calView === mode;
+          return (
+            <button
+              key={mode}
+              onClick={() => onViewChange(mode)}
+              className="relative px-3 py-1.5 capitalize"
+              style={{
+                fontSize: 13,
+                fontWeight: 500,
+                color: active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.55)",
+                borderRadius: 6,
+                background: active ? "rgba(255,255,255,0.18)" : "transparent",
+              }}
+            >
+              {mode}
+            </button>
+          );
+        })}
       </div>
+
+      {/* Right: + New Task button */}
+      <button
+        onClick={() => setActiveTodo("new")}
+        className="flex items-center gap-1.5"
+        style={{
+          background: "linear-gradient(135deg, #F5A623, #E8940A)",
+          borderRadius: 10,
+          padding: "8px 16px",
+          color: "#0A0A0A",
+          fontSize: 13,
+          fontWeight: 600,
+          border: "none",
+          boxShadow: "0 0 16px rgba(245,166,35,0.40)",
+        }}
+      >
+        <Plus size={14} strokeWidth={2.5} />
+        <span>New Task</span>
+      </button>
     </div>
   );
 }
