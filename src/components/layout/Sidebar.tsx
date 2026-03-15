@@ -12,6 +12,13 @@ const VIEW_ITEMS: { mode: ViewMode; icon: React.ReactNode; label: string }[] = [
   { mode: "stats",    icon: <BarChart2 size={16} />,  label: "Stats" },
 ];
 
+function getGreeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return "Good morning ☀️";
+  if (h < 17) return "Good afternoon 🌤";
+  return "Good evening 🌙";
+}
+
 export default function Sidebar() {
   const { sidebarOpen, toggleSidebar, activeProjectId, setActiveProject, viewMode, setViewMode } = useUIStore();
   const { workspaces, projects } = useTodoStore();
@@ -30,7 +37,7 @@ export default function Sidebar() {
       variants={sidebarVariants}
       animate={sidebarOpen ? "open" : "closed"}
       initial={false}
-      className="relative flex flex-col h-screen overflow-hidden shrink-0"
+      className="relative flex flex-col h-screen overflow-hidden shrink-0 z-10"
       style={{
         background: "rgba(255,255,255,0.03)",
         backdropFilter: "blur(40px) saturate(180%)",
@@ -38,34 +45,45 @@ export default function Sidebar() {
         borderRight: "1px solid rgba(255,255,255,0.07)",
       }}
     >
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 py-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-        <motion.div variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="flex items-center gap-2.5 overflow-hidden">
-          <span className="relative" style={{ fontSize: 18, fontWeight: 600, color: "var(--accent)", letterSpacing: "-0.03em", textShadow: "0 0 20px var(--accent-glow)" }}>
-            Kur
-            <span className="relative inline-block">
-              o
-              <svg
-                className="logo-ring absolute"
-                style={{ top: -1, left: -2, width: 18, height: 18, pointerEvents: "none" }}
-                viewBox="0 0 18 18"
-              >
-                <circle cx="9" cy="9" r="8" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeDasharray="4 3" />
-              </svg>
+      {/* Header with greeting */}
+      <div className="px-4 pt-5 pb-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+        <div className="flex items-center justify-between mb-3">
+          <motion.div variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="flex items-center gap-2.5 overflow-hidden">
+            <span className="relative" style={{ fontSize: 18, fontWeight: 600, color: "var(--accent)", letterSpacing: "-0.03em", textShadow: "0 0 20px var(--accent-glow)" }}>
+              Kur
+              <span className="relative inline-block">
+                o
+                <svg
+                  className="logo-ring absolute"
+                  style={{ top: -1, left: -2, width: 18, height: 18, pointerEvents: "none" }}
+                  viewBox="0 0 18 18"
+                >
+                  <circle cx="9" cy="9" r="8" fill="none" stroke="var(--accent)" strokeWidth="1.5" strokeDasharray="4 3" />
+                </svg>
+              </span>
             </span>
-          </span>
-        </motion.div>
-        <motion.button onClick={toggleSidebar} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
-          className="p-1.5 flex items-center justify-center shrink-0"
-          style={{ color: "var(--text-tertiary)", borderRadius: 10 }}>
-          <motion.div variants={chevronVariants} animate={sidebarOpen ? "open" : "closed"}>
-            <ChevronLeft size={16} />
           </motion.div>
-        </motion.button>
+          <motion.button onClick={toggleSidebar} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+            className="p-1.5 flex items-center justify-center shrink-0"
+            style={{ color: "var(--text-tertiary)", borderRadius: 10 }}>
+            <motion.div variants={chevronVariants} animate={sidebarOpen ? "open" : "closed"}>
+              <ChevronLeft size={16} />
+            </motion.div>
+          </motion.button>
+        </div>
+        {/* Greeting area */}
+        <motion.div variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"}>
+          <p className="greeting-gradient" style={{ fontSize: 13, fontWeight: 600, letterSpacing: "-0.01em" }}>
+            {getGreeting()}
+          </p>
+          <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: 2 }}>
+            {new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })}
+          </p>
+        </motion.div>
       </div>
 
       {/* Search */}
-      <div className="px-3 pt-4 pb-1">
+      <div className="px-3 pt-3 pb-1">
         <motion.button whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}
           className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm glass-interactive"
           style={{ color: "var(--text-tertiary)", background: "rgba(255,255,255,0.04)", borderRadius: 12, border: "1px solid rgba(255,255,255,0.05)" }}>

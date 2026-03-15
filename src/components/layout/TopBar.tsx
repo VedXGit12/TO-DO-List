@@ -22,9 +22,9 @@ export default function TopBar() {
 
   return (
     <div
-      className="flex items-center justify-between px-6 shrink-0"
+      className="flex items-center justify-between px-6 shrink-0 relative z-10"
       style={{
-        height: 56,
+        height: 60,
         background: "transparent",
         borderBottom: "1px solid rgba(255,255,255,0.04)",
       }}
@@ -152,13 +152,13 @@ export default function TopBar() {
         <motion.button
           whileHover={{ scale: 1.02, filter: "brightness(1.05)" }}
           whileTap={{ scale: 0.96 }}
-          className="flex items-center gap-2 px-4 py-2 text-[13px] font-semibold"
+          className="flex items-center gap-2 px-4 py-2.5 text-[13px] font-semibold"
           style={{
             background: "linear-gradient(145deg, #FFB347 0%, #FF9F30 100%)",
             color: "#0A0A0A",
-            borderRadius: 10,
+            borderRadius: 12,
             border: "none",
-            boxShadow: "0 0 20px rgba(255,179,71,0.35), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.25)",
+            boxShadow: "0 0 24px rgba(255,179,71,0.3), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.25)",
           }}
         >
           <Plus size={14} strokeWidth={2.5} />

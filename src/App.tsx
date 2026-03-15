@@ -79,6 +79,11 @@ export default function App() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden ambient-bg">
+      {/* Ambient glow orbs */}
+      <div className="ambient-orb ambient-orb-1" />
+      <div className="ambient-orb ambient-orb-2" />
+      <div className="ambient-orb ambient-orb-3" />
+
       {/* Offline banner */}
       <AnimatePresence>
         {isOffline && (
@@ -101,7 +106,7 @@ export default function App() {
       </AnimatePresence>
 
       <Sidebar />
-      <div className="flex flex-col flex-1 min-w-0">
+      <div className="flex flex-col flex-1 min-w-0 relative z-10">
         <TopBar />
         <main className="flex-1 overflow-y-auto p-6 scrollbar-hide">
           {showStats ? (
@@ -121,10 +126,75 @@ export default function App() {
               <TodoCalendar />
             </ErrorBoundary>
           ) : (
-            <div className="flex items-center justify-center h-full">
-              <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                Select a project from the sidebar to get started.
-              </p>
+            <div className="flex flex-col items-center justify-center h-full">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 28, delay: 0.1 }}
+                className="flex flex-col items-center gap-6 max-w-sm text-center"
+              >
+                {/* Decorative floating icon */}
+                <motion.div
+                  className="welcome-float"
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 24,
+                    background: "linear-gradient(135deg, var(--accent-20), var(--accent-10))",
+                    border: "1px solid var(--accent-border)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 8px 32px rgba(255,179,71,0.12), inset 0 1px 0 rgba(255,255,255,0.1)",
+                  }}
+                >
+                  <span style={{ fontSize: 36 }}>✨</span>
+                </motion.div>
+                <div>
+                  <h2
+                    className="greeting-gradient"
+                    style={{
+                      fontSize: 22,
+                      fontWeight: 700,
+                      letterSpacing: "-0.03em",
+                      marginBottom: 8,
+                    }}
+                  >
+                    Welcome to Kuro
+                  </h2>
+                  <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+                    Select a project from the sidebar to start organizing your tasks with style.
+                  </p>
+                </div>
+                <div
+                  className="flex items-center gap-2 px-4 py-2.5"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    borderRadius: 12,
+                    border: "1px solid rgba(255,255,255,0.06)",
+                  }}
+                >
+                  <span style={{ color: "var(--text-tertiary)", fontSize: 12 }}>
+                    Tip: Press
+                  </span>
+                  <span
+                    style={{
+                      background: "rgba(255,255,255,0.08)",
+                      color: "var(--text-secondary)",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 11,
+                      padding: "2px 8px",
+                      borderRadius: 6,
+                      fontWeight: 500,
+                    }}
+                  >
+                    ⌘K
+                  </span>
+                  <span style={{ color: "var(--text-tertiary)", fontSize: 12 }}>
+                    to search anything
+                  </span>
+                </div>
+              </motion.div>
             </div>
           )}
         </main>
