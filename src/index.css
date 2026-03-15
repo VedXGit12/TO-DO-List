@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --bg-base:        #080A0F;
-  --bg-surface:     rgba(255,255,255,0.04);
-  --bg-elevated:    rgba(255,255,255,0.07);
-  --border:         rgba(255,255,255,0.08);
-  --border-top:     rgba(255,255,255,0.15);
-  --text-primary:   rgba(255,255,255,0.92);
-  --text-secondary: rgba(255,255,255,0.55);
-  --text-tertiary:  rgba(255,255,255,0.30);
-  --text-ghost:     rgba(255,255,255,0.12);
+  --bg-base:        #050507;
+  --bg-surface:     rgba(255,255,255,0.035);
+  --bg-elevated:    rgba(255,255,255,0.06);
+  --border:         rgba(255,255,255,0.07);
+  --border-top:     rgba(255,255,255,0.12);
+  --text-primary:   rgba(255,255,255,0.95);
+  --text-secondary: rgba(255,255,255,0.50);
+  --text-tertiary:  rgba(255,255,255,0.28);
+  --text-ghost:     rgba(255,255,255,0.10);
   --accent:         #ffb347;
   --accent-dim:     rgba(255, 179, 71, 0.12);
   --accent-10:      rgba(255, 179, 71, 0.10);
@@ -30,85 +30,90 @@
   --success-glow:   rgba(80,220,140,0.5);
   --in-progress:    rgba(140,120,255,0.9);
   --overdue:        rgba(255,80,80,0.8);
-  --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-body:    "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-mono:    "SF Mono", "Fira Code", monospace;
+  --radius-sm:      10px;
+  --radius-md:      16px;
+  --radius-lg:      22px;
+  --radius-xl:      28px;
+  --font-sans:      "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --font-mono:      "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body, #root { height: 100%; width: 100%; overflow: hidden; }
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   background: var(--bg-base);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "ss02", "cv01";
+  letter-spacing: -0.011em;
 }
 
 /* ──────────────────────────────────────────────────
-   Liquid Glass Layer System
-   Layer 0 = void (#080A0F)
-   Layer 1 = sidebar / content panels
-   Layer 2 = cards / inputs
-   Layer 3 = modals / toasts / command palette
-   Layer 4 = tooltips / dropdowns
+   Apple-Inspired Liquid Glass Layer System
+   Layer 0 = void (#050507)
+   Layer 1 = sidebar / content panels — subtle vibrancy
+   Layer 2 = cards / inputs — raised glass
+   Layer 3 = modals / toasts / command palette — floating glass
+   Layer 4 = tooltips / dropdowns / critical alerts
    ────────────────────────────────────────────────── */
-/* Layer 1 — Base Glass: sidebar / content panels */
+
 .glass-1 {
-  background: rgba(255,255,255,0.04);
-  border-top: 1px solid rgba(255,255,255,0.12);
-  border-right: 1px solid rgba(255,255,255,0.08);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  border-left: 1px solid rgba(255,255,255,0.08);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  background: rgba(255,255,255,0.028);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-top-color: rgba(255,255,255,0.10);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255,255,255,0.08),
+    inset 0 0 40px rgba(255,255,255,0.01);
+  backdrop-filter: blur(48px) saturate(160%);
+  -webkit-backdrop-filter: blur(48px) saturate(160%);
 }
-/* Layer 2 — Raised Glass: cards / inputs / column headers */
+
 .glass-2 {
-  background: rgba(255,255,255,0.07);
-  border-top: 1px solid rgba(255,255,255,0.16);
-  border-right: 1px solid rgba(255,255,255,0.12);
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-  border-left: 1px solid rgba(255,255,255,0.12);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12),
-              0 1px 2px rgba(0,0,0,0.3),
-              0 4px 16px rgba(0,0,0,0.25),
-              0 16px 48px rgba(0,0,0,0.2);
-  backdrop-filter: blur(20px) saturate(200%);
-  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top-color: rgba(255,255,255,0.14);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255,255,255,0.10),
+    0 1px 3px rgba(0,0,0,0.25),
+    0 8px 24px rgba(0,0,0,0.18),
+    0 24px 48px rgba(0,0,0,0.12);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
 }
-/* Layer 3 — Floating Glass: modals / command palette / toasts */
+
 .glass-3 {
-  background: rgba(255,255,255,0.10);
-  border-top: 1px solid rgba(255,255,255,0.22);
-  border-right: 1px solid rgba(255,255,255,0.18);
-  border-bottom: 1px solid rgba(255,255,255,0.18);
-  border-left: 1px solid rgba(255,255,255,0.18);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),
-              0 1px 2px rgba(0,0,0,0.3),
-              0 4px 16px rgba(0,0,0,0.25),
-              0 32px 64px rgba(0,0,0,0.6);
-  backdrop-filter: blur(60px) saturate(220%) brightness(1.1);
-  -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.1);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-top-color: rgba(255,255,255,0.20);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255,255,255,0.16),
+    0 1px 3px rgba(0,0,0,0.2),
+    0 8px 24px rgba(0,0,0,0.2),
+    0 32px 64px rgba(0,0,0,0.35);
+  backdrop-filter: blur(64px) saturate(200%) brightness(1.06);
+  -webkit-backdrop-filter: blur(64px) saturate(200%) brightness(1.06);
 }
-/* Layer 4 — Peak Glass: tooltips / dropdowns / critical alerts */
+
 .glass-4 {
-  background: rgba(255,255,255,0.12);
-  border-top: 1px solid rgba(255,255,255,0.30);
-  border-right: 1px solid rgba(255,255,255,0.25);
-  border-bottom: 1px solid rgba(255,255,255,0.25);
-  border-left: 1px solid rgba(255,255,255,0.25);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25),
-              0 1px 2px rgba(0,0,0,0.3),
-              0 4px 16px rgba(0,0,0,0.25),
-              0 16px 48px rgba(0,0,0,0.2);
-  backdrop-filter: blur(80px) saturate(250%);
-  -webkit-backdrop-filter: blur(80px) saturate(250%);
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-top-color: rgba(255,255,255,0.24);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255,255,255,0.20),
+    0 2px 6px rgba(0,0,0,0.2),
+    0 12px 32px rgba(0,0,0,0.2),
+    0 24px 48px rgba(0,0,0,0.15);
+  backdrop-filter: blur(80px) saturate(240%);
+  -webkit-backdrop-filter: blur(80px) saturate(240%);
 }
-::-webkit-scrollbar        { width: 4px; height: 4px; }
+
+/* Scrollbar */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track  { background: transparent; }
-::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb  { background: rgba(255,255,255,0.08); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.14); }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 button { border: none; background: none; font-family: inherit; cursor: pointer; }
@@ -121,7 +126,7 @@ button { border: none; background: none; font-family: inherit; cursor: pointer; 
 .overdue-pulse {
   position: absolute;
   inset: 0;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   background: var(--p1);
   animation: overdue-pulse 2.5s ease-in-out infinite;
   pointer-events: none;
@@ -156,7 +161,7 @@ button { border: none; background: none; font-family: inherit; cursor: pointer; 
   background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
 }
 
 /* Smooth scrolling */
@@ -166,6 +171,7 @@ html { scroll-behavior: smooth; }
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }
 
 /* Reduced motion: disable all animations */
@@ -220,7 +226,7 @@ html { scroll-behavior: smooth; }
   animation: glow-pulse 3s ease-in-out infinite;
 }
 
-/* Specular shimmer pseudo-element */
+/* Specular shimmer pseudo-element — Apple-like highlight */
 .specular-shimmer {
   position: relative;
   overflow: hidden;
@@ -232,8 +238,8 @@ html { scroll-behavior: smooth; }
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.2s;
-  background: radial-gradient(200px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06), transparent);
+  transition: opacity 0.3s ease;
+  background: radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.04), transparent);
 }
 .specular-shimmer:hover::after {
   opacity: 1;
@@ -259,4 +265,31 @@ html { scroll-behavior: smooth; }
 }
 @media (prefers-reduced-motion: reduce) {
   .logo-ring { animation: none; }
+}
+
+/* Ambient background gradient — Apple-style depth */
+.ambient-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(120,80,200,0.04), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 60%, rgba(255,179,71,0.03), transparent),
+    radial-gradient(ellipse 70% 40% at 50% 100%, rgba(80,120,220,0.03), transparent),
+    var(--bg-base);
+}
+
+/* Apple-style selection */
+::selection {
+  background: var(--accent-20);
+  color: var(--text-primary);
+}
+
+/* Smooth transitions for interactive elements */
+.glass-interactive {
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Subtle inner glow for active states */
+.active-glow {
+  box-shadow:
+    inset 0 0 20px var(--accent-10),
+    inset 0 0.5px 0 rgba(255,255,255,0.10);
 }

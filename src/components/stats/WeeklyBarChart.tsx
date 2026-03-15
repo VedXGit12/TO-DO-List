@@ -97,7 +97,7 @@ export default function WeeklyBarChart({ data }: WeeklyBarChartProps) {
                   textAnchor="middle"
                   fill="var(--text-secondary)"
                   fontSize="10"
-                  fontFamily="var(--font-body)"
+                  fontFamily="var(--font-sans)"
                 >
                   {week.weekLabel}
                 </text>
@@ -125,7 +125,7 @@ export default function WeeklyBarChart({ data }: WeeklyBarChartProps) {
               textAnchor="middle"
               fill="var(--text-primary)"
               fontSize="10"
-              fontFamily="var(--font-body)"
+              fontFamily="var(--font-sans)"
             >
               {data[hoveredWeek].completed} done · {data[hoveredWeek].created} created
             </text>

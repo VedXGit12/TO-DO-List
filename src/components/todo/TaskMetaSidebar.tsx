@@ -23,20 +23,21 @@ export default function TaskMetaSidebar({ todo }: TaskMetaSidebarProps) {
   const { updateTodo, tags: allTags } = useTodoStore();
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {/* Status */}
       <MetaRow label="Status">
         <select
           value={todo.status}
           onChange={(e) => updateTodo(todo.id, { status: e.target.value as Todo["status"] })}
-          className="bg-transparent text-xs outline-none cursor-pointer rounded px-2 py-1"
+          className="bg-transparent text-xs outline-none cursor-pointer px-2.5 py-1.5"
           style={{
             color: "var(--text-primary)",
-            border: "1px solid var(--border)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 10,
           }}
         >
           {STATUS_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value} style={{ background: "var(--bg-surface)" }}>
+            <option key={opt.value} value={opt.value} style={{ background: "#0A0A0F" }}>
               {opt.label}
             </option>
           ))}
@@ -48,14 +49,15 @@ export default function TaskMetaSidebar({ todo }: TaskMetaSidebarProps) {
         <select
           value={todo.priority}
           onChange={(e) => updateTodo(todo.id, { priority: Number(e.target.value) as Todo["priority"] })}
-          className="bg-transparent text-xs outline-none cursor-pointer rounded px-2 py-1"
+          className="bg-transparent text-xs outline-none cursor-pointer px-2.5 py-1.5"
           style={{
             color: "var(--text-primary)",
-            border: "1px solid var(--border)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 10,
           }}
         >
           {PRIORITY_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value} style={{ background: "var(--bg-surface)" }}>
+            <option key={opt.value} value={opt.value} style={{ background: "#0A0A0F" }}>
               {opt.label}
             </option>
           ))}
@@ -71,20 +73,21 @@ export default function TaskMetaSidebar({ todo }: TaskMetaSidebarProps) {
             const val = e.target.value;
             updateTodo(todo.id, { dueAt: val ? new Date(val).getTime() : undefined });
           }}
-          className="bg-transparent text-xs outline-none cursor-pointer rounded px-2 py-1"
+          className="bg-transparent text-xs outline-none cursor-pointer px-2.5 py-1.5"
           style={{
             color: "var(--text-primary)",
-            border: "1px solid var(--border)",
+            border: "1px solid rgba(255,255,255,0.06)",
             colorScheme: "dark",
+            borderRadius: 10,
           }}
         />
       </MetaRow>
 
       {/* Tags */}
       <MetaRow label="Tags">
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-1.5">
           {todo.tags.length === 0 && (
-            <span className="text-xs" style={{ color: "var(--text-secondary)" }}>
+            <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
               No tags
             </span>
           )}
@@ -93,10 +96,11 @@ export default function TaskMetaSidebar({ todo }: TaskMetaSidebarProps) {
             return (
               <span
                 key={tagId}
-                className="text-xs px-1.5 py-0.5 rounded-full"
+                className="text-xs px-2 py-0.5"
                 style={{
-                  background: tag ? `${tag.color}33` : "var(--bg-elevated)",
+                  background: tag ? `${tag.color}22` : "rgba(255,255,255,0.06)",
                   color: tag?.color ?? "var(--text-secondary)",
+                  borderRadius: 8,
                 }}
               >
                 {tag?.name ?? tagId}
@@ -114,7 +118,7 @@ function MetaRow({ label, children }: { label: string; children: React.ReactNode
     <div className="flex items-start gap-3">
       <span
         className="text-xs font-medium shrink-0 pt-1"
-        style={{ color: "var(--text-secondary)", width: 70 }}
+        style={{ color: "var(--text-tertiary)", width: 70 }}
       >
         {label}
       </span>

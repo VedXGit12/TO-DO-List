@@ -43,7 +43,6 @@ export default function TodoCard({ todo }: TodoCardProps) {
     setTimeout(() => inputRef.current?.focus(), 0);
   };
 
-  // Specular shimmer: track mouse position on card
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = cardRef.current;
     if (!el) return;
@@ -52,7 +51,6 @@ export default function TodoCard({ todo }: TodoCardProps) {
     el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
   }, []);
 
-  // Relative due date display
   const dueDateLabel = todo.dueAt
     ? isToday(new Date(todo.dueAt))
       ? "Today"
@@ -66,19 +64,19 @@ export default function TodoCard({ todo }: TodoCardProps) {
       whileHover={{
         y: -2,
         boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.14), 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.3), 0 24px 56px rgba(0,0,0,0.3)",
+          "inset 0 0.5px 0 rgba(255,255,255,0.16), 0 2px 4px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.25), 0 24px 48px rgba(0,0,0,0.15)",
         transition: { type: "spring", stiffness: 400, damping: 28 },
       }}
-      whileTap={{ scale: 0.97 }}
+      whileTap={{ scale: 0.98 }}
       initial={{ opacity: 1 }}
-      animate={{ opacity: isDone ? 0.6 : 1 }}
-      transition={{ duration: 0.2 }}
+      animate={{ opacity: isDone ? 0.55 : 1 }}
+      transition={{ duration: 0.25 }}
       onClick={() => setActiveTodo(todo.id)}
       onMouseMove={handleMouseMove}
-      className="specular-shimmer glass-2 flex items-start gap-3 cursor-pointer"
+      className="specular-shimmer glass-2 flex items-start gap-3.5 cursor-pointer"
       style={{
-        padding: "14px 16px",
-        borderRadius: 14,
+        padding: "16px 18px",
+        borderRadius: 18,
       }}
     >
       {/* Left: check circle */}
@@ -89,7 +87,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
       {/* Center */}
       <div className="flex-1 min-w-0">
         {/* Title row with priority dot */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <PriorityBadge priority={todo.priority} onChange={(p) => updateTodo(todo.id, { priority: p })} />
           {editing ? (
             <input
@@ -105,7 +103,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
                 }
               }}
               className="w-full bg-transparent text-sm font-medium outline-none"
-              style={{ color: "var(--text-primary)", fontSize: 14, lineHeight: 1.4 }}
+              style={{ color: "var(--text-primary)", fontSize: 14, lineHeight: 1.5, letterSpacing: "-0.01em" }}
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
@@ -115,9 +113,10 @@ export default function TodoCard({ todo }: TodoCardProps) {
               style={{
                 color: "var(--text-primary)",
                 fontSize: 14,
-                lineHeight: 1.4,
+                lineHeight: 1.5,
+                letterSpacing: "-0.01em",
                 textDecoration: isDone ? "line-through" : "none",
-                textDecorationColor: "rgba(255,255,255,0.3)",
+                textDecorationColor: "rgba(255,255,255,0.2)",
                 display: "-webkit-box",
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
@@ -130,17 +129,19 @@ export default function TodoCard({ todo }: TodoCardProps) {
         </div>
 
         {/* Tags row */}
-        <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+        <div className="flex items-center gap-2 mt-2 flex-wrap">
           {todoTags.map((tag) => (
             <TagPill key={tag.id} tag={tag} />
           ))}
           {todo.subtasks.length > 0 && (
             <span
-              className="text-xs px-1.5 py-0.5 rounded"
+              className="text-xs px-2 py-0.5"
               style={{
                 color: "var(--text-secondary)",
-                background: "rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.06)",
                 fontSize: 11,
+                borderRadius: 8,
+                fontWeight: 500,
               }}
             >
               {todo.subtasks.filter((s) => s.done).length}/{todo.subtasks.length}
@@ -150,18 +151,19 @@ export default function TodoCard({ todo }: TodoCardProps) {
       </div>
 
       {/* Right: due date + more */}
-      <div className="flex items-center gap-2 shrink-0 pt-0.5">
+      <div className="flex items-center gap-2.5 shrink-0 pt-0.5">
         {dueDateLabel && (
           <span
-            className="text-xs px-1.5 py-0.5 rounded"
+            className="text-xs px-2 py-1"
             style={{
               fontSize: 11,
+              fontWeight: 500,
               color: isOverdue ? "var(--p1)" : "var(--text-secondary)",
-              background: isOverdue ? "rgba(255,80,80,0.12)" : "rgba(255,255,255,0.08)",
-              borderRadius: 6,
+              background: isOverdue ? "rgba(255,80,80,0.10)" : "rgba(255,255,255,0.05)",
+              borderRadius: 10,
               border: isOverdue
-                ? "1px solid rgba(255,80,80,0.4)"
-                : "1px solid rgba(255,255,255,0.1)",
+                ? "1px solid rgba(255,80,80,0.3)"
+                : "1px solid rgba(255,255,255,0.06)",
             }}
           >
             {dueDateLabel}
@@ -171,8 +173,8 @@ export default function TodoCard({ todo }: TodoCardProps) {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={(e) => e.stopPropagation()}
-          className="p-1 rounded"
-          style={{ color: "var(--text-secondary)" }}
+          className="p-1.5"
+          style={{ color: "var(--text-tertiary)", borderRadius: 8 }}
         >
           <MoreHorizontal size={14} />
         </motion.button>

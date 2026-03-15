@@ -47,7 +47,7 @@ export default function StreakCounter({ streak, hasCompletedToday }: StreakCount
           value={streak.current}
           className="text-3xl font-bold"
           style={{
-            fontFamily: "var(--font-display)",
+            fontFamily: "var(--font-sans)",
             color: showWarning ? "var(--text-secondary)" : "var(--text-primary)",
           }}
         />

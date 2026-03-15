@@ -78,7 +78,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden" style={{ background: "#080A0F" }}>
+    <div className="flex h-screen w-screen overflow-hidden ambient-bg">
       {/* Offline banner */}
       <AnimatePresence>
         {isOffline && (
@@ -87,8 +87,13 @@ export default function App() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -40, opacity: 0 }}
             transition={{ type: "spring", stiffness: 400, damping: 28 }}
-            className="fixed top-0 left-0 right-0 z-50 py-1.5 text-center text-xs font-medium"
-            style={{ background: "var(--accent)", color: "var(--bg-base)" }}
+            className="fixed top-0 left-0 right-0 z-50 py-2 text-center text-xs font-medium tracking-wide"
+            style={{
+              background: "linear-gradient(135deg, var(--accent), rgba(255,159,48,1))",
+              color: "var(--bg-base)",
+              borderRadius: "0 0 16px 16px",
+              margin: "0 20%",
+            }}
           >
             You're offline — changes saved locally
           </motion.div>

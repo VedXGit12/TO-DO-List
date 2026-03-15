@@ -79,7 +79,7 @@ export default function DayDetailPanel({ selectedDate, onClose }: DayDetailPanel
           >
             <h3
               className="text-sm font-semibold"
-              style={{ color: "var(--text-primary)", fontFamily: "var(--font-display)" }}
+              style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
             >
               {format(selectedDate, "EEEE, MMM d")}
             </h3>

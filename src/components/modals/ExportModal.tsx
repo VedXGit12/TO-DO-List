@@ -87,14 +87,14 @@ export default function ExportModal() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative w-full max-w-lg mx-4 rounded-xl border p-6"
-            style={{ background: "var(--bg-surface)", borderColor: "var(--border)" }}
+            className="relative w-full max-w-lg mx-4 glass-3 p-7"
+            style={{ borderRadius: 24 }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-6">
               <h2
                 className="text-lg font-semibold"
-                style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+                style={{ color: "var(--text-primary)", letterSpacing: "-0.02em" }}
               >
                 Export Tasks
               </h2>
@@ -103,7 +103,7 @@ export default function ExportModal() {
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setExportModalOpen(false)}
                 className="p-1.5 rounded-md"
-                style={{ color: "var(--text-secondary)" }}
+                style={{ color: "var(--text-tertiary)", borderRadius: 10 }}
                 aria-label="Close export modal"
               >
                 <X size={16} />
@@ -111,18 +111,20 @@ export default function ExportModal() {
             </div>
 
             {/* Format cards */}
-            <div className="grid grid-cols-3 gap-3 mb-5">
+            <div className="grid grid-cols-3 gap-3 mb-6">
               {FORMAT_OPTIONS.map(({ id, label, icon: Icon }) => (
                 <motion.button
                   key={id}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setSelected(id)}
-                  className="flex flex-col items-center gap-2 p-4 rounded-lg border transition-colors"
+                  className="flex flex-col items-center gap-2.5 p-5 transition-colors"
                   style={{
-                    background: selected === id ? "var(--accent-dim)" : "var(--bg-elevated)",
-                    borderColor: selected === id ? "var(--accent)" : "var(--border)",
+                    background: selected === id ? "var(--accent-dim)" : "rgba(255,255,255,0.04)",
+                    borderColor: selected === id ? "var(--accent)" : "rgba(255,255,255,0.06)",
                     color: selected === id ? "var(--accent)" : "var(--text-secondary)",
+                    borderRadius: 18,
+                    border: `1px solid ${selected === id ? "var(--accent-40)" : "rgba(255,255,255,0.06)"}`,
                   }}
                 >
                   <Icon size={20} />
@@ -133,8 +135,8 @@ export default function ExportModal() {
 
             {/* Preview */}
             <div
-              className="rounded-lg p-3 mb-5 overflow-x-auto max-h-40 overflow-y-auto"
-              style={{ background: "var(--bg-elevated)", border: "1px solid var(--border)" }}
+              className="p-4 mb-6 overflow-x-auto max-h-40 overflow-y-auto"
+              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 16 }}
             >
               <pre
                 className="text-xs whitespace-pre-wrap"
@@ -149,8 +151,8 @@ export default function ExportModal() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleExport}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium"
-              style={{ background: "var(--accent)", color: "var(--bg-base)" }}
+              className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold"
+              style={{ background: "linear-gradient(135deg, rgba(255,191,71,1) 0%, rgba(255,155,48,1) 100%)", color: "#0A0A0A", borderRadius: 16, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 8px rgba(255,179,71,0.25)" }}
             >
               <Download size={15} />
               Export

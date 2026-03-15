@@ -98,8 +98,8 @@ export default function SubtaskTree({ todoId, subtasks }: SubtaskTreeProps) {
       </DndContext>
 
       {/* Add subtask input */}
-      <div className="flex items-center gap-2 mt-2">
-        <Plus size={14} style={{ color: "var(--text-secondary)", flexShrink: 0 }} />
+      <div className="flex items-center gap-2.5 mt-3 px-2 py-2" style={{ borderRadius: 10, background: "rgba(255,255,255,0.03)" }}>
+        <Plus size={14} style={{ color: "var(--text-tertiary)", flexShrink: 0 }} />
         <input
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}

@@ -14,12 +14,19 @@ export default {
         ghost:     "var(--text-ghost)",
       },
       fontFamily: {
-        display: ["Playfair Display", "Georgia", "serif"],
-        body:    ["DM Sans", "-apple-system", "system-ui", "sans-serif"],
-        mono:    ["Geist Mono", "Fira Code", "monospace"],
+        sans:    ["Inter", "-apple-system", "BlinkMacSystemFont", "SF Pro Text", "Segoe UI", "system-ui", "sans-serif"],
+        display: ["Inter", "-apple-system", "BlinkMacSystemFont", "SF Pro Display", "system-ui", "sans-serif"],
+        body:    ["Inter", "-apple-system", "BlinkMacSystemFont", "SF Pro Text", "system-ui", "sans-serif"],
+        mono:    ["JetBrains Mono", "SF Mono", "Fira Code", "ui-monospace", "monospace"],
+      },
+      borderRadius: {
+        'glass-sm': '10px',
+        'glass':    '16px',
+        'glass-lg': '22px',
+        'glass-xl': '28px',
       },
       backdropBlur: {
-        glass: "32px",
+        glass: "48px",
       },
     },
   },

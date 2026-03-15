@@ -22,15 +22,15 @@ export default function TopBar() {
 
   return (
     <div
-      className="flex items-center justify-between px-5 shrink-0"
+      className="flex items-center justify-between px-6 shrink-0"
       style={{
-        height: 52,
+        height: 56,
         background: "transparent",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid rgba(255,255,255,0.04)",
       }}
     >
       {/* Left: breadcrumb */}
-      <div className="flex items-center gap-1.5 min-w-0">
+      <div className="flex items-center gap-2 min-w-0">
         <AnimatePresence mode="wait">
           {activeProject ? (
             <motion.div
@@ -39,7 +39,7 @@ export default function TopBar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="flex items-center gap-1.5 min-w-0"
+              className="flex items-center gap-2 min-w-0"
             >
               {activeWorkspace && (
                 <>
@@ -47,17 +47,17 @@ export default function TopBar() {
                   <motion.span
                     whileHover={{ textDecoration: "underline" }}
                     className="text-sm truncate cursor-pointer"
-                    style={{ color: "var(--text-primary)", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 14 }}
+                    style={{ color: "var(--text-secondary)", fontWeight: 500, fontSize: 14, letterSpacing: "-0.01em" }}
                   >
                     {activeWorkspace.name}
                   </motion.span>
-                  <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 14, margin: "0 2px" }}>/</span>
+                  <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 14, margin: "0 1px" }}>/</span>
                 </>
               )}
               <span className="text-sm shrink-0">{activeProject.icon}</span>
               <span
                 className="text-sm font-semibold truncate"
-                style={{ color: "var(--text-primary)", fontSize: 14 }}
+                style={{ color: "var(--text-primary)", fontSize: 15, letterSpacing: "-0.02em" }}
               >
                 {activeProject.name}
               </span>
@@ -71,7 +71,7 @@ export default function TopBar() {
               exit="exit"
             >
               <h1
-                style={{ color: "var(--accent)", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 17 }}
+                style={{ color: "var(--accent)", fontWeight: 700, fontSize: 18, letterSpacing: "-0.03em" }}
               >
                 Kuro
               </h1>
@@ -82,8 +82,8 @@ export default function TopBar() {
 
       {/* Center: view mode pills in glass capsule */}
       <div
-        className="glass-2 flex items-center gap-0.5 px-1 py-0.5"
-        style={{ borderRadius: 12 }}
+        className="glass-2 flex items-center gap-1 px-1.5 py-1"
+        style={{ borderRadius: 16 }}
       >
         {VIEW_BUTTONS.map(({ mode, icon, label }) => {
           const active = viewMode === mode;
@@ -91,19 +91,19 @@ export default function TopBar() {
             <motion.button
               key={mode}
               onClick={() => setViewMode(mode)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="relative flex items-center gap-1.5 px-3 py-2 text-xs font-medium"
               style={{
-                borderRadius: 9,
-                color: active ? "rgba(255,255,255,0.92)" : "var(--text-secondary)",
+                borderRadius: 12,
+                color: active ? "rgba(255,255,255,0.95)" : "var(--text-secondary)",
               }}
             >
               {active && (
                 <motion.div
                   layoutId="topbar-view-indicator"
                   className="absolute inset-0 glass-3"
-                  style={{ borderRadius: 9 }}
+                  style={{ borderRadius: 12 }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
@@ -115,22 +115,22 @@ export default function TopBar() {
       </div>
 
       {/* Right: actions */}
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2">
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="flex items-center gap-1.5 p-2 rounded-md"
-          style={{ color: "var(--text-secondary)" }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          className="flex items-center gap-1.5 p-2.5 glass-interactive"
+          style={{ color: "var(--text-secondary)", borderRadius: 12 }}
         >
           <Search size={15} />
           <span
-            className="px-1 py-0.5 rounded"
+            className="px-1.5 py-0.5"
             style={{
-              background: "rgba(255,255,255,0.08)",
-              color: "var(--text-secondary)",
+              background: "rgba(255,255,255,0.06)",
+              color: "var(--text-tertiary)",
               fontFamily: "var(--font-mono)",
               fontSize: 10,
-              opacity: 0.7,
+              borderRadius: 6,
             }}
           >
             ⌘K
@@ -139,17 +139,15 @@ export default function TopBar() {
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.97 }}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold"
+          className="flex items-center gap-2 px-4 py-2 text-[13px] font-semibold"
           style={{
-            background: "linear-gradient(135deg, rgba(255,191,71,1) 0%, rgba(255,159,48,1) 100%)",
+            background: "linear-gradient(135deg, rgba(255,191,71,1) 0%, rgba(255,155,48,1) 100%)",
             color: "#0A0A0A",
-            borderRadius: 10,
-            fontSize: 14,
-            fontWeight: 600,
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.3)",
+            borderRadius: 14,
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 8px rgba(255,179,71,0.25)",
           }}
         >
-          <Plus size={14} />
+          <Plus size={14} strokeWidth={2.5} />
           <span>New Task</span>
         </motion.button>
       </div>
