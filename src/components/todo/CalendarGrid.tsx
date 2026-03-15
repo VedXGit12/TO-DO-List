@@ -55,7 +55,6 @@ export default function CalendarGrid({
   const days = useMemo(() => {
     const allDays = getCalendarDays(currentDate.getMonth(), currentDate.getFullYear());
     if (calView === "week") {
-      // Find the week that contains the currentDate
       const weekIdx = allDays.findIndex((d) => isSameDay(d, currentDate));
       const rowStart = weekIdx !== -1 ? Math.floor(weekIdx / 7) * 7 : 0;
       return allDays.slice(rowStart, rowStart + 7);
@@ -110,8 +109,7 @@ export default function CalendarGrid({
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(7, 1fr)",
-            gap: 1,
-            marginBottom: 4,
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
           }}
         >
           {WEEKDAYS.map((day) => (
@@ -119,10 +117,10 @@ export default function CalendarGrid({
               key={day}
               style={{
                 textAlign: "center",
-                fontSize: 11,
-                fontWeight: 600,
-                color: "var(--text-secondary)",
-                padding: "4px 0",
+                fontSize: 12,
+                fontWeight: 400,
+                color: "rgba(255,255,255,0.40)",
+                padding: "8px 0",
               }}
             >
               {day}
@@ -140,10 +138,10 @@ export default function CalendarGrid({
             animate="center"
             exit="exit"
             layout
+            className="cal-grid-lines"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(7, 1fr)",
-              gap: 1,
             }}
           >
             {days.map((day) => {

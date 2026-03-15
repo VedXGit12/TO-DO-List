@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  /* Base canvas — rich dark with blue undertone */
-  --void: #0a0c14;
-  --bg-base: #0a0c14;
+  /* Base canvas — cool dark with blue undertone */
+  --void: #111318;
+  --bg-base: #111318;
 
   /* Glass layer backgrounds — stronger for visibility */
   --glass-1: rgba(255, 255, 255, 0.035);
@@ -468,4 +468,69 @@ html { scroll-behavior: smooth; }
   border-radius: inherit;
   background: linear-gradient(135deg, var(--accent-20), transparent 60%);
   z-index: -1;
+}
+
+/* ── macOS Window Frame ──────────────────────────── */
+.app-window {
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.10);
+  background: #111318;
+  position: relative;
+}
+
+.app-window-bg {
+  background: #6B7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+}
+
+.traffic-lights {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+.traffic-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.traffic-light--red    { background: #FF5F56; }
+.traffic-light--yellow { background: #FFBD2E; }
+.traffic-light--green  { background: #27C93F; }
+
+/* ── Day Detail Panel Bottom Fade ──────────────── */
+.day-panel-container {
+  position: relative;
+}
+.day-panel-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, rgba(17,19,24,0.85));
+  border-radius: 0 0 12px 12px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Calendar Grid Lines ────────────────────────── */
+.cal-grid-lines {
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.cal-grid-lines > div {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+.cal-grid-lines > div:nth-child(7n) {
+  border-right: none;
 }

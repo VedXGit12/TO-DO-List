@@ -5,7 +5,14 @@ import { format, isSameDay } from "date-fns";
 import { dayDetailPanelVariants } from "../../lib/animations";
 import { useTodoStore } from "../../store/todoStore";
 import { useUIStore } from "../../store/uiStore";
-import TodoCard from "./TodoCard";
+
+// Project bar colors — falls back to green for unknown projects
+const PROJECT_BAR_COLORS: Record<string, string> = {
+  "proj-1": "#48DA8A",   // Daily Tasks — green
+  "proj-2": "#F5A623",   // Anime Tracker — orange
+  "proj-3": "#9478FF",   // Dev Projects — purple
+};
+
 interface DayDetailPanelProps {
   selectedDate: Date | null;
   onClose: () => void;
@@ -28,16 +35,6 @@ export default function DayDetailPanel({ selectedDate, onClose }: DayDetailPanel
       .sort((a, b) => a.order - b.order);
   }, [todos, selectedDate, activeProjectId]);
 
-  const overdueTodos = useMemo(
-    () => dayTodos.filter((t) => t.dueAt && t.dueAt < Date.now() && t.status !== "done"),
-    [dayTodos]
-  );
-
-  const otherTodos = useMemo(
-    () => dayTodos.filter((t) => !overdueTodos.includes(t)),
-    [dayTodos, overdueTodos]
-  );
-
   const submitQuickAdd = () => {
     const trimmed = quickTitle.trim();
     if (!trimmed || !activeProjectId || !selectedDate) return;
@@ -53,6 +50,8 @@ export default function DayDetailPanel({ selectedDate, onClose }: DayDetailPanel
     setQuickTitle("");
   };
 
+  const barColor = activeProjectId ? PROJECT_BAR_COLORS[activeProjectId] ?? "#48DA8A" : "#48DA8A";
+
   return (
     <AnimatePresence mode="wait">
       {selectedDate && (
@@ -62,72 +61,95 @@ export default function DayDetailPanel({ selectedDate, onClose }: DayDetailPanel
           initial="hidden"
           animate="visible"
           exit="exit"
+          className="day-panel-container"
           style={{
-            width: 320,
+            width: 200,
             flexShrink: 0,
-            borderLeft: "1px solid rgba(255,255,255,0.06)",
-            background: "rgba(12, 14, 20, 0.90)",
-            backdropFilter: "blur(48px) saturate(180%)",
-            WebkitBackdropFilter: "blur(48px) saturate(180%)",
+            borderLeft: "1px solid rgba(255,255,255,0.08)",
+            background: "rgba(255,255,255,0.055)",
+            borderRadius: 12,
+            margin: "8px 8px 8px 0",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
+            position: "relative",
           }}
         >
           {/* Header */}
           <div
             className="flex items-center justify-between px-4 py-3"
-            style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
           >
-            <h3
-              className="text-sm font-semibold"
-              style={{ color: "var(--text-primary)", fontFamily: "var(--font-sans)" }}
-            >
+            <h3 style={{
+              fontSize: 15,
+              fontWeight: 600,
+              color: "rgba(255,255,255,0.92)",
+            }}>
               {format(selectedDate, "EEEE, MMM d")}
             </h3>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+            <button
               onClick={onClose}
-              className="p-1 rounded"
-              style={{ color: "var(--text-secondary)" }}
+              className="p-1"
+              style={{ color: "rgba(255,255,255,0.40)", borderRadius: 4 }}
             >
-              <X size={14} />
-            </motion.button>
+              <X size={12} />
+            </button>
           </div>
 
           {/* Task list */}
-          <div className="flex-1 overflow-y-auto p-3 scrollbar-hide" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {/* Overdue section */}
-            {overdueTodos.length > 0 && (
-              <div>
-                <p
-                  className="text-xs font-semibold mb-2 px-1"
-                  style={{ color: "var(--p1)" }}
-                >
-                  Overdue
-                </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  {overdueTodos.map((todo) => (
-                    <TodoCard key={todo.id} todo={todo} />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Other tasks */}
-            {otherTodos.length > 0 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                {otherTodos.map((todo) => (
-                  <TodoCard key={todo.id} todo={todo} />
-                ))}
-              </div>
-            )}
-
-            {dayTodos.length === 0 && (
+          <div className="flex-1 overflow-y-auto scrollbar-hide" style={{ padding: "8px 0" }}>
+            {dayTodos.length > 0 ? (
+              dayTodos.map((todo) => {
+                const taskBarColor = PROJECT_BAR_COLORS[todo.projectId] ?? barColor;
+                const timeStr = todo.dueAt
+                  ? new Date(todo.dueAt).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true })
+                  : null;
+                return (
+                  <div
+                    key={todo.id}
+                    style={{
+                      display: "flex",
+                      borderBottom: "1px solid rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    {/* Left colored bar */}
+                    <div
+                      style={{
+                        width: 3,
+                        background: taskBarColor,
+                        flexShrink: 0,
+                      }}
+                    />
+                    {/* Task content */}
+                    <div style={{ padding: "8px 10px", flex: 1, minWidth: 0 }}>
+                      {timeStr && (
+                        <div style={{
+                          fontSize: 11,
+                          fontWeight: 500,
+                          color: "rgba(255,255,255,0.92)",
+                          marginBottom: 2,
+                        }}>
+                          {timeStr}
+                        </div>
+                      )}
+                      <div style={{
+                        fontSize: 11,
+                        color: "rgba(255,255,255,0.70)",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        textDecoration: todo.status === "done" ? "line-through" : "none",
+                      }}>
+                        - {todo.title}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
               <p
-                className="text-xs text-center py-8"
-                style={{ color: "var(--text-secondary)" }}
+                className="text-center py-8"
+                style={{ color: "rgba(255,255,255,0.40)", fontSize: 11 }}
               >
                 No tasks for this day
               </p>
@@ -137,17 +159,15 @@ export default function DayDetailPanel({ selectedDate, onClose }: DayDetailPanel
           {/* Quick add */}
           <div
             className="flex items-center gap-2 px-3 py-2"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+            style={{ borderTop: "1px solid rgba(255,255,255,0.05)", position: "relative", zIndex: 3 }}
           >
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+            <button
               onClick={submitQuickAdd}
-              className="p-1 rounded shrink-0"
-              style={{ color: "var(--accent)" }}
+              className="p-1 shrink-0"
+              style={{ color: "#F5A623" }}
             >
-              <Plus size={14} />
-            </motion.button>
+              <Plus size={12} />
+            </button>
             <input
               value={quickTitle}
               onChange={(e) => setQuickTitle(e.target.value)}
@@ -156,7 +176,7 @@ export default function DayDetailPanel({ selectedDate, onClose }: DayDetailPanel
               }}
               placeholder="Add a task..."
               className="flex-1 bg-transparent text-xs outline-none"
-              style={{ color: "var(--text-primary)" }}
+              style={{ color: "rgba(255,255,255,0.70)", fontSize: 11 }}
             />
           </div>
         </motion.div>
