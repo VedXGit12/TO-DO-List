@@ -91,7 +91,7 @@ export default function StatsBoard() {
             background: "rgba(255,255,255,0.04)",
             color: "var(--text-primary)",
             border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: 14,
+            borderRadius: 10,
           }}
         >
           <option value="all">All Projects</option>
@@ -104,7 +104,7 @@ export default function StatsBoard() {
 
         <div
           className="flex items-center gap-0.5 px-1.5 py-1"
-          style={{ background: "rgba(255,255,255,0.04)", borderRadius: 14, border: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ background: "rgba(255,255,255,0.04)", borderRadius: 10, border: "1px solid rgba(255,255,255,0.06)" }}
         >
           {(["30", "90", "year"] as TimeRange[]).map((r) => (
             <button

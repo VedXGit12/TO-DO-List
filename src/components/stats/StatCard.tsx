@@ -23,9 +23,11 @@ export default function StatCard({
     <motion.div
       variants={cardVariants}
       custom={custom}
-      className="relative glass-2 overflow-hidden"
+      className="relative overflow-hidden"
       style={{
-        borderRadius: 16,
+        borderRadius: 14,
+        background: "rgba(255,255,255,0.035)",
+        border: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       {/* Subtle colored radial gradient in top-left */}

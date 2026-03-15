@@ -59,12 +59,9 @@ export default function KanbanColumn({ status, todos }: KanbanColumnProps) {
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
       className="flex flex-col min-w-[280px] w-[280px] p-4 relative overflow-hidden"
       style={{
-        borderRadius: 16,
-        background: "rgba(255,255,255,0.03)",
-        backdropFilter: "blur(30px)",
-        WebkitBackdropFilter: "blur(30px)",
-        border: "1px solid rgba(255,255,255,0.07)",
-        borderTopColor: "rgba(255,255,255,0.10)",
+        borderRadius: 14,
+        background: "rgba(255,255,255,0.025)",
+        border: "1px solid rgba(255,255,255,0.05)",
         borderTop: borderTop,
         backgroundImage: gradient,
       }}

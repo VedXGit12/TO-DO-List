@@ -34,18 +34,22 @@ export default function MotionToast() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="glass-3"
             style={{
               pointerEvents: "auto",
               display: "flex",
               alignItems: "center",
               gap: 10,
-              padding: "10px 14px",
-              borderRadius: 18,
+              padding: "10px 16px",
+              borderRadius: 14,
               fontSize: 13,
               color: "var(--text-primary)",
               minWidth: 220,
               maxWidth: 360,
+              background: "rgba(14,16,24,0.88)",
+              backdropFilter: "blur(40px) saturate(180%)",
+              WebkitBackdropFilter: "blur(40px) saturate(180%)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
             }}
           >
             {ICONS[toast.type]}

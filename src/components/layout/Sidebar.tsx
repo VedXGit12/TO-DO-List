@@ -39,19 +39,19 @@ export default function Sidebar() {
       initial={false}
       className="relative flex flex-col h-screen overflow-hidden shrink-0 z-10"
       style={{
-        background: "rgba(255,255,255,0.03)",
-        backdropFilter: "blur(40px) saturate(180%)",
-        WebkitBackdropFilter: "blur(40px) saturate(180%)",
-        borderRight: "1px solid rgba(255,255,255,0.07)",
+        background: "rgba(255,255,255,0.025)",
+        backdropFilter: "blur(48px) saturate(180%)",
+        WebkitBackdropFilter: "blur(48px) saturate(180%)",
+        borderRight: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       {/* Header with greeting */}
-      <div className="px-4 pt-5 pb-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <div className="px-4 pt-5 pb-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
         <div className="flex items-center justify-between mb-3">
           <motion.div variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="flex items-center gap-2.5 overflow-hidden">
-            <span className="relative" style={{ fontSize: 18, fontWeight: 600, color: "var(--accent)", letterSpacing: "-0.03em", textShadow: "0 0 20px var(--accent-glow)" }}>
-              Kur
-              <span className="relative inline-block">
+            <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.04em" }}>
+              <span className="greeting-gradient">Kur</span>
+              <span className="relative inline-block greeting-gradient">
                 o
                 <svg
                   className="logo-ring absolute"
@@ -63,9 +63,9 @@ export default function Sidebar() {
               </span>
             </span>
           </motion.div>
-          <motion.button onClick={toggleSidebar} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+          <motion.button onClick={toggleSidebar} whileHover={{ scale: 1.1, background: "rgba(255,255,255,0.06)" }} whileTap={{ scale: 0.9 }}
             className="p-1.5 flex items-center justify-center shrink-0"
-            style={{ color: "var(--text-tertiary)", borderRadius: 10 }}>
+            style={{ color: "var(--text-tertiary)", borderRadius: 8, transition: "background 0.2s" }}>
             <motion.div variants={chevronVariants} animate={sidebarOpen ? "open" : "closed"}>
               <ChevronLeft size={16} />
             </motion.div>
@@ -73,22 +73,22 @@ export default function Sidebar() {
         </div>
         {/* Greeting area */}
         <motion.div variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"}>
-          <p className="greeting-gradient" style={{ fontSize: 13, fontWeight: 600, letterSpacing: "-0.01em" }}>
+          <p className="greeting-gradient" style={{ fontSize: 14, fontWeight: 600, letterSpacing: "-0.01em" }}>
             {getGreeting()}
           </p>
-          <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: 2 }}>
+          <p style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: 3, fontWeight: 500 }}>
             {new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })}
           </p>
         </motion.div>
       </div>
 
       {/* Search */}
-      <div className="px-3 pt-3 pb-1">
-        <motion.button whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}
-          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm glass-interactive"
-          style={{ color: "var(--text-tertiary)", background: "rgba(255,255,255,0.04)", borderRadius: 12, border: "1px solid rgba(255,255,255,0.05)" }}>
-          <Search size={14} className="shrink-0" />
-          <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="text-xs">
+      <div className="px-3 pt-3.5 pb-1">
+        <motion.button whileHover={{ scale: 1.01, background: "rgba(255,255,255,0.06)" }} whileTap={{ scale: 0.98 }}
+          className="w-full flex items-center gap-2.5 px-3 py-2.5 text-sm"
+          style={{ color: "var(--text-tertiary)", background: "rgba(255,255,255,0.035)", borderRadius: 10, border: "1px solid rgba(255,255,255,0.05)", transition: "all 0.2s" }}>
+          <Search size={14} className="shrink-0" style={{ opacity: 0.7 }} />
+          <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="text-xs font-medium">
             Search… <span style={{ color: "var(--text-ghost)", fontFamily: "var(--font-mono)", fontSize: 10 }}>⌘K</span>
           </motion.span>
         </motion.button>
@@ -96,8 +96,8 @@ export default function Sidebar() {
 
       {/* View switcher */}
       <div className="px-3 py-3">
-        <div className="mb-2.5 px-2">
-          <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.09em", fontWeight: 600, color: "var(--text-tertiary)" }}>
+        <div className="mb-2 px-2">
+          <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 600, color: "var(--text-tertiary)" }}>
             Views
           </span>
         </div>
@@ -109,12 +109,13 @@ export default function Sidebar() {
               style={{
                 color: active ? "var(--accent)" : "var(--text-secondary)",
                 background: active ? "var(--accent-surface)" : "transparent",
-                borderRadius: 9,
-                transition: "background 0.15s",
+                borderRadius: 10,
+                fontWeight: active ? 600 : 500,
+                transition: "all 0.15s",
               }}>
-              <span className="shrink-0">{icon}</span>
-              <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="text-[13px] font-medium">{label}</motion.span>
-              {active && <motion.div layoutId="active-view-indicator" className="ml-auto w-1.5 h-1.5 rounded-full" style={{ background: "var(--accent)" }} />}
+              <span className="shrink-0" style={{ opacity: active ? 1 : 0.7 }}>{icon}</span>
+              <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="text-[13px]">{label}</motion.span>
+              {active && <motion.div layoutId="active-view-indicator" className="ml-auto w-1.5 h-1.5 rounded-full" style={{ background: "var(--accent)", boxShadow: "0 0 6px var(--accent-glow)" }} />}
             </motion.button>
           );
         })}
@@ -124,8 +125,8 @@ export default function Sidebar() {
 
       {/* Workspaces */}
       <div className="flex-1 overflow-y-auto px-3 py-3 space-y-1 scrollbar-hide">
-        <div className="mb-2.5 px-2">
-          <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.09em", fontWeight: 600, color: "var(--text-tertiary)" }}>
+        <div className="mb-2 px-2">
+          <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", fontWeight: 600, color: "var(--text-tertiary)" }}>
             Workspaces
           </span>
         </div>
@@ -136,15 +137,15 @@ export default function Sidebar() {
             <motion.div key={ws.id} custom={i} variants={workspaceVariants} initial="hidden" animate="visible">
               <button onClick={() => toggleWorkspace(ws.id)}
                 className="w-full flex items-center gap-2.5 px-3 py-2"
-                style={{ color: "var(--text-secondary)", borderRadius: 9, transition: "background 0.15s" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.05)")}
+                style={{ color: "var(--text-secondary)", borderRadius: 10, transition: "background 0.15s" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.04)")}
                 onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
                 <span className="text-base shrink-0">{ws.icon}</span>
                 <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"}
-                  className="text-xs font-semibold uppercase tracking-wider flex-1 text-left truncate" style={{ color: ws.color }}>
+                  className="text-[12px] font-semibold uppercase tracking-wider flex-1 text-left truncate" style={{ color: ws.color }}>
                   {ws.name}
                 </motion.span>
-                <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="shrink-0">
+                <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="shrink-0" style={{ opacity: 0.5 }}>
                   {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                 </motion.span>
               </button>
@@ -152,7 +153,7 @@ export default function Sidebar() {
               <AnimatePresence initial={false}>
                 {isExpanded && (
                   <motion.div variants={workspaceChildrenVariants} initial="hidden" animate="visible" exit="exit"
-                    className="ml-3 pl-3 space-y-0.5 mt-1" style={{ borderLeft: "1px solid rgba(255,255,255,0.05)" }}>
+                    className="ml-3 pl-3 space-y-0.5 mt-0.5" style={{ borderLeft: "1px solid rgba(255,255,255,0.04)" }}>
                     {wsProjects.map((proj) => {
                       const isActive = activeProjectId === proj.id;
                       return (
@@ -163,9 +164,10 @@ export default function Sidebar() {
                             background: isActive ? "var(--accent-surface)" : "transparent",
                             color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
                             borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent",
-                            borderRadius: 9,
-                            boxShadow: isActive ? "inset 0 0 12px rgba(255,179,71,0.05)" : "none",
-                            transition: "background 0.15s",
+                            borderRadius: 10,
+                            fontWeight: isActive ? 600 : 400,
+                            boxShadow: isActive ? "inset 0 0 16px rgba(255,179,71,0.04)" : "none",
+                            transition: "all 0.15s",
                           }}>
                           <span className="text-sm shrink-0">{proj.icon}</span>
                           <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="text-[13px] truncate text-left">
@@ -190,13 +192,11 @@ export default function Sidebar() {
 
       {/* Footer */}
       <div className="px-3 pb-5 pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-        <motion.button whileHover={{ x: 2 }}
+        <motion.button whileHover={{ x: 2, background: "rgba(255,255,255,0.04)" }}
           onClick={() => useUIStore.getState().setSettingsPanelOpen(true)}
-          className="w-full flex items-center gap-3 px-3 py-2.5 glass-interactive"
-          style={{ color: "var(--text-secondary)", borderRadius: 12 }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.04)")}
-          onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
-          <Settings size={15} className="shrink-0" />
+          className="w-full flex items-center gap-3 px-3 py-2.5"
+          style={{ color: "var(--text-secondary)", borderRadius: 10, transition: "all 0.15s" }}>
+          <Settings size={15} className="shrink-0" style={{ opacity: 0.7 }} />
           <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="text-[13px] font-medium">Settings</motion.span>
         </motion.button>
       </div>

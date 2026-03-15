@@ -43,7 +43,7 @@ export default function TaskChip({ todo, isDragOverlay }: TaskChipProps) {
         borderLeft: `2px solid ${PRIORITY_HEX[todo.priority] ?? "rgba(160,160,180,0.7)"}`,
         paddingLeft: 6,
         paddingRight: 6,
-        background: "rgba(255,255,255,0.07)",
+        background: "rgba(255,255,255,0.05)",
         borderRadius: 5,
         display: "flex",
         alignItems: "center",

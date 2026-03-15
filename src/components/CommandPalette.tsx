@@ -59,14 +59,13 @@ export default function CommandPalette() {
             onKeyDown={handleKeyDown}
             className="fixed z-50 left-1/2 top-[18%] w-full max-w-[640px] -translate-x-1/2 overflow-hidden"
             style={{
-              borderRadius: 18,
+              borderRadius: 16,
               maxHeight: MODAL_MAX_HEIGHT,
-              background: "rgba(14, 16, 24, 0.85)",
-              backdropFilter: "blur(80px) saturate(250%) brightness(1.1)",
-              WebkitBackdropFilter: "blur(80px) saturate(250%) brightness(1.1)",
-              border: "1px solid rgba(255,255,255,0.18)",
-              borderTopColor: "rgba(255,255,255,0.28)",
-              boxShadow: "var(--shadow-modal)",
+              background: "rgba(14, 16, 24, 0.88)",
+              backdropFilter: "blur(80px) saturate(200%)",
+              WebkitBackdropFilter: "blur(80px) saturate(200%)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              boxShadow: "0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)",
             }}
           >
             {/* Search input row */}
