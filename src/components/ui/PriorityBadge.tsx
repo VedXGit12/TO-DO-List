@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 
 const PRIORITY_MAP: Record<1 | 2 | 3 | 4, { label: string; color: string; hex: string; glowColor: string; shouldPulse: boolean }> = {
-  1: { label: "Urgent", color: "var(--p1)", hex: "#ff6464", glowColor: "rgba(255,80,80,0.3)", shouldPulse: true },
-  2: { label: "High",   color: "var(--p2)", hex: "#ffa050", glowColor: "rgba(255,140,60,0.3)", shouldPulse: true },
-  3: { label: "Medium", color: "var(--p3)", hex: "#64a0ff", glowColor: "rgba(80,140,255,0.3)", shouldPulse: false },
-  4: { label: "Low",    color: "var(--p4)", hex: "#a0a0b4", glowColor: "none", shouldPulse: false },
+  1: { label: "Urgent", color: "var(--p1)", hex: "#ff5f5f", glowColor: "rgba(255,80,80,0.30)", shouldPulse: true },
+  2: { label: "High",   color: "var(--p2)", hex: "#ffa54b", glowColor: "rgba(255,145,55,0.28)", shouldPulse: true },
+  3: { label: "Medium", color: "var(--p3)", hex: "#64a0ff", glowColor: "rgba(80,140,255,0.25)", shouldPulse: false },
+  4: { label: "Low",    color: "var(--p4)", hex: "#9b9baf", glowColor: "none", shouldPulse: false },
 };
 
 interface PriorityBadgeProps {

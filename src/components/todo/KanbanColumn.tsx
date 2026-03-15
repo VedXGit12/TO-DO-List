@@ -11,11 +11,11 @@ import AnimatedCounter from "../ui/AnimatedCounter";
 import SortableTodoCard from "./SortableTodoCard";
 import type { Todo } from "../../types/todo";
 
-const COLUMN_CONFIG: Record<Todo["status"], { label: string; dotColor: string }> = {
-  todo:        { label: "Todo",        dotColor: "rgba(255,255,255,0.3)" },
-  in_progress: { label: "In Progress", dotColor: "rgba(140,120,255,0.9)" },
-  done:        { label: "Done",        dotColor: "rgba(80,220,140,0.9)" },
-  archived:    { label: "Archived",    dotColor: "rgba(160,160,180,0.5)" },
+const COLUMN_CONFIG: Record<Todo["status"], { label: string; dotColor: string; borderTop: string; gradient: string }> = {
+  todo:        { label: "Todo",        dotColor: "rgba(200,200,220,0.3)", borderTop: "2px solid rgba(200,200,220,0.25)", gradient: "linear-gradient(to bottom, rgba(180,180,220,0.04), transparent 60px)" },
+  in_progress: { label: "In Progress", dotColor: "rgba(148,120,255,0.9)", borderTop: "2px solid rgba(148,120,255,0.35)", gradient: "linear-gradient(to bottom, rgba(148,120,255,0.05), transparent 60px)" },
+  done:        { label: "Done",        dotColor: "rgba(72,218,138,0.9)",  borderTop: "2px solid rgba(72,218,138,0.35)", gradient: "linear-gradient(to bottom, rgba(72,218,138,0.05), transparent 60px)" },
+  archived:    { label: "Archived",    dotColor: "rgba(155,155,175,0.5)", borderTop: "2px solid rgba(155,155,175,0.20)", gradient: "linear-gradient(to bottom, rgba(155,155,175,0.03), transparent 60px)" },
 };
 
 interface KanbanColumnProps {
@@ -27,7 +27,7 @@ export default function KanbanColumn({ status, todos }: KanbanColumnProps) {
   const { addTodo } = useTodoStore();
   const { activeProjectId, accentColor } = useUIStore();
   const accentHex = ACCENT_COLORS[accentColor];
-  const { label, dotColor } = COLUMN_CONFIG[status];
+  const { label, dotColor, borderTop, gradient } = COLUMN_CONFIG[status];
   const [quickAdd, setQuickAdd] = useState("");
   const [showInput, setShowInput] = useState(false);
 
@@ -57,18 +57,18 @@ export default function KanbanColumn({ status, todos }: KanbanColumnProps) {
         backgroundColor: isOver ? hexToRgba(accentHex, 0.06) : "rgba(0,0,0,0)",
       }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="flex flex-col min-w-[280px] w-[280px] glass-1 p-4 relative overflow-hidden"
-      style={{ borderRadius: 22 }}
+      className="flex flex-col min-w-[280px] w-[280px] p-4 relative overflow-hidden"
+      style={{
+        borderRadius: 16,
+        background: "rgba(255,255,255,0.03)",
+        backdropFilter: "blur(30px)",
+        WebkitBackdropFilter: "blur(30px)",
+        border: "1px solid rgba(255,255,255,0.07)",
+        borderTopColor: "rgba(255,255,255,0.10)",
+        borderTop: borderTop,
+        backgroundImage: gradient,
+      }}
     >
-      {/* Status color gradient at top */}
-      <div
-        className="absolute top-0 left-0 right-0 pointer-events-none"
-        style={{
-          height: 3,
-          background: `linear-gradient(to bottom, ${dotColor}26, transparent)`,
-          borderRadius: "22px 22px 0 0",
-        }}
-      />
       {/* Header */}
       <div className="flex items-center gap-2.5 mb-4 px-1">
         <span

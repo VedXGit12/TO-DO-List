@@ -44,9 +44,9 @@ export default function CommandPalette() {
             onClick={close}
             className="fixed inset-0 z-50"
             style={{
-              background: "rgba(0,0,0,0.45)",
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
+              background: "rgba(0,0,0,0.50)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
             }}
           />
 
@@ -57,11 +57,16 @@ export default function CommandPalette() {
             animate="visible"
             exit="exit"
             onKeyDown={handleKeyDown}
-            className="fixed z-50 left-1/2 top-[18%] w-full max-w-[640px] -translate-x-1/2 glass-3 overflow-hidden"
+            className="fixed z-50 left-1/2 top-[18%] w-full max-w-[640px] -translate-x-1/2 overflow-hidden"
             style={{
-              borderRadius: 22,
+              borderRadius: 18,
               maxHeight: MODAL_MAX_HEIGHT,
-              boxShadow: "0 1px 2px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.3), 0 32px 64px rgba(0,0,0,0.5)",
+              background: "rgba(14, 16, 24, 0.85)",
+              backdropFilter: "blur(80px) saturate(250%) brightness(1.1)",
+              WebkitBackdropFilter: "blur(80px) saturate(250%) brightness(1.1)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              borderTopColor: "rgba(255,255,255,0.28)",
+              boxShadow: "var(--shadow-modal)",
             }}
           >
             {/* Search input row */}

@@ -100,9 +100,9 @@ export default function TaskModal() {
             onClick={close}
             className="fixed inset-0 z-40"
             style={{
-              background: "rgba(0,0,0,0.45)",
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
+              background: "rgba(0,0,0,0.50)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
             }}
           />
 
@@ -112,19 +112,19 @@ export default function TaskModal() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-y-0 right-0 z-40 flex flex-col w-full max-w-[680px] glass-2"
+            className="fixed inset-y-0 right-0 z-40 flex flex-col w-full max-w-[680px]"
             style={{
-              borderLeft: "1px solid rgba(255,255,255,0.05)",
-              borderTop: "none",
-              borderRight: "none",
-              borderBottom: "none",
-              boxShadow: "-12px 0 48px rgba(0,0,0,0.35), 0 32px 64px rgba(0,0,0,0.5)",
+              background: "rgba(10, 12, 18, 0.88)",
+              backdropFilter: "blur(60px) saturate(200%)",
+              WebkitBackdropFilter: "blur(60px) saturate(200%)",
+              borderLeft: "1px solid rgba(255,255,255,0.10)",
+              boxShadow: "var(--shadow-modal)",
             }}
           >
             {/* Header */}
             <div
               className="flex items-center gap-3.5 px-6 py-4 shrink-0"
-              style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
             >
               <motion.button
                 onClick={close}
@@ -183,7 +183,7 @@ export default function TaskModal() {
               {/* Right: metadata + subtasks */}
               <div
                 className="w-[240px] shrink-0 overflow-y-auto p-6 scrollbar-hide"
-                style={{ borderLeft: "1px solid rgba(255,255,255,0.05)" }}
+                style={{ borderLeft: "1px solid rgba(255,255,255,0.08)" }}
               >
                 <TaskMetaSidebar todo={todo} />
 

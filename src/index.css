@@ -3,39 +3,91 @@
 @tailwind utilities;
 
 :root {
-  --bg-base:        #050507;
-  --bg-surface:     rgba(255,255,255,0.035);
-  --bg-elevated:    rgba(255,255,255,0.06);
-  --border:         rgba(255,255,255,0.07);
-  --border-top:     rgba(255,255,255,0.12);
-  --text-primary:   rgba(255,255,255,0.95);
-  --text-secondary: rgba(255,255,255,0.50);
-  --text-tertiary:  rgba(255,255,255,0.28);
-  --text-ghost:     rgba(255,255,255,0.10);
-  --accent:         #ffb347;
-  --accent-dim:     rgba(255, 179, 71, 0.12);
-  --accent-10:      rgba(255, 179, 71, 0.10);
-  --accent-20:      rgba(255, 179, 71, 0.20);
-  --accent-40:      rgba(255, 179, 71, 0.40);
-  --accent-45:      rgba(255, 179, 71, 0.45);
-  --accent-70:      rgba(255, 179, 71, 0.70);
-  --p1:             rgba(255,100,100,0.9);
-  --p1-glow:        rgba(255,80,80,0.3);
-  --p2:             rgba(255,160,80,0.9);
-  --p2-glow:        rgba(255,140,60,0.3);
-  --p3:             rgba(100,160,255,0.9);
-  --p3-glow:        rgba(80,140,255,0.3);
-  --p4:             rgba(160,160,180,0.7);
-  --success:        rgba(80,220,140,0.9);
-  --success-glow:   rgba(80,220,140,0.5);
-  --in-progress:    rgba(140,120,255,0.9);
-  --overdue:        rgba(255,80,80,0.8);
-  --radius-sm:      10px;
-  --radius-md:      16px;
-  --radius-lg:      22px;
-  --radius-xl:      28px;
-  --font-sans:      "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
-  --font-mono:      "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
+  /* Base canvas — cool deep charcoal, NOT pure black */
+  --void: #07090E;
+  --bg-base: #07090E;
+
+  /* Glass layer backgrounds */
+  --glass-1: rgba(255, 255, 255, 0.04);
+  --glass-2: rgba(255, 255, 255, 0.07);
+  --glass-3: rgba(255, 255, 255, 0.11);
+  --glass-4: rgba(255, 255, 255, 0.16);
+  --bg-surface: rgba(255, 255, 255, 0.04);
+  --bg-elevated: rgba(255, 255, 255, 0.07);
+
+  /* Glass borders — top always brighter */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-mid: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.20);
+  --border: rgba(255, 255, 255, 0.07);
+  --border-top: rgba(255, 255, 255, 0.12);
+
+  /* Top edge highlight — the most important detail */
+  --edge-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --edge-highlight-strong: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+  /* Depth shadows — always three layers */
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.3), 0 16px 40px rgba(0,0,0,0.2);
+  --shadow-float: 0 2px 4px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.4), 0 32px 64px rgba(0,0,0,0.35);
+  --shadow-modal: 0 4px 8px rgba(0,0,0,0.6), 0 16px 48px rgba(0,0,0,0.5), 0 48px 96px rgba(0,0,0,0.4);
+
+  /* Accent — luminous amber */
+  --accent: rgba(255, 179, 71, 0.92);
+  --accent-glow: rgba(255, 179, 71, 0.35);
+  --accent-surface: rgba(255, 179, 71, 0.08);
+  --accent-border: rgba(255, 179, 71, 0.35);
+  --accent-dim: rgba(255, 179, 71, 0.12);
+  --accent-10: rgba(255, 179, 71, 0.10);
+  --accent-20: rgba(255, 179, 71, 0.20);
+  --accent-40: rgba(255, 179, 71, 0.40);
+  --accent-45: rgba(255, 179, 71, 0.45);
+  --accent-70: rgba(255, 179, 71, 0.70);
+
+  /* Text */
+  --text-primary: rgba(255, 255, 255, 0.92);
+  --text-secondary: rgba(255, 255, 255, 0.55);
+  --text-tertiary: rgba(255, 255, 255, 0.28);
+  --text-ghost: rgba(255, 255, 255, 0.10);
+
+  /* Priority — desaturated for glass */
+  --p1: rgba(255, 95, 95, 0.92);
+  --p1-glow: rgba(255, 80, 80, 0.30);
+  --p2: rgba(255, 165, 75, 0.92);
+  --p2-glow: rgba(255, 145, 55, 0.28);
+  --p3: rgba(100, 160, 255, 0.92);
+  --p3-glow: rgba(80, 140, 255, 0.25);
+  --p4: rgba(155, 155, 175, 0.65);
+
+  /* Status */
+  --done: rgba(72, 218, 138, 0.92);
+  --done-glow: rgba(60, 200, 120, 0.30);
+  --success: rgba(72, 218, 138, 0.92);
+  --success-glow: rgba(60, 200, 120, 0.30);
+  --in-progress: rgba(148, 120, 255, 0.92);
+  --overdue: rgba(255, 80, 80, 0.8);
+
+  /* Blur values */
+  --blur-1: blur(40px) saturate(180%);
+  --blur-2: blur(20px) saturate(200%);
+  --blur-3: blur(60px) saturate(220%) brightness(1.08);
+  --blur-4: blur(80px) saturate(250%);
+
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-card: 14px;
+  --r-modal: 18px;
+  /* Legacy aliases — existing components reference --radius-* */
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,63 +103,86 @@ body {
 }
 
 /* ──────────────────────────────────────────────────
-   Apple-Inspired Liquid Glass Layer System
-   Layer 0 = void (#050507)
+   Liquid Glass Layer System
+   Layer 0 = void (#07090E)
    Layer 1 = sidebar / content panels — subtle vibrancy
    Layer 2 = cards / inputs — raised glass
    Layer 3 = modals / toasts / command palette — floating glass
    Layer 4 = tooltips / dropdowns / critical alerts
    ────────────────────────────────────────────────── */
 
+/* Base glass surface */
 .glass-1 {
-  background: rgba(255,255,255,0.028);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-top-color: rgba(255,255,255,0.10);
-  box-shadow:
-    inset 0 0.5px 0 rgba(255,255,255,0.08),
-    inset 0 0 40px rgba(255,255,255,0.01);
-  backdrop-filter: blur(48px) saturate(160%);
-  -webkit-backdrop-filter: blur(48px) saturate(160%);
+  background: var(--glass-1);
+  -webkit-backdrop-filter: var(--blur-1);
+  backdrop-filter: var(--blur-1);
+  border: 1px solid var(--border-subtle);
+  border-top-color: rgba(255,255,255,0.11);
+  box-shadow: var(--edge-highlight), var(--shadow-card);
 }
 
+/* Raised card glass */
 .glass-2 {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-top-color: rgba(255,255,255,0.14);
-  box-shadow:
-    inset 0 0.5px 0 rgba(255,255,255,0.10),
-    0 1px 3px rgba(0,0,0,0.25),
-    0 8px 24px rgba(0,0,0,0.18),
-    0 24px 48px rgba(0,0,0,0.12);
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  background: var(--glass-2);
+  -webkit-backdrop-filter: var(--blur-2);
+  backdrop-filter: var(--blur-2);
+  border: 1px solid var(--border-mid);
+  border-top-color: rgba(255,255,255,0.16);
+  box-shadow: var(--edge-highlight), var(--shadow-card);
 }
 
+/* Floating modal glass */
 .glass-3 {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-top-color: rgba(255,255,255,0.20);
-  box-shadow:
-    inset 0 0.5px 0 rgba(255,255,255,0.16),
-    0 1px 3px rgba(0,0,0,0.2),
-    0 8px 24px rgba(0,0,0,0.2),
-    0 32px 64px rgba(0,0,0,0.35);
-  backdrop-filter: blur(64px) saturate(200%) brightness(1.06);
-  -webkit-backdrop-filter: blur(64px) saturate(200%) brightness(1.06);
+  background: var(--glass-3);
+  -webkit-backdrop-filter: var(--blur-3);
+  backdrop-filter: var(--blur-3);
+  border: 1px solid var(--border-strong);
+  border-top-color: rgba(255,255,255,0.25);
+  box-shadow: var(--edge-highlight-strong), var(--shadow-float);
 }
 
+/* Top-layer glass */
 .glass-4 {
-  background: rgba(255,255,255,0.09);
-  border: 1px solid rgba(255,255,255,0.16);
-  border-top-color: rgba(255,255,255,0.24);
-  box-shadow:
-    inset 0 0.5px 0 rgba(255,255,255,0.20),
-    0 2px 6px rgba(0,0,0,0.2),
-    0 12px 32px rgba(0,0,0,0.2),
-    0 24px 48px rgba(0,0,0,0.15);
-  backdrop-filter: blur(80px) saturate(240%);
-  -webkit-backdrop-filter: blur(80px) saturate(240%);
+  background: var(--glass-4);
+  -webkit-backdrop-filter: var(--blur-4);
+  backdrop-filter: var(--blur-4);
+  border: 1px solid rgba(255,255,255,0.24);
+  border-top-color: rgba(255,255,255,0.30);
+  box-shadow: var(--edge-highlight-strong), var(--shadow-modal);
 }
+
+/* Interactive glass — adds hover shimmer */
+.glass-interactive {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glass-interactive:hover {
+  border-color: rgba(255,255,255,0.18);
+  border-top-color: rgba(255,255,255,0.28);
+}
+
+/* Specular shimmer — cursor tracked via JS */
+.glass-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.glass-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    180px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255,255,255,0.07),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.glass-shimmer:hover::after { opacity: 1; }
 
 /* Scrollbar */
 ::-webkit-scrollbar        { width: 5px; height: 5px; }
@@ -158,10 +233,10 @@ button { border: none; background: none; font-family: inherit; cursor: pointer; 
   100% { background-position: 200% 0; }
 }
 .skeleton-shimmer {
-  background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-surface) 50%, var(--bg-elevated) 75%);
+  background: linear-gradient(90deg, rgba(255,255,255,0.07) 25%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.07) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
-  border-radius: var(--radius-sm);
+  border-radius: var(--r-sm);
 }
 
 /* Smooth scrolling */
@@ -219,14 +294,14 @@ html { scroll-behavior: smooth; }
 
 /* Priority dot pulse for P1/P2 */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 4px 1px currentColor; }
-  50% { box-shadow: 0 0 8px 3px currentColor; }
+  0%, 100% { box-shadow: 0 0 6px currentColor; }
+  50% { box-shadow: 0 0 12px currentColor; }
 }
 .glow-dot {
   animation: glow-pulse 3s ease-in-out infinite;
 }
 
-/* Specular shimmer pseudo-element — Apple-like highlight */
+/* @deprecated Use .glass-shimmer instead. Kept for backward compatibility with existing components. */
 .specular-shimmer {
   position: relative;
   overflow: hidden;
@@ -239,7 +314,7 @@ html { scroll-behavior: smooth; }
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
-  background: radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.04), transparent);
+  background: radial-gradient(180px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.07), transparent 70%);
 }
 .specular-shimmer:hover::after {
   opacity: 1;
@@ -267,13 +342,13 @@ html { scroll-behavior: smooth; }
   .logo-ring { animation: none; }
 }
 
-/* Ambient background gradient — Apple-style depth */
+/* Ambient background gradient — depth */
 .ambient-bg {
   background:
     radial-gradient(ellipse 80% 60% at 20% 40%, rgba(120,80,200,0.04), transparent),
     radial-gradient(ellipse 60% 50% at 80% 60%, rgba(255,179,71,0.03), transparent),
     radial-gradient(ellipse 70% 40% at 50% 100%, rgba(80,120,220,0.03), transparent),
-    var(--bg-base);
+    var(--void);
 }
 
 /* Apple-style selection */
@@ -282,14 +357,18 @@ html { scroll-behavior: smooth; }
   color: var(--text-primary);
 }
 
-/* Smooth transitions for interactive elements */
-.glass-interactive {
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
 /* Subtle inner glow for active states */
 .active-glow {
   box-shadow:
     inset 0 0 20px var(--accent-10),
-    inset 0 0.5px 0 rgba(255,255,255,0.10);
+    inset 0 1px 0 rgba(255,255,255,0.14);
+}
+
+/* Fire emoji pulse for streaks >= 7 */
+@keyframes fire-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(255,150,50,0.5)); }
+  50% { filter: drop-shadow(0 0 16px rgba(255,150,50,0.5)); }
+}
+.fire-pulse {
+  animation: fire-pulse 1.8s ease-in-out infinite;
 }
