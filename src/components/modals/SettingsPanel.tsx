@@ -91,8 +91,13 @@ export default function SettingsPanel() {
             animate={{ x: 0 }}
             exit={{ x: 380 }}
             transition={{ type: "spring", stiffness: 350, damping: 30 }}
-            className="relative w-full max-w-sm overflow-y-auto glass-2"
-            style={{ borderLeft: "1px solid rgba(255,255,255,0.05)" }}
+            className="relative w-full max-w-sm overflow-y-auto"
+            style={{
+              background: "rgba(10, 12, 18, 0.92)",
+              backdropFilter: "blur(60px) saturate(180%)",
+              WebkitBackdropFilter: "blur(60px) saturate(180%)",
+              borderLeft: "1px solid rgba(255,255,255,0.06)",
+            }}
           >
             {/* Header */}
             <div className="flex items-center justify-between p-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>

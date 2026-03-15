@@ -87,8 +87,15 @@ export default function ExportModal() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative w-full max-w-lg mx-4 glass-3 p-7"
-            style={{ borderRadius: 24 }}
+            className="relative w-full max-w-lg mx-4 p-7"
+            style={{
+              borderRadius: 20,
+              background: "rgba(14,16,24,0.90)",
+              backdropFilter: "blur(60px) saturate(180%)",
+              WebkitBackdropFilter: "blur(60px) saturate(180%)",
+              border: "1px solid rgba(255,255,255,0.10)",
+              boxShadow: "0 24px 64px rgba(0,0,0,0.5)",
+            }}
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-6">

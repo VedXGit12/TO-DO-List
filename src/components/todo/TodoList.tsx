@@ -62,28 +62,29 @@ export default function TodoList() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
-            className="flex flex-col items-center justify-center py-24 gap-4"
+            className="flex flex-col items-center justify-center py-28 gap-5"
           >
             <motion.div
               className="welcome-float"
               style={{
-                width: 64,
-                height: 64,
+                width: 72,
+                height: 72,
                 borderRadius: 20,
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                background: "linear-gradient(135deg, rgba(255,179,71,0.08), rgba(255,179,71,0.03))",
+                border: "1px solid rgba(255,179,71,0.12)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                boxShadow: "0 4px 24px rgba(255,179,71,0.06)",
               }}
             >
-              <span style={{ fontSize: 28 }}>📝</span>
+              <span style={{ fontSize: 30 }}>📝</span>
             </motion.div>
             <div className="text-center">
-              <p className="text-sm font-medium" style={{ color: "var(--text-primary)", marginBottom: 4 }}>
+              <p className="text-base font-semibold" style={{ color: "var(--text-primary)", marginBottom: 6, letterSpacing: "-0.02em" }}>
                 No tasks yet
               </p>
-              <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.5 }}>
                 Add your first task below to get started
               </p>
             </div>
@@ -94,13 +95,13 @@ export default function TodoList() {
               variants={listVariants}
               initial="hidden"
               animate="visible"
-              className="space-y-5 pb-4"
+              className="space-y-6 pb-4"
             >
               <AnimatePresence mode="popLayout">
                 {groups.today.length > 0 && (
                   <div key="group-today">
                     <GroupHeader title="Today" count={groups.today.length} accent />
-                    <div className="space-y-2 mt-2">
+                    <div className="space-y-2.5 mt-2.5">
                       {groups.today.map((todo) => (
                         <motion.div key={todo.id} variants={cardVariants} exit="exit" layout>
                           <TodoCard todo={todo} />
@@ -113,7 +114,7 @@ export default function TodoList() {
                 {groups.upcoming.length > 0 && (
                   <div key="group-upcoming">
                     <GroupHeader title="Upcoming" count={groups.upcoming.length} />
-                    <div className="space-y-2 mt-2">
+                    <div className="space-y-2.5 mt-2.5">
                       {groups.upcoming.map((todo) => (
                         <motion.div key={todo.id} variants={cardVariants} exit="exit" layout>
                           <TodoCard todo={todo} />
@@ -126,7 +127,7 @@ export default function TodoList() {
                 {groups.noDate.length > 0 && (
                   <div key="group-nodate">
                     <GroupHeader title="No date" count={groups.noDate.length} />
-                    <div className="space-y-2 mt-2">
+                    <div className="space-y-2.5 mt-2.5">
                       {groups.noDate.map((todo) => (
                         <motion.div key={todo.id} variants={cardVariants} exit="exit" layout>
                           <TodoCard todo={todo} />
@@ -152,7 +153,7 @@ export default function TodoList() {
 
 function GroupHeader({ title, count, accent }: { title: string; count: number; accent?: boolean }) {
   return (
-    <div className="flex items-center gap-2.5 py-2">
+    <div className="flex items-center gap-2.5 py-1.5">
       {accent && (
         <div
           style={{
@@ -164,12 +165,12 @@ function GroupHeader({ title, count, accent }: { title: string; count: number; a
           }}
         />
       )}
-      <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: accent ? "var(--accent)" : "var(--text-tertiary)", letterSpacing: "0.1em" }}>
+      <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: accent ? "var(--accent)" : "var(--text-tertiary)", letterSpacing: "0.08em" }}>
         {title}
       </span>
       <span
         className="text-xs px-2 py-0.5 rounded-full font-medium"
-        style={{ color: "var(--text-secondary)", background: "rgba(255,255,255,0.05)", fontSize: 11 }}
+        style={{ color: accent ? "var(--accent)" : "var(--text-secondary)", background: accent ? "var(--accent-surface)" : "rgba(255,255,255,0.04)", fontSize: 11 }}
       >
         {count}
       </span>

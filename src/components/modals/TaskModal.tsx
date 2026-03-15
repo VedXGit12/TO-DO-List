@@ -114,11 +114,11 @@ export default function TaskModal() {
             exit="exit"
             className="fixed inset-y-0 right-0 z-40 flex flex-col w-full max-w-[680px]"
             style={{
-              background: "rgba(10, 12, 18, 0.88)",
-              backdropFilter: "blur(60px) saturate(200%)",
-              WebkitBackdropFilter: "blur(60px) saturate(200%)",
-              borderLeft: "1px solid rgba(255,255,255,0.10)",
-              boxShadow: "var(--shadow-modal)",
+              background: "rgba(10, 12, 18, 0.92)",
+              backdropFilter: "blur(60px) saturate(180%)",
+              WebkitBackdropFilter: "blur(60px) saturate(180%)",
+              borderLeft: "1px solid rgba(255,255,255,0.08)",
+              boxShadow: "0 0 80px rgba(0,0,0,0.5), -4px 0 32px rgba(0,0,0,0.3)",
             }}
           >
             {/* Header */}

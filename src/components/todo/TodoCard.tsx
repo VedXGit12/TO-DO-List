@@ -62,21 +62,24 @@ export default function TodoCard({ todo }: TodoCardProps) {
       ref={cardRef}
       variants={cardVariants}
       whileHover={{
-        y: -2,
+        y: -1,
         boxShadow:
-          "inset 0 0.5px 0 rgba(255,255,255,0.16), 0 2px 4px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.25), 0 24px 48px rgba(0,0,0,0.15)",
+          "0 2px 8px rgba(0,0,0,0.15), 0 8px 24px rgba(0,0,0,0.12)",
         transition: { type: "spring", stiffness: 400, damping: 28 },
       }}
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ scale: 0.99 }}
       initial={{ opacity: 1 }}
-      animate={{ opacity: isDone ? 0.55 : 1 }}
+      animate={{ opacity: isDone ? 0.5 : 1 }}
       transition={{ duration: 0.25 }}
       onClick={() => setActiveTodo(todo.id)}
       onMouseMove={handleMouseMove}
-      className="glass-shimmer glass-2 flex items-start gap-3.5 cursor-pointer"
+      className="glass-shimmer flex items-start gap-3.5 cursor-pointer group"
       style={{
         padding: "14px 16px",
         borderRadius: "var(--r-card)",
+        background: "rgba(255,255,255,0.035)",
+        border: "1px solid rgba(255,255,255,0.06)",
+        transition: "border-color 0.15s, background 0.15s",
       }}
     >
       {/* Left: check circle */}

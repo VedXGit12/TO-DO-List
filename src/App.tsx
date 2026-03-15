@@ -131,66 +131,66 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 28, delay: 0.1 }}
-                className="flex flex-col items-center gap-6 max-w-sm text-center"
+                className="flex flex-col items-center gap-7 max-w-sm text-center"
               >
                 {/* Decorative floating icon */}
                 <motion.div
                   className="welcome-float"
                   style={{
-                    width: 80,
-                    height: 80,
-                    borderRadius: 24,
+                    width: 88,
+                    height: 88,
+                    borderRadius: 26,
                     background: "linear-gradient(135deg, var(--accent-20), var(--accent-10))",
-                    border: "1px solid var(--accent-border)",
+                    border: "1px solid rgba(255,179,71,0.15)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    boxShadow: "0 8px 32px rgba(255,179,71,0.12), inset 0 1px 0 rgba(255,255,255,0.1)",
+                    boxShadow: "0 8px 40px rgba(255,179,71,0.10), inset 0 1px 0 rgba(255,255,255,0.08)",
                   }}
                 >
-                  <span style={{ fontSize: 36 }}>✨</span>
+                  <span style={{ fontSize: 40 }}>✨</span>
                 </motion.div>
                 <div>
                   <h2
                     className="greeting-gradient"
                     style={{
-                      fontSize: 22,
+                      fontSize: 24,
                       fontWeight: 700,
                       letterSpacing: "-0.03em",
-                      marginBottom: 8,
+                      marginBottom: 10,
                     }}
                   >
                     Welcome to Kuro
                   </h2>
-                  <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+                  <p className="text-sm" style={{ color: "var(--text-secondary)", lineHeight: 1.7 }}>
                     Select a project from the sidebar to start organizing your tasks with style.
                   </p>
                 </div>
                 <div
                   className="flex items-center gap-2 px-4 py-2.5"
                   style={{
-                    background: "rgba(255,255,255,0.04)",
-                    borderRadius: 12,
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: "rgba(255,255,255,0.03)",
+                    borderRadius: 10,
+                    border: "1px solid rgba(255,255,255,0.05)",
                   }}
                 >
-                  <span style={{ color: "var(--text-tertiary)", fontSize: 12 }}>
+                  <span style={{ color: "var(--text-tertiary)", fontSize: 12, fontWeight: 500 }}>
                     Tip: Press
                   </span>
                   <span
                     style={{
-                      background: "rgba(255,255,255,0.08)",
+                      background: "rgba(255,255,255,0.07)",
                       color: "var(--text-secondary)",
                       fontFamily: "var(--font-mono)",
                       fontSize: 11,
                       padding: "2px 8px",
-                      borderRadius: 6,
+                      borderRadius: 5,
                       fontWeight: 500,
                     }}
                   >
                     ⌘K
                   </span>
-                  <span style={{ color: "var(--text-tertiary)", fontSize: 12 }}>
+                  <span style={{ color: "var(--text-tertiary)", fontSize: 12, fontWeight: 500 }}>
                     to search anything
                   </span>
                 </div>

@@ -3,33 +3,33 @@
 @tailwind utilities;
 
 :root {
-  /* Base canvas — cool deep charcoal, NOT pure black */
-  --void: #07090E;
-  --bg-base: #07090E;
+  /* Base canvas — rich dark with blue undertone */
+  --void: #0a0c14;
+  --bg-base: #0a0c14;
 
-  /* Glass layer backgrounds */
-  --glass-1: rgba(255, 255, 255, 0.04);
-  --glass-2: rgba(255, 255, 255, 0.07);
-  --glass-3: rgba(255, 255, 255, 0.11);
-  --glass-4: rgba(255, 255, 255, 0.16);
+  /* Glass layer backgrounds — stronger for visibility */
+  --glass-1: rgba(255, 255, 255, 0.035);
+  --glass-2: rgba(255, 255, 255, 0.055);
+  --glass-3: rgba(255, 255, 255, 0.09);
+  --glass-4: rgba(255, 255, 255, 0.14);
   --bg-surface: rgba(255, 255, 255, 0.04);
-  --bg-elevated: rgba(255, 255, 255, 0.07);
+  --bg-elevated: rgba(255, 255, 255, 0.065);
 
-  /* Glass borders — top always brighter */
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-mid: rgba(255, 255, 255, 0.12);
-  --border-strong: rgba(255, 255, 255, 0.20);
-  --border: rgba(255, 255, 255, 0.07);
-  --border-top: rgba(255, 255, 255, 0.12);
+  /* Glass borders — refined */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-mid: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-top: rgba(255, 255, 255, 0.10);
 
-  /* Top edge highlight — the most important detail */
-  --edge-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.14);
-  --edge-highlight-strong: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  /* Top edge highlight */
+  --edge-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  --edge-highlight-strong: inset 0 1px 0 rgba(255, 255, 255, 0.18);
 
-  /* Depth shadows — always three layers */
-  --shadow-card: 0 1px 2px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.3), 0 16px 40px rgba(0,0,0,0.2);
-  --shadow-float: 0 2px 4px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.4), 0 32px 64px rgba(0,0,0,0.35);
-  --shadow-modal: 0 4px 8px rgba(0,0,0,0.6), 0 16px 48px rgba(0,0,0,0.5), 0 48px 96px rgba(0,0,0,0.4);
+  /* Depth shadows — refined */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+  --shadow-float: 0 4px 6px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.25);
+  --shadow-modal: 0 8px 16px rgba(0,0,0,0.4), 0 24px 64px rgba(0,0,0,0.35);
 
   /* Accent — luminous amber */
   --accent: rgba(255, 179, 71, 0.92);
@@ -43,13 +43,13 @@
   --accent-45: rgba(255, 179, 71, 0.45);
   --accent-70: rgba(255, 179, 71, 0.70);
 
-  /* Text */
-  --text-primary: rgba(255, 255, 255, 0.92);
-  --text-secondary: rgba(255, 255, 255, 0.55);
-  --text-tertiary: rgba(255, 255, 255, 0.28);
-  --text-ghost: rgba(255, 255, 255, 0.10);
+  /* Text — improved readability */
+  --text-primary: rgba(255, 255, 255, 0.95);
+  --text-secondary: rgba(255, 255, 255, 0.60);
+  --text-tertiary: rgba(255, 255, 255, 0.35);
+  --text-ghost: rgba(255, 255, 255, 0.12);
 
-  /* Priority — desaturated for glass */
+  /* Priority — vibrant */
   --p1: rgba(255, 95, 95, 0.92);
   --p1-glow: rgba(255, 80, 80, 0.30);
   --p2: rgba(255, 165, 75, 0.92);
@@ -78,7 +78,7 @@
   --r-lg: 16px;
   --r-xl: 20px;
   --r-card: 14px;
-  --r-modal: 18px;
+  --r-modal: 20px;
   /* Legacy aliases — existing components reference --radius-* */
   --radius-sm: var(--r-sm);
   --radius-md: var(--r-md);
@@ -86,7 +86,7 @@
   --radius-xl: var(--r-xl);
 
   /* Typography */
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
 }
 
@@ -99,7 +99,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "ss01", "ss02", "cv01";
-  letter-spacing: -0.011em;
+  letter-spacing: -0.014em;
+  line-height: 1.5;
 }
 
 /* ──────────────────────────────────────────────────
@@ -342,53 +343,53 @@ html { scroll-behavior: smooth; }
   .logo-ring { animation: none; }
 }
 
-/* Ambient background gradient — depth */
+/* Ambient background gradient — rich depth with color tones */
 .ambient-bg {
   background:
-    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(120,80,200,0.04), transparent),
-    radial-gradient(ellipse 60% 50% at 80% 60%, rgba(255,179,71,0.03), transparent),
-    radial-gradient(ellipse 70% 40% at 50% 100%, rgba(80,120,220,0.03), transparent),
+    radial-gradient(ellipse 90% 70% at 15% 30%, rgba(99,102,241,0.06), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 85% 55%, rgba(255,179,71,0.04), transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(59,130,246,0.04), transparent 70%),
     var(--void);
   position: relative;
 }
 
-/* Animated ambient glow orbs */
+/* Animated ambient glow orbs — more visible */
 @keyframes ambient-drift-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.035; }
-  33% { transform: translate(40px, -30px) scale(1.1); opacity: 0.05; }
-  66% { transform: translate(-20px, 20px) scale(0.95); opacity: 0.03; }
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.05; }
+  33% { transform: translate(40px, -30px) scale(1.1); opacity: 0.07; }
+  66% { transform: translate(-20px, 20px) scale(0.95); opacity: 0.04; }
 }
 @keyframes ambient-drift-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.03; }
-  40% { transform: translate(-50px, 40px) scale(1.15); opacity: 0.045; }
-  70% { transform: translate(30px, -20px) scale(0.9); opacity: 0.025; }
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.04; }
+  40% { transform: translate(-50px, 40px) scale(1.15); opacity: 0.06; }
+  70% { transform: translate(30px, -20px) scale(0.9); opacity: 0.03; }
 }
 .ambient-orb {
   position: fixed;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(100px);
+  filter: blur(120px);
   z-index: 0;
 }
 .ambient-orb-1 {
-  width: 500px; height: 500px;
-  top: -10%; left: 10%;
-  background: var(--accent);
-  opacity: 0.035;
+  width: 600px; height: 600px;
+  top: -15%; left: 5%;
+  background: rgba(99,102,241,0.8);
+  opacity: 0.05;
   animation: ambient-drift-1 20s ease-in-out infinite;
 }
 .ambient-orb-2 {
-  width: 400px; height: 400px;
-  bottom: -5%; right: 15%;
-  background: rgba(100, 140, 255, 1);
-  opacity: 0.03;
+  width: 500px; height: 500px;
+  bottom: -10%; right: 10%;
+  background: rgba(255,179,71,0.8);
+  opacity: 0.04;
   animation: ambient-drift-2 25s ease-in-out infinite;
 }
 .ambient-orb-3 {
-  width: 350px; height: 350px;
-  top: 40%; left: 50%;
-  background: rgba(160, 100, 255, 1);
-  opacity: 0.025;
+  width: 450px; height: 450px;
+  top: 35%; left: 55%;
+  background: rgba(139,92,246,0.8);
+  opacity: 0.035;
   animation: ambient-drift-1 30s ease-in-out infinite reverse;
 }
 
@@ -416,7 +417,7 @@ html { scroll-behavior: smooth; }
 
 /* Content area max-width for comfortable reading */
 .content-container {
-  max-width: 720px;
+  max-width: 740px;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -427,16 +428,16 @@ html { scroll-behavior: smooth; }
   position: sticky;
   bottom: 0;
   z-index: 10;
-  padding-bottom: 4px;
+  padding-bottom: 8px;
 }
 .floating-add-bar-inner {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-top-color: rgba(255,255,255,0.14);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  box-shadow: 0 -4px 24px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
-  border-radius: 18px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top-color: rgba(255,255,255,0.12);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  box-shadow: 0 -2px 20px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius: 16px;
 }
 
 /* Welcome card styling */
@@ -448,9 +449,9 @@ html { scroll-behavior: smooth; }
   animation: welcome-float 4s ease-in-out infinite;
 }
 
-/* Greeting text gradient */
+/* Greeting text gradient — warmer */
 .greeting-gradient {
-  background: linear-gradient(135deg, var(--accent) 0%, rgba(255,220,150,1) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, rgba(255,225,160,1) 50%, rgba(255,200,120,1) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

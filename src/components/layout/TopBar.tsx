@@ -24,7 +24,7 @@ export default function TopBar() {
     <div
       className="flex items-center justify-between px-6 shrink-0 relative z-10"
       style={{
-        height: 60,
+        height: 56,
         background: "transparent",
         borderBottom: "1px solid rgba(255,255,255,0.04)",
       }}
@@ -47,11 +47,11 @@ export default function TopBar() {
                   <motion.span
                     whileHover={{ textDecoration: "underline" }}
                     className="text-sm truncate cursor-pointer"
-                    style={{ color: "var(--text-secondary)", fontWeight: 500, fontSize: 14, letterSpacing: "-0.01em" }}
+                    style={{ color: "var(--text-tertiary)", fontWeight: 500, fontSize: 13, letterSpacing: "-0.01em" }}
                   >
                     {activeWorkspace.name}
                   </motion.span>
-                  <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 14, margin: "0 1px" }}>/</span>
+                  <span style={{ color: "rgba(255,255,255,0.12)", fontSize: 13 }}>/</span>
                 </>
               )}
               <span className="text-sm shrink-0">{activeProject.icon}</span>
@@ -70,9 +70,7 @@ export default function TopBar() {
               animate="visible"
               exit="exit"
             >
-              <h1
-                style={{ color: "var(--accent)", fontWeight: 700, fontSize: 18, letterSpacing: "-0.03em" }}
-              >
+              <h1 className="greeting-gradient" style={{ fontWeight: 700, fontSize: 18, letterSpacing: "-0.03em" }}>
                 Kuro
               </h1>
             </motion.div>
@@ -82,13 +80,11 @@ export default function TopBar() {
 
       {/* Center: view mode pills in glass capsule */}
       <div
-        className="flex items-center gap-1 px-1.5 py-1"
+        className="flex items-center gap-0.5"
         style={{
-          borderRadius: 12,
-          background: "rgba(255,255,255,0.06)",
-          border: "1px solid rgba(255,255,255,0.09)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
+          borderRadius: 10,
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.06)",
           padding: 3,
         }}
       >
@@ -98,12 +94,12 @@ export default function TopBar() {
             <motion.button
               key={mode}
               onClick={() => setViewMode(mode)}
-              whileHover={{ scale: 1.04 }}
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
-              className="relative flex items-center gap-1.5 px-3 py-2 text-xs font-medium"
+              className="relative flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium"
               style={{
-                borderRadius: 12,
-                color: active ? "rgba(255,255,255,0.95)" : "var(--text-secondary)",
+                borderRadius: 8,
+                color: active ? "rgba(255,255,255,0.95)" : "var(--text-tertiary)",
               }}
             >
               {active && (
@@ -111,11 +107,10 @@ export default function TopBar() {
                   layoutId="topbar-view-indicator"
                   className="absolute inset-0"
                   style={{
-                    borderRadius: 9,
-                    background: "rgba(255,255,255,0.10)",
-                    border: "1px solid rgba(255,255,255,0.14)",
-                    borderTopColor: "rgba(255,255,255,0.22)",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.12)",
+                    borderRadius: 7,
+                    background: "rgba(255,255,255,0.08)",
+                    border: "1px solid rgba(255,255,255,0.10)",
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08)",
                   }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
@@ -130,10 +125,10 @@ export default function TopBar() {
       {/* Right: actions */}
       <div className="flex items-center gap-2">
         <motion.button
-          whileHover={{ scale: 1.08 }}
+          whileHover={{ scale: 1.05, background: "rgba(255,255,255,0.06)" }}
           whileTap={{ scale: 0.92 }}
-          className="flex items-center gap-1.5 p-2.5 glass-interactive"
-          style={{ color: "var(--text-secondary)", borderRadius: 12 }}
+          className="flex items-center gap-1.5 p-2"
+          style={{ color: "var(--text-secondary)", borderRadius: 10, transition: "background 0.15s" }}
         >
           <Search size={15} />
           <span
@@ -143,22 +138,22 @@ export default function TopBar() {
               color: "var(--text-tertiary)",
               fontFamily: "var(--font-mono)",
               fontSize: 10,
-              borderRadius: 6,
+              borderRadius: 5,
             }}
           >
             ⌘K
           </span>
         </motion.button>
         <motion.button
-          whileHover={{ scale: 1.02, filter: "brightness(1.05)" }}
+          whileHover={{ scale: 1.02, boxShadow: "0 0 28px rgba(255,179,71,0.35), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.25)" }}
           whileTap={{ scale: 0.96 }}
-          className="flex items-center gap-2 px-4 py-2.5 text-[13px] font-semibold"
+          className="flex items-center gap-2 px-4 py-2 text-[13px] font-semibold"
           style={{
             background: "linear-gradient(145deg, #FFB347 0%, #FF9F30 100%)",
             color: "#0A0A0A",
-            borderRadius: 12,
+            borderRadius: 10,
             border: "none",
-            boxShadow: "0 0 24px rgba(255,179,71,0.3), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.25)",
+            boxShadow: "0 0 20px rgba(255,179,71,0.25), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.25)",
           }}
         >
           <Plus size={14} strokeWidth={2.5} />

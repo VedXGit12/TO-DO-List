@@ -53,11 +53,10 @@ export default function DayCell({
         minHeight: 90,
         padding: 8,
         borderRadius: 10,
-        border: today ? "1px solid rgba(255,179,71,0.40)" : "1px solid rgba(255,255,255,0.06)",
-        borderTopColor: today ? "rgba(255,179,71,0.55)" : "rgba(255,255,255,0.08)",
-        background: today ? "rgba(255,179,71,0.06)" : "rgba(255,255,255,0.03)",
+        border: today ? "1px solid rgba(255,179,71,0.30)" : "1px solid rgba(255,255,255,0.05)",
+        background: today ? "rgba(255,179,71,0.04)" : "rgba(255,255,255,0.025)",
         boxShadow: today
-          ? "inset 0 1px 0 rgba(255,179,71,0.20)"
+          ? "inset 0 1px 0 rgba(255,179,71,0.15)"
           : hasOverdue && isCurrentMonth
             ? "0 0 0 1px rgba(255,80,80,0.4)"
             : "none",
