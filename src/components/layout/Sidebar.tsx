@@ -30,13 +30,18 @@ export default function Sidebar() {
       variants={sidebarVariants}
       animate={sidebarOpen ? "open" : "closed"}
       initial={false}
-      className="relative flex flex-col h-screen glass-1 overflow-hidden shrink-0"
-      style={{ borderTop: "none", borderLeft: "none", borderBottom: "none" }}
+      className="relative flex flex-col h-screen overflow-hidden shrink-0"
+      style={{
+        background: "rgba(255,255,255,0.03)",
+        backdropFilter: "blur(40px) saturate(180%)",
+        WebkitBackdropFilter: "blur(40px) saturate(180%)",
+        borderRight: "1px solid rgba(255,255,255,0.07)",
+      }}
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <motion.div variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="flex items-center gap-2.5 overflow-hidden">
-          <span className="relative" style={{ fontSize: 20, fontWeight: 700, color: "var(--accent)", letterSpacing: "-0.03em" }}>
+          <span className="relative" style={{ fontSize: 18, fontWeight: 600, color: "var(--accent)", letterSpacing: "-0.03em", textShadow: "0 0 20px var(--accent-glow)" }}>
             Kur
             <span className="relative inline-block">
               o
@@ -74,7 +79,7 @@ export default function Sidebar() {
       {/* View switcher */}
       <div className="px-3 py-3">
         <div className="mb-2.5 px-2">
-          <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600, color: "var(--text-tertiary)" }}>
+          <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.09em", fontWeight: 600, color: "var(--text-tertiary)" }}>
             Views
           </span>
         </div>
@@ -82,11 +87,12 @@ export default function Sidebar() {
           const active = viewMode === mode;
           return (
             <motion.button key={mode} onClick={() => setViewMode(mode)} whileHover={{ x: 2 }} whileTap={{ scale: 0.97 }}
-              className="w-full flex items-center gap-3 px-3 py-2 mb-0.5 text-sm glass-interactive"
+              className="w-full flex items-center gap-3 px-3 py-2 mb-0.5 text-sm"
               style={{
                 color: active ? "var(--accent)" : "var(--text-secondary)",
-                background: active ? "var(--accent-10)" : "transparent",
-                borderRadius: 12,
+                background: active ? "var(--accent-surface)" : "transparent",
+                borderRadius: 9,
+                transition: "background 0.15s",
               }}>
               <span className="shrink-0">{icon}</span>
               <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="text-[13px] font-medium">{label}</motion.span>
@@ -101,7 +107,7 @@ export default function Sidebar() {
       {/* Workspaces */}
       <div className="flex-1 overflow-y-auto px-3 py-3 space-y-1 scrollbar-hide">
         <div className="mb-2.5 px-2">
-          <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600, color: "var(--text-tertiary)" }}>
+          <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.09em", fontWeight: 600, color: "var(--text-tertiary)" }}>
             Workspaces
           </span>
         </div>
@@ -111,9 +117,9 @@ export default function Sidebar() {
           return (
             <motion.div key={ws.id} custom={i} variants={workspaceVariants} initial="hidden" animate="visible">
               <button onClick={() => toggleWorkspace(ws.id)}
-                className="w-full flex items-center gap-2.5 px-3 py-2 glass-interactive"
-                style={{ color: "var(--text-secondary)", borderRadius: 12 }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.04)")}
+                className="w-full flex items-center gap-2.5 px-3 py-2"
+                style={{ color: "var(--text-secondary)", borderRadius: 9, transition: "background 0.15s" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.05)")}
                 onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
                 <span className="text-base shrink-0">{ws.icon}</span>
                 <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"}
@@ -133,13 +139,15 @@ export default function Sidebar() {
                       const isActive = activeProjectId === proj.id;
                       return (
                         <motion.button key={proj.id} onClick={() => setActiveProject(proj.id)} whileHover={{ x: 3 }} whileTap={{ scale: 0.97 }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 glass-interactive"
+                          className="w-full flex items-center gap-2.5 px-3 py-2"
                           style={{
                             fontSize: 13,
-                            background: isActive ? "var(--accent-10)" : "transparent",
+                            background: isActive ? "var(--accent-surface)" : "transparent",
                             color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
-                            borderLeft: isActive ? "2px solid var(--accent-70)" : "2px solid transparent",
-                            borderRadius: 10,
+                            borderLeft: isActive ? "2px solid var(--accent)" : "2px solid transparent",
+                            borderRadius: 9,
+                            boxShadow: isActive ? "inset 0 0 12px rgba(255,179,71,0.05)" : "none",
+                            transition: "background 0.15s",
                           }}>
                           <span className="text-sm shrink-0">{proj.icon}</span>
                           <motion.span variants={sidebarLabelVariants} animate={sidebarOpen ? "open" : "closed"} className="text-[13px] truncate text-left">

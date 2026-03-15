@@ -18,8 +18,6 @@ interface TaskChipProps {
 export default function TaskChip({ todo, isDragOverlay }: TaskChipProps) {
   const { setActiveTodo } = useUIStore();
   const isDone = todo.status === "done";
-  const isOverdue =
-    todo.dueAt && !isDone && todo.dueAt < Date.now();
 
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: todo.id,
@@ -37,16 +35,16 @@ export default function TaskChip({ todo, isDragOverlay }: TaskChipProps) {
       }}
       whileHover={!isDragOverlay ? { scale: 1.02 } : undefined}
       style={{
-        height: 22,
+        height: 20,
         fontSize: 11,
-        lineHeight: "22px",
+        lineHeight: "20px",
         cursor: isDragOverlay ? "grabbing" : "grab",
         opacity: isDragging && !isDragOverlay ? 0.35 : 1,
-        borderLeft: isOverdue ? "2px solid var(--p1)" : "none",
-        paddingLeft: isOverdue ? 4 : 6,
+        borderLeft: `2px solid ${PRIORITY_HEX[todo.priority] ?? "rgba(160,160,180,0.7)"}`,
+        paddingLeft: 6,
         paddingRight: 6,
-        background: "var(--bg-elevated)",
-        borderRadius: 4,
+        background: "rgba(255,255,255,0.07)",
+        borderRadius: 5,
         display: "flex",
         alignItems: "center",
         gap: 4,

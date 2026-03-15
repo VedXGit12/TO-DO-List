@@ -23,14 +23,14 @@ export default function CheckCircle({ checked, onToggle }: CheckCircleProps) {
             r="9"
             fill="none"
             stroke="none"
-            style={{ filter: "drop-shadow(0 0 6px rgba(80,220,140,0.5))" }}
+            style={{ filter: "drop-shadow(0 0 14px rgba(72,218,138,0.5))" }}
           />
         )}
         {/* Circle background with radial gradient fill */}
         <defs>
           <radialGradient id="check-fill-grad" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(80,220,140,0.9)" />
-            <stop offset="100%" stopColor="rgba(60,200,120,0.7)" />
+            <stop offset="0%" stopColor="rgba(72,218,138,0.9)" />
+            <stop offset="100%" stopColor="rgba(50,190,110,0.8)" />
           </radialGradient>
         </defs>
         <motion.circle
@@ -38,12 +38,12 @@ export default function CheckCircle({ checked, onToggle }: CheckCircleProps) {
           cy="10"
           r="9"
           strokeWidth="1.5"
-          stroke={checked ? "rgba(80,220,140,0.9)" : "rgba(255,255,255,0.25)"}
+          stroke={checked ? "transparent" : "rgba(255,255,255,0.22)"}
           animate={{
             fill: checked ? "url(#check-fill-grad)" : "rgba(0,0,0,0)",
           }}
           transition={{ duration: 0.25 }}
-          style={checked ? { filter: "drop-shadow(0 0 12px rgba(80,220,140,0.5))" } : undefined}
+          style={checked ? { filter: "drop-shadow(0 0 14px rgba(72,218,138,0.5))" } : undefined}
         />
         {/* Checkmark path */}
         <motion.path

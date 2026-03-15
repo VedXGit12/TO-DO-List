@@ -13,11 +13,11 @@ const RADIUS = (SIZE - STROKE) / 2;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 const CENTER = SIZE / 2;
 
-const COLORS: { key: keyof PriorityDistribution; color: string; label: string }[] = [
-  { key: "p1", color: "rgba(255,100,100,0.9)", label: "Urgent" },
-  { key: "p2", color: "rgba(255,160,80,0.9)", label: "High" },
+const COLORS: { key: keyof PriorityDistribution; color: string; label: string; filter?: string }[] = [
+  { key: "p1", color: "rgba(255,95,95,0.9)", label: "Urgent", filter: "drop-shadow(0 0 4px rgba(255,80,80,0.4))" },
+  { key: "p2", color: "rgba(255,165,75,0.9)", label: "High" },
   { key: "p3", color: "rgba(100,160,255,0.9)", label: "Medium" },
-  { key: "p4", color: "rgba(160,160,180,0.7)", label: "Someday" },
+  { key: "p4", color: "rgba(155,155,175,0.65)", label: "Someday" },
 ];
 
 export default function DonutChart({ data }: DonutChartProps) {
@@ -56,7 +56,7 @@ export default function DonutChart({ data }: DonutChartProps) {
             cx={CENTER}
             cy={CENTER}
             r={RADIUS}
-            stroke="rgba(255,255,255,0.05)"
+            stroke="rgba(255,255,255,0.07)"
             strokeWidth={STROKE}
             fill="none"
           />

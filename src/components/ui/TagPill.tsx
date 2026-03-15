@@ -19,12 +19,13 @@ export default function TagPill({ tag, onRemove }: TagPillProps) {
       transition={{ duration: 0.15 }}
       className="inline-flex items-center gap-1.5 px-2.5 py-0.5 select-none"
       style={{
-        borderRadius: 10,
-        background: "rgba(255,255,255,0.06)",
-        border: "1px solid rgba(255,255,255,0.08)",
+        borderRadius: 6,
+        background: "rgba(255,255,255,0.07)",
+        border: "1px solid rgba(255,255,255,0.10)",
         fontSize: 11,
         fontWeight: 500,
         color: "var(--text-secondary)",
+        padding: "2px 8px",
       }}
     >
       <span

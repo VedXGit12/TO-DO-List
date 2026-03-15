@@ -73,10 +73,10 @@ export default function TodoCard({ todo }: TodoCardProps) {
       transition={{ duration: 0.25 }}
       onClick={() => setActiveTodo(todo.id)}
       onMouseMove={handleMouseMove}
-      className="specular-shimmer glass-2 flex items-start gap-3.5 cursor-pointer"
+      className="glass-shimmer glass-2 flex items-start gap-3.5 cursor-pointer"
       style={{
-        padding: "16px 18px",
-        borderRadius: 18,
+        padding: "14px 16px",
+        borderRadius: "var(--r-card)",
       }}
     >
       {/* Left: check circle */}

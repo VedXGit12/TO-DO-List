@@ -65,8 +65,10 @@ export default function DayDetailPanel({ selectedDate, onClose }: DayDetailPanel
           style={{
             width: 320,
             flexShrink: 0,
-            borderLeft: "1px solid var(--border)",
-            background: "var(--bg-surface)",
+            borderLeft: "1px solid rgba(255,255,255,0.10)",
+            background: "rgba(12, 14, 20, 0.85)",
+            backdropFilter: "blur(60px) saturate(200%)",
+            WebkitBackdropFilter: "blur(60px) saturate(200%)",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
@@ -74,8 +76,8 @@ export default function DayDetailPanel({ selectedDate, onClose }: DayDetailPanel
         >
           {/* Header */}
           <div
-            className="flex items-center justify-between px-4 py-3 border-b"
-            style={{ borderColor: "var(--border)" }}
+            className="flex items-center justify-between px-4 py-3"
+            style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
           >
             <h3
               className="text-sm font-semibold"
@@ -134,8 +136,8 @@ export default function DayDetailPanel({ selectedDate, onClose }: DayDetailPanel
 
           {/* Quick add */}
           <div
-            className="flex items-center gap-2 px-3 py-2 border-t"
-            style={{ borderColor: "var(--border)" }}
+            className="flex items-center gap-2 px-3 py-2"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
           >
             <motion.button
               whileHover={{ scale: 1.1 }}

@@ -82,8 +82,15 @@ export default function TopBar() {
 
       {/* Center: view mode pills in glass capsule */}
       <div
-        className="glass-2 flex items-center gap-1 px-1.5 py-1"
-        style={{ borderRadius: 16 }}
+        className="flex items-center gap-1 px-1.5 py-1"
+        style={{
+          borderRadius: 12,
+          background: "rgba(255,255,255,0.06)",
+          border: "1px solid rgba(255,255,255,0.09)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          padding: 3,
+        }}
       >
         {VIEW_BUTTONS.map(({ mode, icon, label }) => {
           const active = viewMode === mode;
@@ -102,8 +109,14 @@ export default function TopBar() {
               {active && (
                 <motion.div
                   layoutId="topbar-view-indicator"
-                  className="absolute inset-0 glass-3"
-                  style={{ borderRadius: 12 }}
+                  className="absolute inset-0"
+                  style={{
+                    borderRadius: 9,
+                    background: "rgba(255,255,255,0.10)",
+                    border: "1px solid rgba(255,255,255,0.14)",
+                    borderTopColor: "rgba(255,255,255,0.22)",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.12)",
+                  }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
@@ -137,14 +150,15 @@ export default function TopBar() {
           </span>
         </motion.button>
         <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.97 }}
+          whileHover={{ scale: 1.02, filter: "brightness(1.05)" }}
+          whileTap={{ scale: 0.96 }}
           className="flex items-center gap-2 px-4 py-2 text-[13px] font-semibold"
           style={{
-            background: "linear-gradient(135deg, rgba(255,191,71,1) 0%, rgba(255,155,48,1) 100%)",
+            background: "linear-gradient(145deg, #FFB347 0%, #FF9F30 100%)",
             color: "#0A0A0A",
-            borderRadius: 14,
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 8px rgba(255,179,71,0.25)",
+            borderRadius: 10,
+            border: "none",
+            boxShadow: "0 0 20px rgba(255,179,71,0.35), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.25)",
           }}
         >
           <Plus size={14} strokeWidth={2.5} />

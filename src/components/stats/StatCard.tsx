@@ -25,7 +25,7 @@ export default function StatCard({
       custom={custom}
       className="relative glass-2 overflow-hidden"
       style={{
-        borderRadius: 22,
+        borderRadius: 16,
       }}
     >
       {/* Subtle colored radial gradient in top-left */}
@@ -34,7 +34,7 @@ export default function StatCard({
         style={{
           width: 120,
           height: 120,
-          background: `radial-gradient(circle at 0% 0%, ${accentColor}14, transparent 70%)`,
+          background: `radial-gradient(120px at 0% 0%, ${accentColor}1a, transparent 70%)`,
         }}
       />
       <div className="p-6 relative">

@@ -43,7 +43,7 @@ export default function ProductivityScore({ data }: ProductivityScoreProps) {
           <path
             d={`M ${STROKE / 2} ${SIZE / 2} A ${RADIUS} ${RADIUS} 0 0 1 ${SIZE - STROKE / 2} ${SIZE / 2}`}
             fill="none"
-            stroke="var(--bg-elevated)"
+            stroke="rgba(255,255,255,0.08)"
             strokeWidth={STROKE}
             strokeLinecap="round"
           />

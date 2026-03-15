@@ -39,39 +39,41 @@ export default function DayCell({
     <motion.div
       ref={setNodeRef}
       onClick={onClick}
-      whileHover={{ backgroundColor: "rgba(255,255,255,0.03)" }}
+      whileHover={{ backgroundColor: "rgba(255,255,255,0.05)" }}
       animate={{
         backgroundColor: isSelected
           ? hexToRgba(accentHex, 0.10)
           : isOver
             ? hexToRgba(accentHex, 0.08)
-            : "transparent",
+            : "rgba(255,255,255,0.03)",
       }}
       transition={{ duration: 0.15 }}
-      className="day-cell glass-1"
+      className="day-cell"
       style={{
         minHeight: 90,
-        padding: 4,
+        padding: 8,
         borderRadius: 10,
-        borderTop: today ? "1px solid rgba(255,179,71,0.5)" : undefined,
-        borderRight: today ? "1px solid rgba(255,179,71,0.5)" : undefined,
-        borderBottom: today ? "1px solid rgba(255,179,71,0.5)" : undefined,
-        borderLeft: today ? "1px solid rgba(255,179,71,0.5)" : undefined,
+        border: today ? "1px solid rgba(255,179,71,0.40)" : "1px solid rgba(255,255,255,0.06)",
+        borderTopColor: today ? "rgba(255,179,71,0.55)" : "rgba(255,255,255,0.08)",
+        background: today ? "rgba(255,179,71,0.06)" : "rgba(255,255,255,0.03)",
+        boxShadow: today
+          ? "inset 0 1px 0 rgba(255,179,71,0.20)"
+          : hasOverdue && isCurrentMonth
+            ? "0 0 0 1px rgba(255,80,80,0.4)"
+            : "none",
         opacity: isCurrentMonth ? 1 : 0.35,
         cursor: "pointer",
         position: "relative",
         overflow: "hidden",
-        boxShadow: hasOverdue && isCurrentMonth
-          ? "0 0 0 1px rgba(255,80,80,0.4)"
-          : "none",
+        transition: "background 0.15s, border-color 0.15s",
       }}
     >
       {/* Day number */}
       <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 2 }}>
         <span
           style={{
-            width: 22,
-            height: 22,
+            width: 26,
+            height: 26,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -79,7 +81,8 @@ export default function DayCell({
             fontSize: 11,
             fontWeight: 600,
             background: today ? "var(--accent)" : "transparent",
-            color: today ? "var(--bg-base)" : "var(--text-primary)",
+            color: today ? "#0A0A0A" : "var(--text-primary)",
+            boxShadow: today ? "0 0 12px var(--accent-glow)" : "none",
           }}
         >
           {dayNum}

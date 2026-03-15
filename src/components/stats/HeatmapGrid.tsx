@@ -11,12 +11,12 @@ const CELL = 14;
 const GAP = 2;
 const ROWS = 7;
 
-const LEVEL_COLORS: Record<number, string> = {
-  0: "rgba(255,255,255,0.05)",
-  1: "var(--accent-20)",
-  2: "var(--accent-45)",
-  3: "var(--accent-70)",
-  4: "var(--accent)",
+const LEVEL_COLORS: Record<number, { bg: string; shadow?: string }> = {
+  0: { bg: "rgba(255,255,255,0.05)" },
+  1: { bg: "rgba(255,179,71,0.18)" },
+  2: { bg: "rgba(255,179,71,0.38)" },
+  3: { bg: "rgba(255,179,71,0.62)" },
+  4: { bg: "rgba(255,179,71,0.90)", shadow: "0 0 6px rgba(255,179,71,0.40)" },
 };
 
 export default function HeatmapGrid({ data }: HeatmapGridProps) {
@@ -81,7 +81,7 @@ export default function HeatmapGrid({ data }: HeatmapGridProps) {
               className="absolute text-[10px]"
               style={{
                 left: m.col * (CELL + GAP),
-                color: "var(--text-secondary)",
+                color: "var(--text-tertiary)",
               }}
             >
               {m.label}
@@ -136,7 +136,8 @@ export default function HeatmapGrid({ data }: HeatmapGridProps) {
                       width: CELL,
                       height: CELL,
                       borderRadius: 3,
-                      background: LEVEL_COLORS[day.level],
+                      background: LEVEL_COLORS[day.level].bg,
+                      boxShadow: LEVEL_COLORS[day.level].shadow ?? "none",
                     }}
                   />
                 ) : (
