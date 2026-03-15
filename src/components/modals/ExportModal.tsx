@@ -130,7 +130,7 @@ export default function ExportModal() {
                     background: selected === id ? "var(--accent-dim)" : "rgba(255,255,255,0.04)",
                     borderColor: selected === id ? "var(--accent)" : "rgba(255,255,255,0.06)",
                     color: selected === id ? "var(--accent)" : "var(--text-secondary)",
-                    borderRadius: 18,
+                    borderRadius: 14,
                     border: `1px solid ${selected === id ? "var(--accent-40)" : "rgba(255,255,255,0.06)"}`,
                   }}
                 >
@@ -143,7 +143,7 @@ export default function ExportModal() {
             {/* Preview */}
             <div
               className="p-4 mb-6 overflow-x-auto max-h-40 overflow-y-auto"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 16 }}
+              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 12 }}
             >
               <pre
                 className="text-xs whitespace-pre-wrap"
@@ -159,7 +159,7 @@ export default function ExportModal() {
               whileTap={{ scale: 0.98 }}
               onClick={handleExport}
               className="w-full flex items-center justify-center gap-2 py-3 text-sm font-semibold"
-              style={{ background: "linear-gradient(135deg, rgba(255,191,71,1) 0%, rgba(255,155,48,1) 100%)", color: "#0A0A0A", borderRadius: 16, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 8px rgba(255,179,71,0.25)" }}
+              style={{ background: "linear-gradient(135deg, rgba(255,191,71,1) 0%, rgba(255,155,48,1) 100%)", color: "#0A0A0A", borderRadius: 12, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25), 0 2px 8px rgba(255,179,71,0.25)" }}
             >
               <Download size={15} />
               Export

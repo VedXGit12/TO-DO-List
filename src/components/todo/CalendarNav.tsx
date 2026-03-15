@@ -95,14 +95,14 @@ export default function CalendarNav({
           style={{
             background: "var(--accent-dim)",
             color: "var(--accent)",
-            borderRadius: 12,
+            borderRadius: 10,
           }}
         >
           Today
         </motion.button>
         <div
           className="flex items-center gap-0.5 px-1 py-1"
-          style={{ background: "rgba(255,255,255,0.04)", borderRadius: 14, border: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ background: "rgba(255,255,255,0.04)", borderRadius: 10, border: "1px solid rgba(255,255,255,0.06)" }}
         >
           {(["month", "week"] as CalViewMode[]).map((mode) => {
             const active = calView === mode;
